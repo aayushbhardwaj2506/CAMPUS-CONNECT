@@ -1,0 +1,15 @@
+<%- include('partials/head', { title: title || 'Error', bare: true }) %>
+<div class="auth-wrap" data-reveal>
+  <div class="auth-card" style="text-align:center">
+    <div class="empty-ic" style="margin:0 auto 14px;background:var(--rose-wash)">
+      <span style="font-size:1.6rem">🚧</span>
+    </div>
+    <h1 style="font-size:1.3rem"><%= title || 'Something went wrong' %></h1>
+    <p class="dim"><%= message || 'An unexpected error occurred.' %></p>
+    <div class="row" style="justify-content:center;margin-top:14px">
+      <a class="btn btn-primary" href="/">Back to dashboard</a>
+      <a class="btn" href="javascript:history.back()">Go back</a>
+    </div>
+  </div>
+</div>
+<%- include('partials/foot', { bare: true }) %>

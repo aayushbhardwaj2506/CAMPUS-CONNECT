@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: campus-connect
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 22.5.0
+      - key: CAMPUS_DB_PATH
+        value: /var/data/campus_connect.db
+    disk:
+      name: sqlite-data
+      mountPath: /var/data
+      sizeGB: 1

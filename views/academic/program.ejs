@@ -1,0 +1,24 @@
+<%- include('../partials/head', { title: prog.Program_Name }) %>
+<a class="backlink" href="/academic/departments/<%= prog.Department_ID %>">← <%= prog.Department_Name %></a>
+<div class="card">
+  <h1><%= prog.Program_Name %> <span class="chip"><%= prog.Program_Code %></span></h1>
+  <p class="dim"><%= prog.Degree_Level %> · <%= prog.Duration %> years · <%= prog.Department_Name %> · <%= prog.School_Name %></p>
+  <span class="chip brand"><%= studentCount %> students enrolled</span>
+</div>
+
+<div class="card">
+  <h3>Curriculum</h3>
+  <% Object.keys(bySem).sort(function(a,b){return a-b}).forEach(function(sem){ %>
+    <div style="margin-bottom:14px">
+      <div class="section-label">Semester <%= sem %></div>
+      <ul class="list-plain">
+        <% bySem[sem].forEach(function(c){ %>
+          <li><a href="/academic/courses/<%= c.Course_ID %>"><strong><%= c.Course_Code %></strong> <%= c.Course_Name %></a>
+            <span class="chip"><%= c.Credits %> credits</span></li>
+        <% }) %>
+      </ul>
+    </div>
+  <% }) %>
+  <% if (!Object.keys(bySem).length) { %><p class="muted">No courses mapped to this program yet.</p><% } %>
+</div>
+<%- include('../partials/foot') %>

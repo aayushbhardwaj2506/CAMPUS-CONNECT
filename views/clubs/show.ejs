@@ -1,0 +1,36 @@
+<%- include('../partials/head', { title: c.Club_Name }) %>
+<a class="backlink" href="/clubs">← Clubs</a>
+<div class="card">
+  <div class="between">
+    <div>
+      <h1 style="margin-bottom:4px"><%= c.Club_Name %></h1>
+      <span class="chip"><%= c.Category %></span>
+      <span class="chip"><%= members.length %> members</span>
+    </div>
+    <div>
+      <% if (isMember) { %>
+        <form class="inline-form" action="/clubs/<%= c.Club_ID %>/leave" method="post" data-confirm="Leave this club?">
+          <button class="btn btn-sm" type="submit">Leave</button></form>
+      <% } else { %>
+        <form class="inline-form" action="/clubs/<%= c.Club_ID %>/join" method="post">
+          <button class="btn btn-sm btn-primary" type="submit">Join club</button></form>
+      <% } %>
+    </div>
+  </div>
+  <% if (c.Description) { %><p style="margin-top:8px"><%= c.Description %></p><% } %>
+</div>
+
+<div class="card">
+  <h3>Members (<%= members.length %>)</h3>
+  <ul class="list-plain">
+    <% members.forEach(function(m){ %>
+      <li class="row">
+        <%- include('../partials/avatar', { name: m.Full_Name, img: m.Profile_Image, size:'sm', link:'/u/'+m.User_ID }) %>
+        <div style="flex:1"><a href="/u/<%= m.User_ID %>" style="font-weight:600;color:var(--ink)"><%= m.Full_Name %></a>
+          <% if (m.Membership_Role && m.Membership_Role !== 'MEMBER') { %><span class="chip"><%= m.Membership_Role %></span><% } %></div>
+        <small class="muted"><%= timeAgo(m.Joined_At) %></small>
+      </li>
+    <% }) %>
+  </ul>
+</div>
+<%- include('../partials/foot') %>

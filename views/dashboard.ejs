@@ -1,0 +1,238 @@
+<%- include('partials/head', { title: 'Dashboard' }) %>
+<%
+  const u = currentUser;
+  const first = u.Full_Name.split(' ')[0];
+  const roleChip = u.role === 'faculty' ? 'amber' : (u.role === 'student' ? 'brand' : 'teal');
+%>
+<div class="page-head">
+  <div>
+    <h1 class="greet" style="display:flex;align-items:center;gap:12px">Hi <%= first %> <%- include('partials/px', { id: 'hero', size: 28, cls: 'pix-bob' }) %></h1>
+    <p class="sub">
+      <% if (u.role === 'student' && u.student) { %>
+        <%= u.student.Program_Name %> · Batch <%= u.student.Admission_Year %> · Semester <%= u.student.Current_Semester %>
+      <% } else if (u.role === 'faculty' && u.faculty) { %>
+        <%= u.faculty.Designation %> · <%= u.faculty.Department_Name %>
+      <% } else { %>
+        Campus staff &amp; moderation account
+      <% } %>
+    </p>
+  </div>
+  <span class="chip chip-lg <%= roleChip %>"><%= u.role.toUpperCase() %></span>
+</div>
+
+<div class="dash-grid">
+  <div class="stack" data-reveal>
+
+    <!-- first-run welcome (dismissed client-side, nothing stored server-side) -->
+    <div class="card welcome-card" id="welcomeCard" hidden>
+      <button type="button" class="welcome-x" id="welcomeDismiss" aria-label="Dismiss">×</button>
+      <div class="section-label px-label"><%- include('partials/px', { id: 'hero', size: 14, cls: 'pix-bob' }) %> Welcome to Campus Connect</div>
+      <p style="margin:6px 0 12px;color:var(--ink-2);font-size:.95rem">
+        <% if (u.role === 'student') { %>
+          It's built for the <strong>SCOPE</strong> community — you're already in your school, department, B.Tech track, batch and Semester <%= (u.student && u.student.Current_Semester) || '' %> course groups. Here's where to start:
+        <% } else if (u.role === 'faculty') { %>
+          It's built for the <strong>SCOPE</strong> community. Your classes, study material and announcements are set up around your department. Here's where to start:
+        <% } else { %>
+          It's built for the <strong>SCOPE</strong> community, with a moderation queue and audit log for campus staff. Here's where to start:
+        <% } %>
+      </p>
+      <div class="row-tight">
+        <a class="chip brand" href="/groups">Your groups</a>
+        <a class="chip brand" href="/academic/timetable">Your timetable</a>
+        <a class="chip brand" href="/communities">Communities &amp; clubs</a>
+        <a class="chip brand" href="/about">What is Campus Connect?</a>
+      </div>
+    </div>
+
+    <!-- stories -->
+    <div class="card card-tight">
+      <div class="section-label px-label"><%- include('partials/px', { id: 'star', size: 14, cls: 'pix-twinkle' }) %> Stories · vanish after 24 hours</div>
+      <div class="stories">
+        <a class="story story-add" href="/feed" title="Add a story">
+          <div class="ring"><span class="plus">+</span></div>
+          <div class="cap">Add yours</div>
+        </a>
+        <% stories.forEach(function(s){ %>
+          <div class="story">
+            <div class="ring">
+              <% if (s.Media_URL) { %><img src="<%= s.Media_URL %>" alt=""><% } %>
+              <span class="who"><%= s.author_name.split(' ')[0] %></span>
+            </div>
+            <div class="cap"><%= s.Caption || '' %></div>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+
+    <!-- compose -->
+    <form class="card" action="/feed" method="post">
+      <div class="row" style="align-items:flex-start;flex-wrap:nowrap">
+        <%- include('partials/avatar', { name: u.Full_Name, img: u.profile && u.profile.Profile_Image }) %>
+        <div style="flex:1;min-width:0">
+          <textarea name="content" data-autogrow placeholder="Share something with campus…" required style="min-height:52px;background:var(--bg-tint);border-color:transparent"></textarea>
+          <div class="form-actions" style="margin-top:10px">
+            <select name="visibility" style="width:auto">
+              <option value="CAMPUS">🏫 Campus</option>
+              <option value="PUBLIC">🌐 Public</option>
+              <option value="PRIVATE">🔒 Only me</option>
+            </select>
+            <span class="grow"></span>
+            <button class="btn btn-primary btn-sm" type="submit">Post</button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!-- announcements -->
+    <% if (announcements.length) { %>
+    <div class="card">
+      <div class="card-head"><h3>Announcements for you</h3><a class="btn btn-sm btn-ghost" href="/groups">All groups</a></div>
+      <div class="stack-sm">
+        <% announcements.forEach(function(a){ %>
+          <div class="callout <%= a.Is_Official ? 'official' : '' %>">
+            <div class="row-tight" style="margin-bottom:3px">
+              <% if (a.Is_Official) { %><span class="chip tag-official">Official</span><% } %>
+              <strong><%= a.Title %></strong>
+            </div>
+            <div class="dim" style="font-size:.9rem;margin-bottom:3px"><%= a.Content.length > 170 ? a.Content.slice(0,170)+'…' : a.Content %></div>
+            <small class="muted"><%= a.faculty_name %><% if (a.Designation) { %> · <%= a.Designation %><% } %> · <%= a.Group_Name %> · <%= timeAgo(a.Published_At) %></small>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+    <% } %>
+
+    <!-- recent feed -->
+    <div class="card-head" style="margin:8px 0 0"><h3 style="margin:0">Recent in your feed</h3><a class="btn btn-sm" href="/feed">Open feed</a></div>
+    <% if (posts.length) { %>
+      <% posts.forEach(function(p){ %><%- include('partials/postcard', { p: p }) %><% }) %>
+      <a class="btn btn-block" href="/feed" style="margin-top:2px">See more in the feed</a>
+    <% } else { %>
+      <div class="card"><%- include('partials/empty', { icon:'📝', title:'Your feed is quiet', text:'Be the first to share something with campus.', cta:'Write a post', href:'/feed' }) %></div>
+    <% } %>
+  </div>
+
+  <!-- right rail -->
+  <aside class="stack" data-reveal>
+    <div class="card card-tight">
+      <div class="section-label px-label"><%- include('partials/px', { id: 'cap', size: 14 }) %> Today · <%= today %></div>
+      <% if (todayClasses.length) { %>
+        <ul class="list-plain">
+          <% todayClasses.forEach(function(t){ %>
+            <li class="row" style="align-items:flex-start;flex-wrap:nowrap">
+              <span class="mono chip outline" style="margin-top:1px"><%= t.Start_Time %></span>
+              <span style="flex:1;min-width:0">
+                <strong><%= t.Course_Code %></strong> <span class="dim"><%= t.Course_Name %></span><br>
+                <small class="muted"><%= t.Block %>-<%= t.Room_Number %><% if (t.faculty_name) { %> · <%= t.faculty_name %><% } %></small>
+              </span>
+            </li>
+          <% }) %>
+        </ul>
+      <% } else { %>
+        <p class="muted" style="margin:0 0 8px">No scheduled classes today.</p>
+      <% } %>
+      <a class="btn btn-sm btn-block" href="/academic/timetable" style="margin-top:8px">Full timetable</a>
+    </div>
+
+    <div class="card card-tight">
+      <div class="card-head" style="margin-bottom:8px"><div class="section-label px-label" style="margin:0"><%- include('partials/px', { id: 'signpost', size: 14 }) %> Your groups</div><a class="dim" style="font-size:.8rem" href="/groups">See all</a></div>
+      <ul class="list-plain">
+        <% groups.slice(0,5).forEach(function(g){ %>
+          <li>
+            <a href="/groups/<%= g.Group_ID %>" style="font-weight:600;color:var(--ink)"><%= g.Group_Name %></a>
+            <div><span class="reason">✦ <%= g.reason.replace(/^Auto-added: /,'') %></span></div>
+          </li>
+        <% }) %>
+        <% if (!groups.length) { %><li class="muted">No groups yet.</li><% } %>
+      </ul>
+    </div>
+
+    <div class="card card-tight">
+      <div class="card-head" style="margin-bottom:8px"><div class="section-label px-label" style="margin:0"><%- include('partials/px', { id: 'tent', size: 14 }) %> Upcoming events</div><a class="dim" style="font-size:.8rem" href="/events">All</a></div>
+      <ul class="list-plain">
+        <% events.slice(0,4).forEach(function(e){ %>
+          <li class="row" style="align-items:flex-start;flex-wrap:nowrap">
+            <span class="date-badge"><span class="m"><%= new Date(e.Event_Date).toLocaleString('en-US',{month:'short'}) %></span><span class="d"><%= new Date(e.Event_Date).getDate() %></span></span>
+            <span style="flex:1;min-width:0">
+              <a href="/events/<%= e.Event_ID %>" style="font-weight:600;color:var(--ink)"><%= e.Event_Title %></a><br>
+              <small class="muted"><%= e.Event_Time || '' %> · <%= e.Event_Location %> · <%= e.Community_Name %></small>
+            </span>
+          </li>
+        <% }) %>
+        <% if (!events.length) { %><li class="muted">Nothing scheduled.</li><% } %>
+      </ul>
+    </div>
+
+    <div class="card card-tight card--focal">
+      <div class="card-head" style="margin-bottom:6px"><div class="section-label px-label" style="margin:0"><%- include('partials/px', { id: 'trophy', size: 14 }) %> Campus engagement</div>
+        <% if (myRank >= 0) { %><span class="chip brand">You're #<%= myRank+1 %></span><% } %></div>
+      <% board.slice(0,5).forEach(function(b, i){ %>
+        <div class="leader">
+          <span class="rank"><%= i+1 %></span>
+          <%- include('partials/avatar', { name: b.name, size:'sm', link:'/u/'+b.userId }) %>
+          <a href="/u/<%= b.userId %>" style="color:var(--ink);font-weight:600;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><%= b.name %></a>
+          <span class="pts"><%= b.score %></span>
+        </div>
+      <% }) %>
+      <details class="disclose" style="margin-top:10px">
+        <summary>How is this scored?</summary>
+        <div class="dim" style="font-size:.8rem;margin-top:8px">
+          A derived metric — nothing is stored in the database. Points come from your real activity:
+          <ul style="margin:6px 0 0;padding-left:16px">
+            <% engagementExplain.forEach(function(r){ %><li><%= r[0] %> — <strong><%= r[1] %></strong></li><% }) %>
+          </ul>
+        </div>
+      </details>
+    </div>
+
+    <div class="card card-tight">
+      <div class="section-label px-label"><%- include('partials/px', { id: 'cap', size: 14 }) %> Your campus at a glance</div>
+      <ul class="list-plain">
+        <li class="between"><a href="/communities" style="color:var(--ink);font-weight:600">🌐 Communities &amp; clubs</a>
+          <span class="chip"><%= communities.length + clubs.length %></span></li>
+        <li class="between"><a href="/requests" style="color:var(--ink);font-weight:600">🤝 Open requests</a>
+          <span class="chip <%= myRequests.filter(r=>r.Status!=='RESOLVED'&&r.Status!=='CLOSED').length ? 'amber':'' %>"><%= myRequests.length %></span></li>
+        <li class="between"><a href="/projects" style="color:var(--ink);font-weight:600">🛠️ Projects</a>
+          <span class="chip"><%= myProjects.length %></span></li>
+        <li class="between"><a href="/messages" style="color:var(--ink);font-weight:600">✉️ Messages</a>
+          <span class="chip">Open</span></li>
+      </ul>
+      <% if (communities.length || clubs.length) { %>
+        <div class="row-tight" style="margin-top:10px">
+          <% communities.slice(0,3).forEach(function(c){ %><a class="chip teal" href="/communities/<%= c.Community_ID %>"><%= c.Community_Name %></a><% }) %>
+          <% clubs.slice(0,3).forEach(function(c){ %><a class="chip" href="/clubs/<%= c.Club_ID %>"><%= c.Club_Name %></a><% }) %>
+        </div>
+      <% } %>
+    </div>
+  </aside>
+</div>
+
+<%- include('partials/pixel-scape', { variant: 'campus' }) %>
+
+<style>
+  .dash-grid{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:22px}
+  @media (max-width:1000px){ .dash-grid{grid-template-columns:1fr} }
+  .welcome-card{position:relative;border-color:#e6ddff;
+    background:linear-gradient(160deg,var(--brand-wash),var(--brand-wash-2))}
+  .welcome-x{position:absolute;top:8px;right:10px;border:0;background:transparent;
+    font-size:1.2rem;line-height:1;color:var(--ink-4);cursor:pointer;padding:4px}
+  .welcome-x:hover{color:var(--ink-2)}
+  .welcome-card .row-tight{flex-wrap:wrap;gap:7px}
+  .welcome-card a.chip{text-decoration:none}
+</style>
+<script>
+  (function () {
+    var card = document.getElementById('welcomeCard');
+    if (!card) return;
+    var KEY = 'cc_welcome_seen';
+    var seen;
+    try { seen = localStorage.getItem(KEY); } catch (e) { seen = '1'; }
+    if (!seen) card.hidden = false;
+    var x = document.getElementById('welcomeDismiss');
+    if (x) x.addEventListener('click', function () {
+      card.hidden = true;
+      try { localStorage.setItem(KEY, '1'); } catch (e) {}
+    });
+  })();
+</script>
+<%- include('partials/foot') %>

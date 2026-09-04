@@ -1,0 +1,36 @@
+<%- include('../partials/head', { title: 'Study materials' }) %>
+<div class="page-head">
+  <div><h1>Study materials</h1><p class="sub">Notes, slides and resources shared by faculty.</p></div>
+  <% if (currentUser.role === 'faculty') { %><a class="btn btn-primary" href="/academic/materials/new">+ Upload material</a><% } %>
+</div>
+
+<form class="card card-tight" method="get" action="/academic/materials">
+  <div class="row">
+    <input name="q" value="<%= q || '' %>" placeholder="Search title or description…" style="flex:1">
+    <select name="course" style="width:auto">
+      <option value="">All courses</option>
+      <% courses.forEach(function(c){ %>
+        <option value="<%= c.Course_ID %>" <%= String(courseId)===String(c.Course_ID)?'selected':'' %>><%= c.Course_Code %> <%= c.Course_Name %></option>
+      <% }) %>
+    </select>
+    <button class="btn btn-primary" type="submit">Filter</button>
+    <% if (q || courseId) { %><a class="btn btn-ghost" href="/academic/materials">Clear</a><% } %>
+  </div>
+</form>
+
+<div class="stack">
+  <% materials.forEach(function(m){ %>
+    <div class="card">
+      <div class="between">
+        <h3 style="margin:0"><%= m.Title %></h3>
+        <a class="chip brand" href="/academic/courses/<%= m.Course_ID %>"><%= m.Course_Code %></a>
+      </div>
+      <p class="dim" style="margin:6px 0"><%= m.Description || '' %></p>
+      <small class="muted">Shared by <%= m.faculty_name %> · <%= timeAgo(m.Uploaded_At) %> · <%= m.Course_Name %></small>
+    </div>
+  <% }) %>
+  <% if (!materials.length) { %>
+    <div class="card"><%- include('../partials/empty', { icon:'📚', title:'No study material found', text:'Try clearing the filter or picking a different course.' }) %></div>
+  <% } %>
+</div>
+<%- include('../partials/foot') %>

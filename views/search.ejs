@@ -1,0 +1,43 @@
+<%- include('partials/head', { title: q ? ('Search: ' + q) : 'Search' }) %>
+<div class="page-head"><div><h1>Search &amp; discover</h1><p class="sub">People, courses, groups, communities, clubs, projects, events, materials and requests.</p></div></div>
+
+<form class="card card-tight" method="get" action="/search">
+  <div class="row">
+    <input name="q" value="<%= q || '' %>" placeholder="Type a name, code, keyword…" autofocus style="flex:1">
+    <button class="btn btn-primary" type="submit">Search</button>
+  </div>
+</form>
+
+<% if (!q) { %>
+  <div class="card"><%- include('partials/empty', { icon:'🔍', title:'Search across campus', text:'Find people, courses, groups, communities, clubs, projects, events, study materials and requests.' }) %></div>
+<% } else {
+     const groups = [
+       ['People', results.people, function(r){ return { href:'/u/'+r.User_ID, main:r.Full_Name, sub:(r.is_faculty?'Faculty':(r.is_student?'Student':'Staff'))+' · '+r.Email }; }],
+       ['Courses', results.courses, function(r){ return { href:'/academic/courses/'+r.Course_ID, main:r.Course_Code+' '+r.Course_Name, sub:'Course' }; }],
+       ['Groups', results.groups, function(r){ return { href:'/groups/'+r.Group_ID, main:r.Group_Name, sub:r.Group_Type||'Group' }; }],
+       ['Communities', results.communities, function(r){ return { href:'/communities/'+r.Community_ID, main:r.Community_Name, sub:r.Community_Type||'Community' }; }],
+       ['Clubs', results.clubs, function(r){ return { href:'/clubs/'+r.Club_ID, main:r.Club_Name, sub:r.Category||'Club' }; }],
+       ['Projects', results.projects, function(r){ return { href:'/projects/'+r.Project_ID, main:r.Project_Name, sub:r.Project_Status }; }],
+       ['Events', results.events, function(r){ return { href:'/events/'+r.Event_ID, main:r.Event_Title, sub:fmtDate(r.Event_Date)+' · '+r.Community_Name }; }],
+       ['Study materials', results.materials, function(r){ return { href:'/academic/courses/'+r.Course_ID, main:r.Title, sub:r.Course_Code }; }],
+       ['Requests', results.requests, function(r){ return { href:'/requests/'+r.Request_ID, main:r.Request_Title, sub:r.Status+' · '+r.Priority }; }],
+     ];
+     const total = groups.reduce(function(s,g){ return s + g[1].length; }, 0);
+%>
+  <p class="dim"><%= total %> result<%= total===1?'':'s' %> for “<%= q %>”</p>
+  <% if (!total) { %><div class="card"><%- include('partials/empty', { icon:'🤷', title:'No matches', text:'Nothing found for that search. Try different words.' }) %></div><% } %>
+  <div class="grid cols-2">
+    <% groups.forEach(function(gr){ if (!gr[1].length) return; %>
+      <div class="card">
+        <h3><%= gr[0] %> (<%= gr[1].length %>)</h3>
+        <ul class="list-plain">
+          <% gr[1].forEach(function(r){ var v = gr[2](r); %>
+            <li><a href="<%= v.href %>"><strong><%= v.main %></strong></a>
+              <div><small class="muted"><%= v.sub %></small></div></li>
+          <% }) %>
+        </ul>
+      </div>
+    <% }) %>
+  </div>
+<% } %>
+<%- include('partials/foot') %>

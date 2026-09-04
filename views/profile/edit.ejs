@@ -1,0 +1,48 @@
+<%- include('../partials/head', { title: 'Edit profile' }) %>
+<%  const pr = person.profile || {}; %>
+<a class="backlink" href="/profile">← Back to profile</a>
+<div class="card" style="max-width:620px">
+  <h1>Edit profile</h1>
+  <form action="/profile" method="post">
+    <div class="grid cols-2">
+      <div class="field"><label for="full_name">Full name</label>
+        <input id="full_name" name="full_name" value="<%= person.Full_Name %>" required></div>
+      <div class="field"><label for="phone">Phone</label>
+        <input id="phone" name="phone" value="<%= person.Phone_Number || '' %>"></div>
+    </div>
+    <div class="field"><label for="bio">About me</label>
+      <textarea id="bio" name="bio" data-autogrow placeholder="Tell campus about yourself, your interests, hostel/day-scholar, etc."><%= pr.Bio || '' %></textarea></div>
+    <div class="grid cols-2">
+      <div class="field"><label for="dob">Date of birth</label>
+        <input id="dob" name="dob" type="date" value="<%= pr.Date_Of_Birth || '' %>"></div>
+      <div class="field"><label for="gender">Gender</label>
+        <select id="gender" name="gender">
+          <option value="">—</option>
+          <% ['Male','Female','Other','Prefer not to say'].forEach(function(g){ %>
+            <option <%= pr.Gender===g?'selected':'' %>><%= g %></option>
+          <% }) %>
+        </select></div>
+    </div>
+    <div class="field"><label for="profile_image">Profile image URL</label>
+      <input id="profile_image" name="profile_image" value="<%= pr.Profile_Image || '' %>" placeholder="https://…"></div>
+
+    <% if (person.role === 'student') { %>
+      <div class="field"><label for="current_semester">Current semester</label>
+        <input id="current_semester" name="current_semester" type="number" min="1" max="12" value="<%= person.student.Current_Semester %>">
+        <small>Program, registration number and admission year are fixed academic records.</small></div>
+    <% } else if (person.role === 'faculty') { %>
+      <div class="grid cols-2">
+        <div class="field"><label for="designation">Designation</label>
+          <input id="designation" name="designation" value="<%= person.faculty.Designation || '' %>"></div>
+        <div class="field"><label for="specialization">Specialization</label>
+          <input id="specialization" name="specialization" value="<%= person.faculty.Specialization || '' %>"></div>
+      </div>
+    <% } %>
+
+    <div class="form-actions">
+      <button class="btn btn-primary" type="submit">Save changes</button>
+      <a class="btn" href="/profile">Cancel</a>
+    </div>
+  </form>
+</div>
+<%- include('../partials/foot') %>

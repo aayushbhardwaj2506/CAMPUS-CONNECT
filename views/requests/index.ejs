@@ -1,0 +1,96 @@
+<%- include('../partials/head', { title: 'Requests' }) %>
+<%
+  var prColor = { URGENT:'rose', HIGH:'rose', MEDIUM:'amber', LOW:'' };
+  var stColor = { OPEN:'brand', IN_PROGRESS:'amber', RESOLVED:'green', CLOSED:'' };
+%>
+<div class="page-head page-head--pix">
+  <span class="ph-badge"><%- include('../partials/px', { id: 'heart', size: 28, cls: 'pix-bob' }) %></span>
+  <div><h1>Requests &amp; peer help</h1><p class="sub">Ask campus for help — academics, facilities, tech, carpool, mentoring.</p></div>
+  <a class="btn btn-primary" href="/requests/new">+ Raise a request</a>
+</div>
+
+<div class="req-grid">
+  <aside class="stack">
+    <div class="card card-tight">
+      <div class="section-label">Categories</div>
+      <ul class="list-plain" style="font-size:.9rem">
+        <li><a href="/requests" style="font-weight:<%= !catId?700:500 %>;color:var(--ink)">All categories</a></li>
+        <% categories.forEach(function(c){ %>
+          <li class="between">
+            <a href="/requests?category=<%= c.Request_Category_ID %>" style="font-weight:<%= String(catId)===String(c.Request_Category_ID)?700:500 %>;color:var(--ink)"><%= c.Category_Name %></a>
+            <span class="chip"><%= c.n %></span>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
+    <div class="card card-tight">
+      <div class="section-label">Status</div>
+      <div class="tabs" style="flex-wrap:wrap">
+        <a class="<%= !status?'active':'' %>" href="/requests<%= catId?('?category='+catId):'' %>">Any</a>
+        <% STATUSES.forEach(function(s){ %>
+          <a class="<%= status===s?'active':'' %>" href="/requests?status=<%= s %><%= catId?('&category='+catId):'' %>"><%= s.replace('_',' ') %></a>
+        <% }) %>
+      </div>
+    </div>
+  </aside>
+
+  <div class="stack" data-reveal>
+    <div class="card">
+      <div class="card-head"><h3>Your requests</h3><span class="chip"><%= mine.length %></span></div>
+      <% if (mine.length) { %>
+        <ul class="list-plain">
+          <% mine.forEach(function(r){ %>
+            <li class="spread">
+              <div style="min-width:0">
+                <a href="/requests/<%= r.Request_ID %>" style="font-weight:640;color:var(--ink)"><%= r.Request_Title %></a>
+                <div><small class="muted"><%= r.Category_Name %> · <%= timeAgo(r.Created_At) %></small></div>
+              </div>
+              <div class="row-tight">
+                <span class="chip <%= prColor[r.Priority] || '' %>"><%= r.Priority %></span>
+                <span class="chip <%= stColor[r.Status] || '' %>"><%= r.Status.replace('_',' ') %></span>
+              </div>
+            </li>
+          <% }) %>
+        </ul>
+      <% } else { %>
+        <%- include('../partials/empty', { icon:'🤝', title:"You haven't raised anything", text:'Need a hand? Post a request and campus can respond.', cta:'Raise a request', href:'/requests/new' }) %>
+      <% } %>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h3 style="margin:0">Open on campus</h3>
+        <form method="get" action="/requests" class="row-tight">
+          <% if (catId) { %><input type="hidden" name="category" value="<%= catId %>"><% } %>
+          <% if (status) { %><input type="hidden" name="status" value="<%= status %>"><% } %>
+          <input name="q" value="<%= q || '' %>" placeholder="Search…" style="width:180px">
+          <button class="btn btn-sm btn-primary" type="submit">Go</button>
+        </form>
+      </div>
+      <% if (browse.length) { %>
+        <ul class="list-plain">
+          <% browse.forEach(function(r){ %>
+            <li class="spread">
+              <div style="min-width:0">
+                <a href="/requests/<%= r.Request_ID %>" style="font-weight:640;color:var(--ink)"><%= r.Request_Title %></a>
+                <div class="dim" style="font-size:.88rem"><%= (r.Request_Description||'').slice(0,110) %></div>
+                <small class="muted"><%= r.Category_Name %> · <a href="/u/<%= r.User_ID %>"><%= r.owner_name %></a> · <%= timeAgo(r.Created_At) %></small>
+              </div>
+              <div class="row-tight" style="flex-direction:column;align-items:flex-end;gap:4px">
+                <span class="chip <%= prColor[r.Priority] || '' %>"><%= r.Priority %></span>
+                <span class="chip <%= stColor[r.Status] || '' %>"><%= r.Status.replace('_',' ') %></span>
+              </div>
+            </li>
+          <% }) %>
+        </ul>
+      <% } else { %>
+        <%- include('../partials/empty', { icon:'📭', title:'Nothing matches', text:'Try a different category or status filter.' }) %>
+      <% } %>
+    </div>
+  </div>
+</div>
+<style>
+  .req-grid{display:grid;grid-template-columns:230px minmax(0,1fr);gap:22px}
+  @media (max-width:900px){ .req-grid{grid-template-columns:1fr} }
+</style>
+<%- include('../partials/foot') %>

@@ -1,0 +1,52 @@
+<%- include('../partials/head', { title: dep.Department_Name }) %>
+<a class="backlink" href="/academic">← Academic</a>
+<div class="card">
+  <h1><%= dep.Department_Name %> <span class="chip"><%= dep.Department_Code %></span></h1>
+  <p class="dim"><%= dep.School_Name %></p>
+  <% if (dep.Description) { %><p><%= dep.Description %></p><% } %>
+</div>
+
+<div class="grid cols-2">
+  <div class="card">
+    <h3>Programs</h3>
+    <ul class="list-plain">
+      <% programs.forEach(function(p){ %>
+        <li><a href="/academic/programs/<%= p.Program_ID %>"><%= p.Program_Name %></a>
+          <span class="chip"><%= p.Degree_Level %></span>
+          <span class="chip"><%= p.Duration %> yr</span></li>
+      <% }) %>
+      <% if (!programs.length) { %><li class="muted">No programs listed.</li><% } %>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>Faculty</h3>
+    <ul class="list-plain">
+      <% faculty.forEach(function(f){ %>
+        <li class="row">
+          <%- include('../partials/avatar', { name: f.Full_Name, size:'sm', link:'/u/'+f.User_ID }) %>
+          <div><a href="/u/<%= f.User_ID %>" style="font-weight:600;color:var(--ink)"><%= f.Full_Name %></a>
+            <div><small class="muted"><%= f.Designation %><% if (f.Specialization) { %> · <%= f.Specialization %><% } %></small></div></div>
+        </li>
+      <% }) %>
+      <% if (!faculty.length) { %><li class="muted">No faculty listed.</li><% } %>
+    </ul>
+  </div>
+</div>
+
+<div class="card">
+  <h3>Courses</h3>
+  <table style="width:100%;border-collapse:collapse">
+    <thead><tr style="text-align:left;color:var(--ink-faint);font-size:.8rem">
+      <th style="padding:6px 8px">Code</th><th>Name</th><th>Sem</th><th>Credits</th></tr></thead>
+    <tbody>
+      <% courses.forEach(function(c){ %>
+        <tr style="border-top:1px solid var(--line-soft)">
+          <td style="padding:8px"><a href="/academic/courses/<%= c.Course_ID %>"><%= c.Course_Code %></a></td>
+          <td><%= c.Course_Name %></td><td><%= c.Semester %></td><td><%= c.Credits %></td>
+        </tr>
+      <% }) %>
+      <% if (!courses.length) { %><tr><td colspan="4" class="muted" style="padding:8px">No courses.</td></tr><% } %>
+    </tbody>
+  </table>
+</div>
+<%- include('../partials/foot') %>

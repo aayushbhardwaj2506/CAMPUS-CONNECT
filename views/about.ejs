@@ -1,0 +1,403 @@
+<%- include('partials/head', { title: 'About Campus Connect', bare: true }) %>
+<%
+  var signedIn = !!currentUser;
+%>
+<div class="landing about">
+
+  <!-- ============================ HERO ============================ -->
+  <section class="about-hero" data-reveal>
+    <div>
+      <span class="eyebrow px-label"><%- include('partials/px', { id: 'sprout', size: 16, cls: 'pix-bob' }) %> About Campus Connect</span>
+      <h1>Your whole university,<br><span class="accent">in one calm place.</span></h1>
+      <p>Campus Connect brings your <strong>academics</strong> and your <strong>campus life</strong> together — classes, groups, the social feed, communities, clubs, projects and campus help — so the pieces actually talk to each other.</p>
+      <div class="row" style="margin-top:24px">
+        <% if (signedIn) { %>
+          <a class="btn btn-primary btn-lg" href="/">Open your dashboard</a>
+          <a class="btn btn-lg" href="/search">Explore campus</a>
+        <% } else { %>
+          <a class="btn btn-primary btn-lg" href="/register">Create your account</a>
+          <a class="btn btn-lg" href="/login">Sign in</a>
+        <% } %>
+      </div>
+    </div>
+
+    <div class="about-hub" aria-hidden="true">
+      <svg viewBox="0 0 260 260" shape-rendering="crispEdges">
+        <circle class="hub-ring" cx="130" cy="130" r="96"/>
+        <g class="hub-orbit">
+          <g transform="rotate(0 130 130)"><circle class="hub-dot" cx="130" cy="34" r="16"/><use href="#px-cap"      x="121" y="25" width="18" height="18"/></g>
+          <g transform="rotate(60 130 130)"><circle class="hub-dot" cx="130" cy="34" r="16"/><use href="#px-signpost" x="121" y="25" width="18" height="18"/></g>
+          <g transform="rotate(120 130 130)"><circle class="hub-dot" cx="130" cy="34" r="16"/><use href="#px-chat"     x="121" y="25" width="18" height="18"/></g>
+          <g transform="rotate(180 130 130)"><circle class="hub-dot" cx="130" cy="34" r="16"/><use href="#px-tent"     x="121" y="25" width="18" height="18"/></g>
+          <g transform="rotate(240 130 130)"><circle class="hub-dot" cx="130" cy="34" r="16"/><use href="#px-rocket"   x="121" y="25" width="18" height="18"/></g>
+          <g transform="rotate(300 130 130)"><circle class="hub-dot" cx="130" cy="34" r="16"/><use href="#px-heart"    x="121" y="25" width="18" height="18"/></g>
+        </g>
+        <circle class="hub-core" cx="130" cy="130" r="42"/>
+        <use href="#px-hero" x="118" y="98" width="24" height="24" opacity="0.9"/>
+        <text class="hub-core-t" x="130" y="140">You</text>
+        <text class="hub-core-s" x="130" y="153">one account</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ========================= WHY IT EXISTS ===================== -->
+  <section class="about-why" data-reveal>
+    <div class="card">
+      <span class="section-label">Why it exists</span>
+      <p class="lead">Campus life is scattered across portals, chat groups, notice boards and spreadsheets. Important things get missed, and the people you should be connected to are a search away — if you can find them at all.</p>
+      <p class="lead">Campus Connect is one platform where your <strong>academic identity</strong> — your program, your batch, your courses — automatically connects you to the right people, groups and information, and gives you the tools to collaborate and ask for help.</p>
+    </div>
+  </section>
+
+  <!-- ==================== MADE FOR SCOPE ======================= -->
+  <section class="about-section" data-reveal>
+    <div class="about-scope">
+      <div class="about-scope-copy">
+        <span class="section-label px-label"><%- include('partials/px', { id: 'cap', size: 14 }) %> Made for your school</span>
+        <h2>Built around SCOPE</h2>
+        <p>Campus Connect is shaped for the <strong>School of Computer Science and Engineering (SCOPE)</strong> at VIT Chennai — its departments, its programmes, and the way a computing student's semester actually runs.</p>
+        <p class="dim">When you register with your programme, your academic identity follows the real structure: your <strong>school</strong>, your <strong>department</strong>, your <strong>B.Tech CSE</strong> track, your <strong>batch</strong>, and your current <strong>semester's courses</strong> — all under the FFCS Fall/Winter rhythm, with Digital Assignments, CAT and FAT along the way.</p>
+      </div>
+      <div class="about-scope-facts">
+        <div class="asf-block">
+          <span class="asf-label">Six departments</span>
+          <div class="asf-chips">
+            <span class="chip">Database Systems</span>
+            <span class="chip">Computational Intelligence</span>
+            <span class="chip">Software Systems</span>
+            <span class="chip">Information Security</span>
+            <span class="chip">Analytics</span>
+            <span class="chip">Internet of Things</span>
+          </div>
+        </div>
+        <div class="asf-block">
+          <span class="asf-label">Specialisation tracks &amp; interests</span>
+          <div class="asf-chips">
+            <span class="chip teal">AI &amp; Machine Learning</span>
+            <span class="chip teal">Cyber Security</span>
+            <span class="chip teal">Data Science</span>
+            <span class="chip teal">Cyber-Physical Systems</span>
+            <span class="chip teal">Robotics</span>
+            <span class="chip teal">Quantum &amp; Theory</span>
+          </div>
+        </div>
+        <p class="asf-foot dim">Communities, clubs, events and projects are seeded with what a SCOPE student actually does — competitive programming, CTFs, Kaggle, GDG &amp; IEEE Computer Society, Smart India Hackathon and the campus hackathon.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== THREE THINGS YOU DO ================== -->
+  <section class="about-section">
+    <div class="about-sec-head">
+      <span class="eyebrow">The idea</span>
+      <h2>Three things you do here</h2>
+    </div>
+    <div class="grid cols-3" data-reveal>
+      <div class="card card-hover about-job">
+        <div class="about-job-ic">🎓</div>
+        <h3>Learn</h3>
+        <p class="dim">Everything academic, in order.</p>
+        <ul class="about-ticks">
+          <li>Browse your school, department, program and courses</li>
+          <li>See your weekly timetable and where classes are</li>
+          <li>Get study material and read announcements from faculty</li>
+        </ul>
+      </div>
+      <div class="card card-hover about-job">
+        <div class="about-job-ic">👥</div>
+        <h3>Belong</h3>
+        <p class="dim">Find your people, automatically.</p>
+        <ul class="about-ticks">
+          <li>You're auto-added to your batch, department, school &amp; course groups</li>
+          <li>Join communities and clubs — competitive programming, CTFs, GDG, photography…</li>
+          <li>Post to the feed, react, comment, share a 24-hour story</li>
+          <li>Message anyone directly, or in a group thread</li>
+        </ul>
+      </div>
+      <div class="card card-hover about-job">
+        <div class="about-job-ic">🛠️</div>
+        <h3>Do</h3>
+        <p class="dim">Collaborate and get help.</p>
+        <ul class="about-ticks">
+          <li>Start a project, form teams and invite people to co-work</li>
+          <li>Raise a request for academic help, a carpool, tech or campus services</li>
+          <li>Track it from open to resolved</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== HOW IT CONNECTS ==================== -->
+  <section class="about-section about-connect">
+    <div class="about-sec-head">
+      <span class="eyebrow">How it fits together</span>
+      <h2>Your academic identity is the thread</h2>
+      <p class="dim" style="max-width:56ch">Tell Campus Connect your program once. From there, everything links up on its own.</p>
+    </div>
+
+    <div class="about-flows" data-reveal>
+      <div class="about-flow">
+        <span class="flow-label">From your studies to your conversations</span>
+        <div class="flow-strip">
+          <span class="flow-node">Your program &amp; courses</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-node">Groups you're auto-joined to</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-node">Announcements</span>
+          <span class="flow-plus">+</span>
+          <span class="flow-node">Group discussion</span>
+        </div>
+      </div>
+
+      <div class="about-flow">
+        <span class="flow-label">Communities bring people together — and host what's on</span>
+        <div class="flow-strip">
+          <span class="flow-node">Communities &amp; Clubs</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-node">Members</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-node">Events</span>
+        </div>
+      </div>
+
+      <div class="about-flow">
+        <span class="flow-label">When you need to build something, or ask for a hand</span>
+        <div class="flow-strip">
+          <span class="flow-node">Projects</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-node">Teams &amp; co-work</span>
+          <span class="flow-sep"></span>
+          <span class="flow-node">Requests</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-node">Peer help · Carpool · Campus services</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="about-connect-foot">
+      <span class="chip brand">🔔 Notifications</span>
+      <span class="chip brand">🔍 Search</span>
+      <span class="chip brand">🏠 Dashboard</span>
+      keep all of it in one view.
+    </p>
+  </section>
+
+  <!-- =================== EVERY PART, WHAT IT'S FOR ================ -->
+  <section class="about-section">
+    <div class="about-sec-head">
+      <span class="eyebrow">A tour</span>
+      <h2>Every part, and what it's for</h2>
+    </div>
+
+    <% var modGroups = [
+      ['Academics', [
+        ['🎓','Academic','Schools, departments, programs, courses and classes, laid out clearly.'],
+        ['📅','Timetable','Your week, built from your program and current semester.'],
+        ['📚','Study materials','Notes and slides shared by faculty, organised by course.'],
+        ['🏛️','Buildings &amp; rooms','Where classes and events actually happen on campus.']
+      ]],
+      ['People &amp; groups', [
+        ['👥','Groups','Your class, course, batch, department and school groups — joined for you.'],
+        ['📣','Announcements','Updates from faculty, with an Official badge for Dean / HOD notices.'],
+        ['🌐','Communities','Campus-wide groups around a shared interest, each with its own events.'],
+        ['🎭','Clubs','Official and student-run, sorted by category — including ones you create.'],
+        ['✉️','Messages','Direct messages and group discussion threads.']
+      ]],
+      ['Social', [
+        ['📝','Feed','Posts, comments and reactions from across campus.'],
+        ['✨','Stories','A moment you share that disappears after 24 hours.']
+      ]],
+      ['Collaboration &amp; help', [
+        ['🛠️','Projects','Create one, add teams, and approve people who ask to co-work.'],
+        ['🤝','Requests','Peer help, carpool, technical and campus-service requests — tracked to resolved.']
+      ]],
+      ['Your tools', [
+        ['🔔','Notifications','The things that need your attention, gathered in one place.'],
+        ['🔍','Search','One box for people, courses, groups, communities, clubs, projects, events, materials and requests.'],
+        ['📁','Files','Keep references to your documents together.'],
+        ['🙋','Profile','Your bio, birthday, academic identity and a light campus-engagement score.']
+      ]],
+      ['For campus staff', [
+        ['🛡️','Moderation','A queue for reports raised by the campus, worked from open to resolved.'],
+        ['📜','Audit log','A record of important actions across the platform.']
+      ]]
+    ]; %>
+
+    <% modGroups.forEach(function(grp){ %>
+      <div class="about-modgroup" data-reveal>
+        <span class="section-label"><%- grp[0] %></span>
+        <div class="about-mods">
+          <% grp[1].forEach(function(m){ %>
+            <div class="about-mod card-hover">
+              <span class="about-mod-ic"><%- m[0] %></span>
+              <div>
+                <strong><%- m[1] %></strong>
+                <p><%- m[2] %></p>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+      </div>
+    <% }) %>
+  </section>
+
+  <!-- ======================= MADE FOR YOUR ROLE ================= -->
+  <section class="about-section">
+    <div class="about-sec-head">
+      <span class="eyebrow">Role-aware</span>
+      <h2>Made for students, faculty and staff</h2>
+      <p class="dim">One platform — it just shows you what's relevant to you.</p>
+    </div>
+    <div class="grid cols-3" data-reveal>
+      <div class="card about-role">
+        <span class="chip brand">Students</span>
+        <p>Your program and timetable, the groups you're auto-joined to, the feed, communities and clubs, projects, and requests for help.</p>
+      </div>
+      <div class="card about-role">
+        <span class="chip amber">Faculty</span>
+        <p>Your classes, uploading study material, publishing announcements — Official when you're Dean or HOD — and reaching students directly.</p>
+      </div>
+      <div class="card about-role">
+        <span class="chip teal">Staff</span>
+        <p>Everything above, plus the moderation queue for campus reports and the platform audit log.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== AUTO-ALLOCATION CALLOUT ============== -->
+  <section class="about-section" data-reveal>
+    <div class="about-spotlight">
+      <div class="about-spot-ic">✦</div>
+      <div>
+        <span class="section-label" style="color:rgba(255,255,255,.7)">The signature move</span>
+        <h3>You never build your groups by hand</h3>
+        <p>Tell Campus Connect your program once. It places you into your school, department, batch and course groups automatically — and on every group, it shows you <strong>why</strong> you were added.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================== CLOSING ====================== -->
+  <section class="about-section about-close" data-reveal>
+    <h2>Ready to connect?</h2>
+    <p class="dim">Campus Connect is a university social and collaboration platform — the academic system and the people around it, in one place.</p>
+    <div class="row" style="justify-content:center;margin-top:18px">
+      <% if (signedIn) { %>
+        <a class="btn btn-primary btn-lg" href="/">Go to your dashboard</a>
+        <a class="btn btn-lg" href="/groups">See your groups</a>
+      <% } else { %>
+        <a class="btn btn-primary btn-lg" href="/register">Create your account</a>
+        <a class="btn btn-lg" href="/login">Sign in</a>
+      <% } %>
+    </div>
+  </section>
+</div>
+
+<style>
+  .about{padding-bottom:70px}
+  .about h2{font-size:1.7rem;letter-spacing:-.025em}
+  .about .accent{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--brand);letter-spacing:-.01em}
+  .about .lead{font-size:1.02rem;color:var(--ink-2);max-width:64ch}
+  .about-section{margin-top:64px}
+  .about-sec-head{margin-bottom:22px;max-width:60ch}
+  .about-sec-head h2{margin:2px 0 6px}
+
+  /* hero */
+  .about-hero{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;padding:56px 0 8px}
+  .about-hero h1{font-size:2.9rem;line-height:1.08;letter-spacing:-.03em;margin-bottom:.35em}
+  .about-hero p{font-size:1.08rem;color:var(--ink-3);max-width:50ch}
+  .about-hub{display:grid;place-items:center}
+  .about-hub svg{width:min(300px,74vw);height:auto;overflow:visible}
+  .hub-ring{fill:none;stroke:var(--line);stroke-width:1.5;stroke-dasharray:3 6}
+  .hub-orbit{transform-origin:130px 130px}
+  html.anim .hub-orbit{animation:aboutOrbit 80s linear infinite}
+  @keyframes aboutOrbit{to{transform:rotate(360deg)}}
+  .hub-dot{fill:#fff;stroke:var(--line);stroke-width:1.5;filter:drop-shadow(0 4px 10px rgba(20,22,30,.08))}
+  html.anim .hub-orbit g use{animation:aboutOrbitCounter 80s linear infinite}
+  @keyframes aboutOrbitCounter{to{transform:rotate(-360deg)}}
+  .hub-orbit g use{transform-origin:130px 34px;image-rendering:pixelated}
+  .hub-core{fill:var(--brand);filter:drop-shadow(0 10px 26px rgba(91,61,245,.4))}
+  .hub-core-t{fill:#fff;font-weight:700;font-size:16px;text-anchor:middle}
+  .hub-core-s{fill:rgba(255,255,255,.8);font-size:9.5px;text-anchor:middle;letter-spacing:.04em}
+
+  /* three jobs */
+  .about-job{display:flex;flex-direction:column}
+  .about-job-ic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;
+    background:var(--brand-wash);font-size:1.4rem;margin-bottom:12px}
+  .about-job h3{margin:0 0 2px;font-size:1.15rem}
+  .about-ticks{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;gap:9px}
+  .about-ticks li{position:relative;padding-left:24px;font-size:.92rem;color:var(--ink-2);line-height:1.45}
+  .about-ticks li::before{content:"";position:absolute;left:0;top:7px;width:14px;height:14px;border-radius:5px;
+    background:var(--brand-wash);
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath d='M2 5.2l2 2 4-4.4' stroke='%235b3df5' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:center}
+
+  /* connect / flows */
+  .about-connect .about-flows{display:flex;flex-direction:column;gap:16px}
+  .about-flow{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);
+    box-shadow:var(--sh-xs),inset 0 1px 0 rgba(255,255,255,.7);padding:18px 20px}
+  .flow-label{display:block;font-size:.82rem;font-weight:650;color:var(--ink-3);margin-bottom:12px}
+  .flow-strip{display:flex;align-items:center;flex-wrap:wrap;gap:10px}
+  .flow-node{display:inline-flex;align-items:center;padding:9px 14px;border-radius:12px;
+    background:var(--bg-tint);border:1px solid var(--line);font-size:.9rem;font-weight:600;color:var(--ink)}
+  .flow-arrow{color:var(--brand);font-weight:800;font-size:1.05rem}
+  .flow-plus{color:var(--ink-4);font-weight:800}
+  .flow-sep{width:1px;height:22px;background:var(--line);margin:0 4px}
+  .about-connect-foot{margin-top:20px;color:var(--ink-3);font-size:.94rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+
+  /* module grid */
+  .about-modgroup{margin-top:26px}
+  .about-modgroup:first-of-type{margin-top:8px}
+  .about-mods{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .about-mod{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;
+    background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);
+    box-shadow:var(--sh-xs);transition:transform .22s var(--ease-out),box-shadow .22s var(--ease-out),border-color var(--dur) var(--ease)}
+  .about-mod:hover{transform:translateY(-2px);box-shadow:var(--sh-sm);border-color:#dfe0ea}
+  .about-mod-ic{width:34px;height:34px;flex:none;border-radius:10px;display:grid;place-items:center;
+    background:var(--bg-tint);font-size:1rem}
+  .about-mod strong{display:block;font-size:.94rem;margin-bottom:2px}
+  .about-mod p{margin:0;font-size:.86rem;color:var(--ink-3);line-height:1.45}
+
+  /* made for scope */
+  .about-scope{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:start;
+    background:var(--paper);border:1px solid var(--line);border-radius:var(--r-xl);
+    box-shadow:var(--sh-xs);padding:28px 30px}
+  .about-scope-copy h2{margin:8px 0 8px}
+  .about-scope-copy p{font-size:1rem;color:var(--ink-2);max-width:54ch;margin:0 0 10px}
+  .about-scope-facts{border-left:1px solid var(--line);padding-left:26px}
+  .asf-block{margin-bottom:16px}
+  .asf-label{display:block;font-size:.78rem;font-weight:700;letter-spacing:.02em;
+    text-transform:uppercase;color:var(--ink-3);margin-bottom:8px}
+  .asf-chips{display:flex;flex-wrap:wrap;gap:7px}
+  .asf-foot{font-size:.85rem;line-height:1.5;margin:14px 0 0}
+  @media (max-width:860px){
+    .about-scope{grid-template-columns:1fr;gap:20px;padding:22px}
+    .about-scope-facts{border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:18px}
+  }
+
+  /* roles */
+  .about-role p{margin:10px 0 0;font-size:.92rem;color:var(--ink-2);line-height:1.5}
+
+  /* spotlight */
+  .about-spotlight{display:flex;gap:20px;align-items:flex-start;
+    background:linear-gradient(125deg,var(--brand),#7c3aed 55%,#0d9488);
+    border-radius:var(--r-xl);padding:30px 32px;color:#fff;box-shadow:var(--sh-lg)}
+  .about-spot-ic{width:48px;height:48px;flex:none;border-radius:14px;display:grid;place-items:center;
+    background:rgba(255,255,255,.16);font-size:1.5rem}
+  .about-spotlight h3{color:#fff;margin:4px 0 6px;font-size:1.3rem}
+  .about-spotlight p{color:rgba(255,255,255,.88);margin:0;max-width:60ch}
+
+  /* closing */
+  .about-close{text-align:center;background:var(--paper);border:1px solid var(--line);
+    border-radius:var(--r-xl);padding:44px 24px;box-shadow:var(--sh-xs)}
+  .about-close .dim{max-width:52ch;margin:0 auto}
+
+  @media (max-width:860px){
+    .about-hero{grid-template-columns:1fr;gap:28px;padding:34px 0 0;text-align:left}
+    .about-hero h1{font-size:2.2rem}
+    .about h2{font-size:1.45rem}
+    .grid.cols-3{grid-template-columns:1fr}
+    .about-mods{grid-template-columns:1fr}
+    .about-spotlight{flex-direction:column;gap:14px;padding:24px}
+  }
+</style>
+<%- include('partials/foot', { bare: true }) %>

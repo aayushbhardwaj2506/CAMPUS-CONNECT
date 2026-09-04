@@ -1,0 +1,54 @@
+<%- include('../partials/head', { title: course.Course_Code }) %>
+<a class="backlink" href="/academic/programs/<%= course.Program_ID %>">← <%= course.Program_Name %></a>
+<div class="card">
+  <h1><%= course.Course_Code %> — <%= course.Course_Name %></h1>
+  <p class="dim">
+    <a href="/academic/departments/<%= course.Department_ID %>"><%= course.Department_Name %></a> ·
+    <a href="/academic/programs/<%= course.Program_ID %>"><%= course.Program_Name %></a> ·
+    Semester <%= course.Semester %> · <%= course.Credits %> credits
+  </p>
+  <% if (courseGroup) { %>
+    <a class="btn btn-sm btn-primary" href="/groups/<%= courseGroup.Group_ID %>">Open course group</a>
+  <% } %>
+</div>
+
+<div class="card">
+  <h3>Classes / sections</h3>
+  <% classes.forEach(function(cl){ %>
+    <div style="border-top:1px solid var(--line-soft);padding:10px 0">
+      <div class="between">
+        <strong>Section <%= cl.Section %></strong>
+        <small class="muted"><%= cl.Academic_Year %> · Sem <%= cl.Semester %></small>
+      </div>
+      <div>Faculty: <a href="/u/<%= (cl.faculty_user_id || '') %>"><%= cl.faculty_name %></a>
+        <% if (cl.Designation) { %><small class="muted">· <%= cl.Designation %></small><% } %></div>
+      <% if (cl.slots && cl.slots.length) { %>
+        <div class="row" style="gap:6px;margin-top:6px">
+          <% cl.slots.forEach(function(s){ %>
+            <span class="chip"><%= s.Day_Of_Week %> <%= s.Start_Time %>–<%= s.End_Time %> · <%= s.Block %>-<%= s.Room_Number %></span>
+          <% }) %>
+        </div>
+      <% } %>
+    </div>
+  <% }) %>
+  <% if (!classes.length) { %><p class="muted">No classes scheduled for this course.</p><% } %>
+</div>
+
+<div class="card">
+  <div class="between"><h3 style="margin:0">Study material</h3>
+    <div class="row">
+      <% if (currentUser.role === 'faculty') { %><a class="btn btn-sm btn-primary" href="/academic/materials/new?course=<%= course.Course_ID %>">+ Upload</a><% } %>
+      <a class="btn btn-sm" href="/academic/materials?course=<%= course.Course_ID %>">All for this course</a>
+    </div></div>
+  <ul class="list-plain">
+    <% materials.forEach(function(m){ %>
+      <li>
+        <strong><%= m.Title %></strong>
+        <div class="dim" style="font-size:.9rem"><%= m.Description || '' %></div>
+        <small class="muted">by <%= m.faculty_name %> · <%= timeAgo(m.Uploaded_At) %></small>
+      </li>
+    <% }) %>
+    <% if (!materials.length) { %><li class="muted">No study material uploaded yet.</li><% } %>
+  </ul>
+</div>
+<%- include('../partials/foot') %>

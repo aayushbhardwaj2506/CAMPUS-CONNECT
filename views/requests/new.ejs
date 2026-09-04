@@ -1,0 +1,27 @@
+<%- include('../partials/head', { title: 'Raise a request' }) %>
+<a class="backlink" href="/requests">← Requests</a>
+<div class="card" style="max-width:620px">
+  <h1>Raise a request</h1>
+  <form action="/requests" method="post">
+    <div class="field"><label for="category_id">Category</label>
+      <select id="category_id" name="category_id" required>
+        <option value="">Choose a category…</option>
+        <% categories.forEach(function(c){ %>
+          <option value="<%= c.Request_Category_ID %>" <%= String(form.category)===String(c.Request_Category_ID)?'selected':'' %>><%= c.Category_Name %></option>
+        <% }) %>
+      </select>
+      <small>Carpool / ride-share and peer mentoring are categories too.</small>
+    </div>
+    <div class="field"><label for="title">Title</label><input id="title" name="title" required maxlength="200" placeholder="Short summary of what you need"></div>
+    <div class="field"><label for="description">Details</label><textarea id="description" name="description" data-autogrow required placeholder="Give enough context for someone to help — timing, location, what you've tried…"></textarea></div>
+    <div class="field"><label for="priority">Priority</label>
+      <select id="priority" name="priority" style="width:auto">
+        <% PRIORITIES.forEach(function(p){ %><option <%= p==='MEDIUM'?'selected':'' %>><%= p %></option><% }) %>
+      </select></div>
+    <div class="form-actions">
+      <button class="btn btn-primary" type="submit">Post request</button>
+      <a class="btn" href="/requests">Cancel</a>
+    </div>
+  </form>
+</div>
+<%- include('../partials/foot') %>

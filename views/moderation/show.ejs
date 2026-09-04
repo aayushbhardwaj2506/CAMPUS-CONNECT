@@ -1,0 +1,27 @@
+<%- include('../partials/head', { title: 'Report #' + rp.Report_ID }) %>
+<a class="backlink" href="/moderation">← Moderation queue</a>
+<div class="card">
+  <div class="between">
+    <h1 style="margin:0">Report #<%= rp.Report_ID %></h1>
+    <span class="chip <%= rp.Report_Status==='OPEN'?'brand':(rp.Report_Status==='RESOLVED'?'green':(rp.Report_Status==='DISMISSED'?'':'amber')) %>"><%= rp.Report_Status %></span>
+  </div>
+  <dl class="kv" style="margin-top:10px">
+    <dt>Type</dt><dd><%= rp.Report_Type %></dd>
+    <dt>Reason</dt><dd style="white-space:pre-wrap"><%= rp.Report_Reason %></dd>
+    <dt>Reported by</dt><dd><a href="/u/<%= rp.reporter_id %>"><%= rp.reporter_name %></a></dd>
+    <dt>Submitted</dt><dd><%= fmtDate(rp.Submitted_At) %> (<%= timeAgo(rp.Submitted_At) %>)</dd>
+    <dt>Resolved</dt><dd><%= rp.Resolved_At ? (fmtDate(rp.Resolved_At) + ' (' + timeAgo(rp.Resolved_At) + ')') : '—' %></dd>
+  </dl>
+</div>
+
+<div class="card">
+  <h3>Set status</h3>
+  <form action="/moderation/<%= rp.Report_ID %>/status" method="post" class="row">
+    <select name="status">
+      <% statuses.forEach(function(s){ %><option <%= rp.Report_Status===s?'selected':'' %>><%= s %></option><% }) %>
+    </select>
+    <button class="btn btn-primary btn-sm" type="submit">Update</button>
+  </form>
+  <p class="dim" style="font-size:.85rem;margin-top:8px">Setting <strong>RESOLVED</strong> or <strong>DISMISSED</strong> stamps the resolution time and notifies the reporter.</p>
+</div>
+<%- include('../partials/foot') %>

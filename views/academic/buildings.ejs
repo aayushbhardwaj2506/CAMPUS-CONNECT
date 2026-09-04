@@ -1,0 +1,25 @@
+<%- include('../partials/head', { title: 'Buildings & rooms' }) %>
+<a class="backlink" href="/academic">← Academic</a>
+<div class="page-head"><div><h1>Buildings &amp; rooms</h1><p class="sub">Campus facilities used for classes.</p></div></div>
+
+<div class="grid cols-2">
+  <% buildings.forEach(function(b){ %>
+    <div class="card">
+      <h3><%= b.Building_Name %> <span class="chip"><%= b.Block %></span> <span class="chip"><%= b.Campus %> campus</span></h3>
+      <table style="width:100%;border-collapse:collapse;margin-top:8px">
+        <thead><tr style="text-align:left;color:var(--ink-faint);font-size:.8rem">
+          <th style="padding:6px 8px">Room</th><th>Floor</th><th>Capacity</th></tr></thead>
+        <tbody>
+          <% b.rooms.forEach(function(r){ %>
+            <tr style="border-top:1px solid var(--line-soft)">
+              <td style="padding:8px"><%= b.Block %>-<%= r.Room_Number %></td>
+              <td><%= r.Floor %></td><td><%= r.Capacity %></td>
+            </tr>
+          <% }) %>
+          <% if (!b.rooms.length) { %><tr><td colspan="3" class="muted" style="padding:8px">No rooms listed.</td></tr><% } %>
+        </tbody>
+      </table>
+    </div>
+  <% }) %>
+</div>
+<%- include('../partials/foot') %>

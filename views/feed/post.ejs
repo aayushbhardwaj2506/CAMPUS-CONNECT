@@ -1,0 +1,84 @@
+<%- include('../partials/head', { title: post.Title || 'Post' }) %>
+<a class="backlink" href="/feed">← Back to feed</a>
+<%
+  const p = Object.assign({}, post, {
+    comment_count: comments.length,
+    reaction_count: reactions.length,
+    my_reaction: myReaction,
+  });
+  const RIC = { LIKE:'👍', CELEBRATE:'🎉', SUPPORT:'🤝', INSIGHTFUL:'💡', CURIOUS:'🤔' };
+%>
+<div data-reveal>
+<%- include('../partials/postcard', { p: p, showFull: true }) %>
+
+<div class="card">
+  <div class="card-head"><h3 style="margin:0">Reactions</h3><span class="chip"><%= reactions.length %></span></div>
+  <div class="react-bar" style="border:0;padding:0;margin:0 0 12px">
+    <% reactionTypes.forEach(function(t){ %>
+      <form class="inline-form" action="/feed/<%= post.Post_ID %>/react" method="post">
+        <input type="hidden" name="type" value="<%= t %>">
+        <button class="react-btn <%= myReaction === t ? 'on' : '' %>" type="submit"><%= RIC[t] || '' %> <span><%= t.charAt(0) + t.slice(1).toLowerCase() %></span></button>
+      </form>
+    <% }) %>
+  </div>
+  <% if (reactions.length) { %>
+    <div class="row-tight">
+      <% reactions.forEach(function(r){ %>
+        <span class="chip"><%= RIC[r.Reaction_Type] || '' %> <a href="/u/<%= r.User_ID %>"><%= r.Full_Name %></a></span>
+      <% }) %>
+    </div>
+  <% } else { %><p class="muted" style="margin:0">No reactions yet — be the first.</p><% } %>
+</div>
+
+<div class="card">
+  <div class="card-head"><h3 style="margin:0">Comments</h3><span class="chip"><%= comments.length %></span></div>
+  <% if (comments.length) { %>
+    <div class="stack-sm" style="margin-bottom:16px">
+    <% comments.forEach(function(c){ %>
+      <div class="comment" id="c<%= c.Comment_ID %>">
+        <%- include('../partials/avatar', { name: c.author_name, img: c.author_img, size:'sm', link:'/u/'+c.author_id }) %>
+        <div style="flex:1;min-width:0">
+          <div class="spread">
+            <div><a href="/u/<%= c.author_id %>" style="font-weight:640;color:var(--ink)"><%= c.author_name %></a>
+              <small class="muted"> · <%= timeAgo(c.Created_At) %><% if (c.Updated_At && c.Updated_At !== c.Created_At) { %> · edited<% } %></small></div>
+            <% if (c.author_id === currentUser.User_ID || currentUser.role === 'staff') { %>
+              <form class="inline-form" action="/feed/comments/<%= c.Comment_ID %>/delete" method="post" data-confirm="Delete this comment?">
+                <button class="btn btn-sm btn-ghost btn-danger" type="submit">Delete</button>
+              </form>
+            <% } %>
+          </div>
+          <div class="c-body"><%= c.Comment_Text %></div>
+          <% if (c.author_id === currentUser.User_ID) { %>
+            <details class="disclose" style="border:0;padding:0;margin-top:4px">
+              <summary style="font-size:.78rem">Edit</summary>
+              <form action="/feed/comments/<%= c.Comment_ID %>/edit" method="post" style="margin-top:8px">
+                <textarea name="text" data-autogrow><%= c.Comment_Text %></textarea>
+                <button class="btn btn-sm btn-primary" type="submit" style="margin-top:6px">Save</button>
+              </form>
+            </details>
+          <% } %>
+        </div>
+      </div>
+    <% }) %>
+    </div>
+  <% } else { %><p class="muted">No comments yet. Say something.</p><% } %>
+
+  <form action="/feed/<%= post.Post_ID %>/comment" method="post">
+    <div class="field" style="margin-bottom:8px"><label for="ctext">Add a comment</label>
+      <textarea id="ctext" name="text" data-autogrow required placeholder="Write a reply…"></textarea></div>
+    <button class="btn btn-primary btn-sm" type="submit">Comment</button>
+  </form>
+</div>
+
+<div class="card">
+  <details class="disclose" style="border:0;padding:0">
+    <summary>🚩 Report this post</summary>
+    <form action="/feed/<%= post.Post_ID %>/report" method="post" style="margin-top:12px;max-width:440px">
+      <div class="field"><label for="rr">Reason</label>
+        <input id="rr" name="reason" placeholder="Why are you reporting this?"></div>
+      <button class="btn btn-sm btn-danger" type="submit">Submit report</button>
+    </form>
+  </details>
+</div>
+</div>
+<%- include('../partials/foot') %>

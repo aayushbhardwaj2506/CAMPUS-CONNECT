@@ -1,0 +1,131 @@
+<%- include('../partials/head', { title: person.Full_Name }) %>
+<%
+  const pr = person.profile || {};
+  const roleChip = person.role === 'faculty' ? 'amber' : (person.role === 'student' ? 'brand' : 'teal');
+%>
+<div class="card" style="padding:0;overflow:hidden">
+  <div class="cover"></div>
+  <div style="padding:0 24px 22px">
+    <div class="spread" style="margin-top:-34px">
+      <div class="row" style="align-items:flex-end;flex-wrap:nowrap">
+        <%- include('../partials/avatar', { name: person.Full_Name, img: pr.Profile_Image, size:'xl' }) %>
+        <div style="padding-bottom:4px">
+          <h1 style="margin:0 0 4px"><%= person.Full_Name %></h1>
+          <div class="row-tight">
+            <span class="chip <%= roleChip %>"><%= person.role.toUpperCase() %></span>
+            <span class="chip <%= person.Account_Status === 'ACTIVE' ? 'green' : 'rose' %>"><%= person.Account_Status || 'ACTIVE' %></span>
+          </div>
+        </div>
+      </div>
+      <div style="padding-top:38px">
+        <% if (isSelf) { %><a class="btn" href="/profile/edit">Edit profile</a>
+        <% } else { %><a class="btn btn-primary" href="/messages/new?to=<%= person.User_ID %>">✉️ Message</a><% } %>
+      </div>
+    </div>
+    <% if (pr.Bio) { %><p style="margin-top:12px;max-width:60ch;color:var(--ink-2)"><%= pr.Bio %></p><% } %>
+    <div class="stat-grid" style="margin-top:14px;max-width:420px">
+      <div class="stat"><span class="n"><%= counts.posts %></span><span class="l">posts</span></div>
+      <div class="stat"><span class="n"><%= counts.comments %></span><span class="l">comments</span></div>
+      <div class="stat"><span class="n"><%= counts.groups %></span><span class="l">groups</span></div>
+      <div class="stat"><span class="n"><%= score %></span><span class="l">engagement</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="grid cols-2" data-reveal>
+  <div class="card">
+    <h3>Account</h3>
+    <dl class="kv">
+      <dt>Email</dt><dd><%= person.Email %></dd>
+      <% if (person.Phone_Number) { %><dt>Phone</dt><dd><%= person.Phone_Number %></dd><% } %>
+      <% if (pr.Date_Of_Birth) { %><dt>Birthday</dt><dd>🎂 <%= fmtDate(pr.Date_Of_Birth) %></dd><% } %>
+      <% if (pr.Gender) { %><dt>Gender</dt><dd><%= pr.Gender %></dd><% } %>
+      <dt>Joined</dt><dd><%= fmtDate(person.Created_At) %></dd>
+    </dl>
+  </div>
+
+  <div class="card">
+    <h3>Academic identity</h3>
+    <% if (person.role === 'student' && person.student) { const s = person.student; %>
+      <dl class="kv">
+        <dt>Program</dt><dd><a href="/academic/programs/<%= s.Program_ID %>"><%= s.Program_Name %></a> <span class="mono muted">(<%= s.Program_Code %>)</span></dd>
+        <dt>Department</dt><dd><a href="/academic/departments/<%= s.Department_ID %>"><%= s.Department_Name %></a></dd>
+        <dt>School</dt><dd><%= s.School_Name %></dd>
+        <dt>Registration</dt><dd class="mono"><%= s.Registration_Number %></dd>
+        <dt>Admission year</dt><dd><%= s.Admission_Year %></dd>
+        <dt>Semester</dt><dd><%= s.Current_Semester %></dd>
+      </dl>
+    <% } else if (person.role === 'faculty' && person.faculty) { const f = person.faculty; %>
+      <dl class="kv">
+        <dt>Designation</dt><dd><%= f.Designation %></dd>
+        <dt>Department</dt><dd><a href="/academic/departments/<%= f.Department_ID %>"><%= f.Department_Name %></a></dd>
+        <dt>School</dt><dd><%= f.School_Name %></dd>
+        <dt>Employee ID</dt><dd class="mono"><%= f.Employee_ID %></dd>
+        <% if (f.Specialization) { %><dt>Specialization</dt><dd><%= f.Specialization %></dd><% } %>
+      </dl>
+    <% } else { %>
+      <p class="muted">Campus staff / administration account — no student or faculty record.</p>
+    <% } %>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-head"><h3>Groups</h3><span class="chip"><%= groups.length %></span></div>
+  <% if (groups.length) { %>
+    <ul class="list-plain">
+      <% groups.forEach(function(g){ %>
+        <li class="spread">
+          <div style="min-width:0">
+            <a href="/groups/<%= g.Group_ID %>" style="font-weight:600;color:var(--ink)"><%= g.Group_Name %></a>
+            <span class="chip"><%= g.Group_Type || g.Scope_Type || 'GROUP' %></span>
+            <% if (g.Role && g.Role !== 'MEMBER') { %><span class="chip brand"><%= g.Role %></span><% } %>
+          </div>
+          <small class="reason" style="white-space:nowrap">✦ <%= g.reason.replace(/^Auto-added: /,'') %></small>
+        </li>
+      <% }) %>
+    </ul>
+  <% } else { %><p class="muted">Not in any groups.</p><% } %>
+</div>
+
+<div class="grid cols-2" data-reveal>
+  <div class="card">
+    <h3>Communities &amp; clubs</h3>
+    <div class="row-tight">
+      <% communities.forEach(function(c){ %><span class="chip teal"><%= c.Community_Name %> · <%= c.Membership_Role %></span><% }) %>
+      <% clubs.forEach(function(c){ %><span class="chip"><%= c.Club_Name %> · <%= c.Membership_Role %></span><% }) %>
+      <% if (!communities.length && !clubs.length) { %><span class="muted">None yet.</span><% } %>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Projects</h3>
+    <ul class="list-plain">
+      <% projects.forEach(function(p){ %><li class="between"><a href="/projects/<%= p.Project_ID %>" style="font-weight:600;color:var(--ink)"><%= p.Project_Name %></a> <span class="chip"><%= p.Project_Status %></span></li><% }) %>
+      <% if (!projects.length) { %><li class="muted">None yet.</li><% } %>
+    </ul>
+  </div>
+</div>
+
+<div class="card">
+  <h3><%= isSelf ? 'Your posts' : 'Posts' %></h3>
+  <% if (posts.length) { %>
+    <div class="stack"><% posts.forEach(function(p){ %><%- include('../partials/postcard', { p: p }) %><% }) %></div>
+  <% } else { %>
+    <%- include('../partials/empty', { icon:'📝', title: isSelf ? "You haven't posted yet" : 'No posts yet', text: isSelf ? 'Share something with campus from the feed.' : '' }) %>
+  <% } %>
+</div>
+
+<% if (!isSelf) { %>
+<div class="card">
+  <details class="disclose" style="border:0;padding:0">
+    <summary>🚩 Report this account</summary>
+    <form action="/report" method="post" style="margin-top:12px;max-width:440px">
+      <input type="hidden" name="type" value="USER">
+      <input type="hidden" name="ref" value="User #<%= person.User_ID %> (<%= person.Full_Name %>)">
+      <div class="field"><label for="rr">What's the problem?</label>
+        <input id="rr" name="reason" placeholder="Describe the issue for the moderation desk" required></div>
+      <button class="btn btn-sm btn-danger" type="submit">Submit report</button>
+    </form>
+  </details>
+</div>
+<% } %>
+<%- include('../partials/foot') %>

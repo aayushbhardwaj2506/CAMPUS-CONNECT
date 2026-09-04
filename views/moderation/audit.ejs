@@ -1,0 +1,47 @@
+<%- include('../partials/head', { title: 'Audit log' }) %>
+<div class="page-head">
+  <div><h1>Audit log</h1><p class="sub"><%= total %> entries. Staff only. Every important action is recorded here.</p></div>
+</div>
+
+<form class="card card-tight" method="get" action="/audit">
+  <div class="row">
+    <label style="margin:0">Action
+      <select name="action"><option value="">Any</option>
+        <% actions.forEach(function(a){ %><option <%= action===a?'selected':'' %>><%= a %></option><% }) %></select></label>
+    <label style="margin:0">Entity
+      <select name="entity"><option value="">Any</option>
+        <% entities.forEach(function(e){ %><option <%= entity===e?'selected':'' %>><%= e %></option><% }) %></select></label>
+    <button class="btn btn-sm btn-primary" type="submit">Filter</button>
+    <% if (action || entity) { %><a class="btn btn-sm btn-ghost" href="/audit">Clear</a><% } %>
+  </div>
+</form>
+
+<div class="card" style="padding:8px">
+  <div class="table-wrap">
+  <table class="tbl">
+    <thead><tr><th>Time</th><th>User</th><th>Action</th><th>Entity</th><th>Ref</th><th>IP</th></tr></thead>
+    <tbody>
+      <% rows.forEach(function(r){ %>
+        <tr>
+          <td style="white-space:nowrap"><%= fmtDate(r.Action_Time) %> <small class="muted mono"><%= (r.Action_Time||'').slice(11,19) %></small></td>
+          <td><a href="/u/<%= r.User_ID %>"><%= r.Full_Name %></a></td>
+          <td><span class="chip"><%= r.Action_Type %></span></td>
+          <td><%= r.Entity_Name || '—' %></td>
+          <td class="mono muted"><%= r.Entity_ID != null ? ('#' + r.Entity_ID) : '—' %></td>
+          <td class="muted mono"><%= r.IP_Address || '—' %></td>
+        </tr>
+      <% }) %>
+      <% if (!rows.length) { %><tr><td colspan="6" class="muted" style="padding:20px;text-align:center">No matching entries.</td></tr><% } %>
+    </tbody>
+  </table>
+  </div>
+  <% if (pages > 1) { %>
+    <div class="row" style="justify-content:center;margin-top:12px;gap:6px">
+      <% for (var i=1;i<=pages;i++){ %>
+        <a class="btn btn-sm <%= i===page?'btn-primary':'' %>"
+           href="/audit?page=<%= i %><%= action?('&action='+action):'' %><%= entity?('&entity='+entity):'' %>"><%= i %></a>
+      <% } %>
+    </div>
+  <% } %>
+</div>
+<%- include('../partials/foot') %>

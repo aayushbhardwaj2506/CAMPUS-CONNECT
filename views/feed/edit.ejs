@@ -1,0 +1,22 @@
+<%- include('../partials/head', { title: 'Edit post' }) %>
+<a class="backlink" href="/feed/<%= post.Post_ID %>">← Back to post</a>
+<div class="card" style="max-width:640px">
+  <h1>Edit post</h1>
+  <form action="/feed/<%= post.Post_ID %>/edit" method="post">
+    <div class="field"><label for="title">Title</label>
+      <input id="title" name="title" maxlength="200" value="<%= post.Title || '' %>"></div>
+    <div class="field"><label for="content">Content</label>
+      <textarea id="content" name="content" data-autogrow required><%= post.Content %></textarea></div>
+    <div class="field"><label for="visibility">Visibility</label>
+      <select id="visibility" name="visibility" style="width:auto">
+        <% ['CAMPUS','PUBLIC','PRIVATE'].forEach(function(v){ %>
+          <option <%= post.Visibility===v?'selected':'' %>><%= v %></option>
+        <% }) %>
+      </select></div>
+    <div class="form-actions">
+      <button class="btn btn-primary" type="submit">Save changes</button>
+      <a class="btn" href="/feed/<%= post.Post_ID %>">Cancel</a>
+    </div>
+  </form>
+</div>
+<%- include('../partials/foot') %>

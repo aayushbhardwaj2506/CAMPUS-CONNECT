@@ -1,0 +1,20 @@
+<%
+  var _title = (typeof title !== 'undefined') ? title : 'Nothing here yet';
+  var _text  = (typeof text  !== 'undefined') ? text  : '';
+  var _cta   = (typeof cta   !== 'undefined') ? cta   : null;
+  var _href  = (typeof href  !== 'undefined') ? href  : null;
+  /* optional `pixel` chooses the centre sprite; default = the explorer */
+  var _hero  = (typeof pixel !== 'undefined' && pixel) ? pixel : 'hero';
+%>
+<div class="empty">
+  <div class="empty-pix" aria-hidden="true">
+    <%- include('px', { id: 'star',   size: 12, cls: 'ec ec-star pix-twinkle' }) %>
+    <%- include('px', { id: 'grass',  size: 18, cls: 'ec ec-g1' }) %>
+    <%- include('px', { id: _hero,    size: 40, cls: 'ec ec-hero pix-bob' }) %>
+    <%- include('px', { id: 'sprout', size: 20, cls: 'ec ec-g2' }) %>
+    <div class="ground"></div>
+  </div>
+  <h3><%= _title %></h3>
+  <% if (_text) { %><p><%= _text %></p><% } %>
+  <% if (_cta && _href) { %><a class="btn btn-primary btn-sm" href="<%= _href %>"><%= _cta %></a><% } %>
+</div>

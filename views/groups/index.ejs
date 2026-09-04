@@ -1,0 +1,63 @@
+<%- include('../partials/head', { title: 'Groups' }) %>
+<div class="page-head page-head--pix">
+  <span class="ph-badge"><%- include('../partials/px', { id: 'signpost', size: 28, cls: 'pix-bob' }) %></span>
+  <div><h1>Groups</h1><p class="sub">Academic groups you're auto-added to, plus interest groups you can join or start.</p></div>
+  <a class="btn btn-primary" data-open="new-group" href="#new-group">Create a group</a>
+</div>
+
+<details class="disclose" id="new-group" style="border:0;padding:0;margin-bottom:18px">
+  <summary style="display:none">New group</summary>
+  <div class="card">
+    <h3>Create an interest group</h3>
+    <p class="dim" style="font-size:.9rem">For anything outside academics — a study circle, a hobby, a project crew.</p>
+    <form action="/groups" method="post">
+      <div class="grid cols-2">
+        <div class="field"><label for="g_name">Group name</label><input id="g_name" name="name" required placeholder="e.g. Sunday Trekkers"></div>
+        <div class="field"><label for="g_desc">Description</label><input id="g_desc" name="description"></div>
+      </div>
+      <button class="btn btn-primary" type="submit">Create group</button>
+    </form>
+  </div>
+</details>
+
+<div class="grid cols-2" data-reveal>
+  <div class="card">
+    <div class="card-head"><h3>Your groups</h3><span class="chip"><%= mine.length %></span></div>
+    <% if (mine.length) { %>
+      <ul class="list-plain">
+        <% mine.forEach(function(g){ %>
+          <li class="spread">
+            <div style="min-width:0">
+              <a href="/groups/<%= g.Group_ID %>" style="font-weight:640;color:var(--ink)"><%= g.Group_Name %></a>
+              <span class="chip"><%= (g.Group_Type || g.Scope_Type || '').replace('_',' ') %></span>
+              <% if (g.Role && g.Role !== 'MEMBER') { %><span class="chip brand"><%= g.Role %></span><% } %>
+              <div><span class="reason">✦ <%= g.reason.replace(/^Auto-added: /,'') %></span></div>
+            </div>
+            <small class="muted" style="white-space:nowrap"><%= g.member_count %> 👤</small>
+          </li>
+        <% }) %>
+      </ul>
+    <% } else { %><p class="muted">You're not in any groups yet.</p><% } %>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h3>Discover</h3><span class="chip"><%= discover.length %></span></div>
+    <% if (discover.length) { %>
+      <ul class="list-plain">
+        <% discover.forEach(function(g){ %>
+          <li class="spread">
+            <div style="min-width:0">
+              <a href="/groups/<%= g.Group_ID %>" style="font-weight:640;color:var(--ink)"><%= g.Group_Name %></a>
+              <span class="chip"><%= (g.Group_Type || g.Scope_Type || 'GROUP').replace('_',' ') %></span>
+              <div><small class="muted"><%= g.member_count %> members</small></div>
+            </div>
+            <form class="inline-form" action="/groups/<%= g.Group_ID %>/join" method="post">
+              <button class="btn btn-sm btn-primary" type="submit">Join</button>
+            </form>
+          </li>
+        <% }) %>
+      </ul>
+    <% } else { %><p class="muted">You're in every group already.</p><% } %>
+  </div>
+</div>
+<%- include('../partials/foot') %>

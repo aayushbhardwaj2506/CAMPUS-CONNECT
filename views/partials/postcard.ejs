@@ -1,0 +1,49 @@
+<%
+  // params: p (post + author_* + counts + my_reaction), showFull (bool)
+  const full = (typeof showFull !== 'undefined' && showFull);
+  const vis = { PUBLIC:['🌐','Public'], CAMPUS:['🏫','Campus'], PRIVATE:['🔒','Only me'] }[p.Visibility] || ['',p.Visibility];
+  const body = full ? p.Content : (p.Content.length > 420 ? p.Content.slice(0,420) + '…' : p.Content);
+%>
+<article class="card post">
+  <div class="row" style="align-items:flex-start;flex-wrap:nowrap">
+    <%- include('avatar', { name: p.author_name, img: p.author_img, size:'', link: '/u/' + p.author_id }) %>
+    <div style="flex:1;min-width:0">
+      <div class="spread">
+        <div style="min-width:0">
+          <a href="/u/<%= p.author_id %>" style="font-weight:650;color:var(--ink)"><%= p.author_name %></a>
+          <div><small class="muted"><%= timeAgo(p.Created_At) %><% if (p.Updated_At && p.Updated_At !== p.Created_At) { %> · edited<% } %> · <%= vis[0] %> <%= vis[1] %></small></div>
+        </div>
+        <% if (currentUser && p.author_id === currentUser.User_ID) { %>
+          <div class="row-tight">
+            <a class="btn btn-sm btn-ghost" href="/feed/<%= p.Post_ID %>/edit">Edit</a>
+            <form class="inline-form" action="/feed/<%= p.Post_ID %>/delete" method="post" data-confirm="Delete this post permanently?">
+              <button class="btn btn-sm btn-ghost btn-danger" type="submit">Delete</button>
+            </form>
+          </div>
+        <% } %>
+      </div>
+
+      <% if (p.Title) { %><h3 style="margin:.55rem 0 .15rem"><a href="/feed/<%= p.Post_ID %>" style="color:var(--ink)"><%= p.Title %></a></h3><% } %>
+      <div class="body"><%= body %></div>
+      <% if (!full && p.Content.length > 420) { %><a href="/feed/<%= p.Post_ID %>" style="font-size:.9rem;font-weight:600">Read more →</a><% } %>
+
+      <div class="react-bar">
+        <form class="inline-form" action="/feed/<%= p.Post_ID %>/react" method="post">
+          <input type="hidden" name="type" value="LIKE">
+          <button class="react-btn <%= p.my_reaction === 'LIKE' ? 'on' : '' %>" type="submit">👍 <span>Like</span></button>
+        </form>
+        <form class="inline-form" action="/feed/<%= p.Post_ID %>/react" method="post">
+          <input type="hidden" name="type" value="CELEBRATE">
+          <button class="react-btn <%= p.my_reaction === 'CELEBRATE' ? 'on' : '' %>" type="submit">🎉 <span>Celebrate</span></button>
+        </form>
+        <form class="inline-form" action="/feed/<%= p.Post_ID %>/react" method="post">
+          <input type="hidden" name="type" value="SUPPORT">
+          <button class="react-btn <%= p.my_reaction === 'SUPPORT' ? 'on' : '' %>" type="submit">🤝 <span>Support</span></button>
+        </form>
+        <a href="/feed/<%= p.Post_ID %>" class="muted" style="margin-left:auto;font-size:.83rem;font-weight:500;white-space:nowrap">
+          <%= p.reaction_count || 0 %> · <%= p.comment_count || 0 %> 💬
+        </a>
+      </div>
+    </div>
+  </div>
+</article>

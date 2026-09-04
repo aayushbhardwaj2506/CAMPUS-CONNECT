@@ -1,0 +1,94 @@
+<%- include('../partials/head', { title: heading }) %>
+<%
+  var isGroup = c.Conversation_Type === 'GROUP';
+  var other = participants.find(function (p) { return p.User_ID !== currentUser.User_ID; });
+  var WIN = 5 * 60 * 1000;
+  function _d(iso){ return new Date((iso || '').replace(' ', 'T')); }
+  function _key(iso){ var d = _d(iso); return d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate(); }
+  function _sep(iso){
+    var d = _d(iso), n = new Date();
+    var a = new Date(n.getFullYear(), n.getMonth(), n.getDate());
+    var b = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    var diff = Math.round((a - b) / 86400000);
+    if (diff <= 0) return 'Today';
+    if (diff === 1) return 'Yesterday';
+    if (diff < 7) return d.toLocaleDateString('en-US', { weekday: 'long' });
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  }
+  function _hm(iso){ return _d(iso).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }); }
+  function _full(iso){ return _d(iso).toLocaleString('en-US', { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }); }
+  function _hue(id){ return (parseInt(id, 10) * 47) % 360; }
+
+  var rows = messages.map(function (m, i) {
+    var prev = messages[i-1], next = messages[i+1];
+    var sameP = prev && prev.User_ID === m.User_ID && _key(prev.Sent_At) === _key(m.Sent_At) && (_d(m.Sent_At) - _d(prev.Sent_At)) < WIN;
+    var sameN = next && next.User_ID === m.User_ID && _key(next.Sent_At) === _key(m.Sent_At) && (_d(next.Sent_At) - _d(m.Sent_At)) < WIN;
+    return { m: m, sameP: !!sameP, lastRun: !sameN, newDay: (!prev || _key(prev.Sent_At) !== _key(m.Sent_At)),
+             mine: (m.User_ID === currentUser.User_ID) };
+  });
+%>
+<a class="backlink" href="/messages">← All messages</a>
+
+<div class="chat chat--page" id="chat" data-conv="<%= c.Conversation_ID %>">
+  <div class="chat-head">
+    <% if (isGroup) { %>
+      <span class="avatar sm" style="background:var(--teal-wash);color:var(--teal)">#</span>
+    <% } else { %>
+      <%- include('../partials/avatar', { name: other ? other.Full_Name : heading, img: other && other.Profile_Image, size: 'sm', link: other ? '/u/' + other.User_ID : null }) %>
+    <% } %>
+    <div style="min-width:0">
+      <div class="ttl"><%= heading %></div>
+      <div class="sub"><%= isGroup ? (participants.length + ' participants') : 'Direct message' %></div>
+    </div>
+    <div class="chat-head-actions">
+      <% if (c.Group_ID) { %><a class="btn btn-sm btn-ghost" href="/groups/<%= c.Group_ID %>">Group page →</a><% } %>
+    </div>
+  </div>
+
+  <div class="chat-scroll" id="chatScroll">
+    <% if (!rows.length) { %>
+      <div class="chat-empty">
+        <div class="ic"><%= isGroup ? '💬' : '👋' %></div>
+        <h4><%= isGroup ? 'No messages in this discussion yet' : 'Say hello to ' + (other ? other.Full_Name.split(' ')[0] : heading) %></h4>
+        <p><%= isGroup ? 'Be the first to post — everyone in the group can see it.' : 'This is the start of your conversation.' %></p>
+      </div>
+    <% } %>
+    <% rows.forEach(function (r) { var m = r.m; %>
+      <% if (r.newDay) { %>
+        <div class="chat-sep"><span><%= _sep(m.Sent_At) %></span></div>
+      <% } %>
+      <div class="msg <%= r.mine ? 'me' : '' %> <%= r.sameP ? 'run' : 'new-sender' %> <%= r.lastRun ? 'last-run' : '' %>"
+           data-mid="<%= m.Message_ID %>" data-mine="<%= r.mine ? 1 : 0 %>">
+        <% if (!r.mine) { %>
+          <div class="msg-avatar <%= r.lastRun ? '' : 'spacer' %>">
+            <% if (r.lastRun) { %><%- include('../partials/avatar', { name: m.Full_Name, img: m.Profile_Image, size: 'xs', link: '/u/' + m.User_ID }) %><% } %>
+          </div>
+        <% } %>
+        <div class="msg-col">
+          <% if (isGroup && !r.mine && !r.sameP) { %>
+            <div class="msg-name" style="--sender:hsl(<%= _hue(m.User_ID) %> 42% 42%)"><%= m.Full_Name %></div>
+          <% } %>
+          <div class="bubble" title="<%= _full(m.Sent_At) %>"><%= m.Message_Content %><% if (m.Edited_At) { %> <span class="edited">· edited</span><% } %></div>
+          <% if (r.lastRun) { %><div class="msg-time"><%= _hm(m.Sent_At) %></div><% } %>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+
+  <button class="chat-jump" id="chatJump" type="button" aria-label="Jump to latest">
+    <span class="n" id="chatJumpN">1</span> new ↓
+  </button>
+
+  <form class="chat-composer" action="/messages/<%= c.Conversation_ID %>/messages" method="post" id="chatForm">
+    <div class="composer-box is-empty" id="composerBox">
+      <textarea class="composer-input" name="body" id="composerInput" rows="1"
+                placeholder="Message<%= isGroup ? ' the group' : (other ? ' ' + other.Full_Name.split(' ')[0] : '') %>…"
+                required autocomplete="off" data-autogrow data-enter-send></textarea>
+      <button class="composer-send" type="submit" aria-label="Send message">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 12l16-8-6 16-2-6-8-2z" fill="currentColor"/></svg>
+      </button>
+    </div>
+    <div class="composer-hint">Enter to send · Shift+Enter for a new line</div>
+  </form>
+</div>
+<%- include('../partials/foot') %>

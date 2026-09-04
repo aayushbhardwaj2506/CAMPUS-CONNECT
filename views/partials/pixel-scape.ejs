@@ -1,0 +1,31 @@
+<%
+  /* A thin decorative pixel horizon. Optional `variant`: 'campus' | 'quiet' | 'trail' */
+  var v = (typeof variant !== 'undefined' && variant) ? variant : 'campus';
+%>
+<div class="pixel-scape pixel-scape--<%= v %>" aria-hidden="true">
+  <div class="ps-sky">
+    <%- include('px', { id: 'cloud', size: 24, cls: 'ps-cloud ps-cloud-1 pix-float' }) %>
+    <%- include('px', { id: 'cloud', size: 18, cls: 'ps-cloud ps-cloud-2 pix-float' }) %>
+    <%- include('px', { id: 'star', size: 12, cls: 'ps-star ps-star-1 pix-twinkle' }) %>
+    <%- include('px', { id: 'star', size: 10, cls: 'ps-star ps-star-2 pix-twinkle' }) %>
+  </div>
+  <div class="ps-ground"></div>
+  <% if (v === 'campus') { %>
+    <%- include('px', { id: 'building', size: 40, cls: 'ps-item ps-b1' }) %>
+    <%- include('px', { id: 'tent', size: 30, cls: 'ps-item ps-b2' }) %>
+    <%- include('px', { id: 'signpost', size: 28, cls: 'ps-item ps-b3' }) %>
+    <%- include('px', { id: 'hero', size: 26, cls: 'ps-item ps-hero pix-bob' }) %>
+    <%- include('px', { id: 'grass', size: 18, cls: 'ps-item ps-g1' }) %>
+    <%- include('px', { id: 'sprout', size: 18, cls: 'ps-item ps-g2' }) %>
+    <%- include('px', { id: 'grass', size: 16, cls: 'ps-item ps-g3' }) %>
+  <% } else if (v === 'trail') { %>
+    <%- include('px', { id: 'signpost', size: 26, cls: 'ps-item ps-b3' }) %>
+    <%- include('px', { id: 'hero', size: 24, cls: 'ps-item ps-hero pix-bob' }) %>
+    <%- include('px', { id: 'grass', size: 16, cls: 'ps-item ps-g1' }) %>
+    <%- include('px', { id: 'grass', size: 14, cls: 'ps-item ps-g3' }) %>
+  <% } else { %>
+    <%- include('px', { id: 'sprout', size: 18, cls: 'ps-item ps-g2' }) %>
+    <%- include('px', { id: 'grass', size: 16, cls: 'ps-item ps-g1' }) %>
+    <%- include('px', { id: 'grass', size: 14, cls: 'ps-item ps-g3' }) %>
+  <% } %>
+</div>

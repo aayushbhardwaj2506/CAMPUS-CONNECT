@@ -1,0 +1,73 @@
+<%- include('../partials/head', { title: c.Community_Name }) %>
+<a class="backlink" href="/communities">← Communities</a>
+
+<div class="card">
+  <div class="between">
+    <div>
+      <h1 style="margin-bottom:4px"><%= c.Community_Name %></h1>
+      <span class="chip teal"><%= c.Community_Type %></span>
+      <span class="chip"><%= members.length %> members</span>
+      <span class="chip"><%= events.length %> events</span>
+    </div>
+    <div>
+      <% if (isMember) { %>
+        <form class="inline-form" action="/communities/<%= c.Community_ID %>/leave" method="post" data-confirm="Leave this community?">
+          <button class="btn btn-sm" type="submit">Leave</button>
+        </form>
+      <% } else { %>
+        <form class="inline-form" action="/communities/<%= c.Community_ID %>/join" method="post">
+          <button class="btn btn-sm btn-primary" type="submit">Join community</button>
+        </form>
+      <% } %>
+    </div>
+  </div>
+  <% if (c.Description) { %><p style="margin-top:8px"><%= c.Description %></p><% } %>
+</div>
+
+<div class="grid cols-2">
+  <div class="stack">
+    <div class="card">
+      <h3>Events</h3>
+      <div class="stack">
+        <% events.forEach(function(e){ %>
+          <div class="between">
+            <div>
+              <a href="/events/<%= e.Event_ID %>" style="font-weight:650"><%= e.Event_Title %></a>
+              <div><small class="muted"><%= fmtDate(e.Event_Date) %> <%= e.Event_Time || '' %> · <%= e.Event_Location || 'TBD' %></small></div>
+            </div>
+          </div>
+        <% }) %>
+        <% if (!events.length) { %><p class="muted">No events scheduled.</p><% } %>
+      </div>
+      <% if (isMember) { %>
+        <hr>
+        <form action="/communities/<%= c.Community_ID %>/events" method="post">
+          <div class="section-label">Add an event</div>
+          <div class="field"><label for="et">Title</label><input id="et" name="title" required></div>
+          <div class="grid cols-3">
+            <div class="field"><label for="ed">Date</label><input id="ed" name="date" type="date" required></div>
+            <div class="field"><label for="etm">Time</label><input id="etm" name="time" type="time"></div>
+            <div class="field"><label for="el">Location</label><input id="el" name="location"></div>
+          </div>
+          <div class="field"><label for="edesc">Description</label><textarea id="edesc" name="description" data-autogrow></textarea></div>
+          <button class="btn btn-primary btn-sm" type="submit">Add event</button>
+        </form>
+      <% } %>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Members (<%= members.length %>)</h3>
+    <ul class="list-plain">
+      <% members.forEach(function(m){ %>
+        <li class="row">
+          <%- include('../partials/avatar', { name: m.Full_Name, img: m.Profile_Image, size:'sm', link:'/u/'+m.User_ID }) %>
+          <div style="flex:1"><a href="/u/<%= m.User_ID %>" style="font-weight:600;color:var(--ink)"><%= m.Full_Name %></a>
+            <% if (m.Membership_Role && m.Membership_Role !== 'MEMBER') { %><span class="chip"><%= m.Membership_Role %></span><% } %></div>
+          <small class="muted"><%= timeAgo(m.Joined_At) %></small>
+        </li>
+      <% }) %>
+    </ul>
+  </div>
+</div>
+<%- include('../partials/foot') %>

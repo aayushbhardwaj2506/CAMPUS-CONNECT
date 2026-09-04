@@ -1,0 +1,37 @@
+<%- include('../partials/head', { title: 'Events' }) %>
+<div class="page-head page-head--pix">
+  <span class="ph-badge"><%- include('../partials/px', { id: 'flag', size: 28, cls: 'pix-bob' }) %></span>
+  <div><h1>Events</h1><p class="sub">What's on across campus, hosted by communities.</p></div>
+  <div class="tabs">
+    <a class="<%= scope==='upcoming'?'active':'' %>" href="/events">Upcoming</a>
+    <a class="<%= scope==='past'?'active':'' %>" href="/events?when=past">Past</a>
+  </div>
+</div>
+
+<% if (rows.length) { %>
+  <div class="grid cols-2" data-reveal>
+    <% rows.forEach(function(e){ var d = new Date(e.Event_Date); %>
+      <a class="card card-hover" href="/events/<%= e.Event_ID %>">
+        <div class="row" style="align-items:flex-start;flex-wrap:nowrap">
+          <span class="date-badge" style="width:60px">
+            <span class="m"><%= d.toLocaleString('en-US',{month:'short'}) %></span>
+            <span class="d"><%= d.getDate() %></span>
+          </span>
+          <div style="flex:1;min-width:0">
+            <div class="row-tight" style="margin-bottom:4px"><span class="chip teal"><%= e.Community_Type %></span></div>
+            <h3 style="margin-bottom:6px"><%= e.Event_Title %></h3>
+            <p class="dim" style="font-size:.9rem;margin:0 0 10px"><%= (e.Event_Description || '').slice(0,120) %></p>
+            <div class="row-tight muted" style="font-size:.82rem">
+              <% if (e.Event_Time) { %><span>🕒 <%= e.Event_Time %></span><span class="dot-sep">·</span><% } %>
+              <% if (e.Event_Location) { %><span>📍 <%= e.Event_Location %></span><span class="dot-sep">·</span><% } %>
+              <span><%= e.Community_Name %></span>
+            </div>
+          </div>
+        </div>
+      </a>
+    <% }) %>
+  </div>
+<% } else { %>
+  <div class="card"><%- include('../partials/empty', { icon:'📅', title: scope==='past' ? 'No past events' : 'No upcoming events', text: scope==='past' ? '' : 'Communities you join can post events here.', cta:'Browse communities', href:'/communities' }) %></div>
+<% } %>
+<%- include('../partials/foot') %>

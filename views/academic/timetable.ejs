@@ -1,0 +1,34 @@
+<%- include('../partials/head', { title: 'Timetable' }) %>
+<div class="page-head">
+  <div><h1>My timetable</h1>
+    <p class="sub">
+      <% if (currentUser.role === 'student') { %>Derived from your program and current semester.
+      <% } else if (currentUser.role === 'faculty') { %>Classes you teach.
+      <% } else { %>Staff accounts have no timetable.<% } %>
+    </p>
+  </div>
+</div>
+
+<% if (!hasAny) { %>
+  <div class="card"><%- include('../partials/empty', { icon:'📅', title:'No classes scheduled', text: currentUser.role === 'faculty' ? 'You are not assigned to any classes with timetable slots yet.' : 'No timetable is set for your program and semester yet.' }) %></div>
+<% } else { %>
+  <div class="grid cols-3">
+    <% days.forEach(function(d){ %>
+      <div class="card card-tight">
+        <div class="section-label"><%= d %></div>
+        <% if (byDay[d].length) { %>
+          <ul class="list-plain">
+            <% byDay[d].forEach(function(t){ %>
+              <li>
+                <strong><%= t.Course_Code %></strong> <%= t.Course_Name %><br>
+                <small><%= t.Start_Time %>–<%= t.End_Time %> · <%= t.Block %>-<%= t.Room_Number %>
+                · Sec <%= t.Section %><% if (t.faculty_name) { %> · <%= t.faculty_name %><% } %></small>
+              </li>
+            <% }) %>
+          </ul>
+        <% } else { %><p class="muted" style="margin:0">Free</p><% } %>
+      </div>
+    <% }) %>
+  </div>
+<% } %>
+<%- include('../partials/foot') %>

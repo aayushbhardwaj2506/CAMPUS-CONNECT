@@ -1,0 +1,62 @@
+<%- include('../partials/head', { title: 'Clubs' }) %>
+<div class="page-head page-head--pix">
+  <span class="ph-badge"><%- include('../partials/px', { id: 'flag', size: 28, cls: 'pix-bob' }) %></span>
+  <div><h1>Clubs</h1><p class="sub">Official and student-run clubs. Browse by category, or add a custom one.</p></div>
+  <a class="btn btn-primary" data-open="new-club" href="#new-club">Create a club</a>
+</div>
+
+<details class="disclose" id="new-club" style="border:0;padding:0;margin-bottom:18px">
+  <summary style="display:none">New club</summary>
+  <div class="card">
+    <h3>Create a club</h3>
+    <form action="/clubs" method="post" id="clubform">
+      <div class="grid cols-2">
+        <div class="field"><label for="kn">Name</label><input id="kn" name="name" required placeholder="e.g. Astronomy Club"></div>
+        <div class="field"><label for="kc">Category</label>
+          <select id="kc" name="category"><% categories.forEach(function(c){ %><option><%= c %></option><% }) %></select></div>
+      </div>
+      <div class="field" id="customwrap" style="display:none">
+        <label for="kcc">Custom category</label><input id="kcc" name="custom_category" placeholder="Name your own category">
+      </div>
+      <div class="field"><label for="kd">Description</label><textarea id="kd" name="description" data-autogrow></textarea></div>
+      <button class="btn btn-primary" type="submit">Create club</button>
+    </form>
+  </div>
+</details>
+
+<% if (rows.length) { %>
+  <div class="stack" data-reveal>
+    <% Object.keys(byCat).sort().forEach(function(cat){ %>
+      <div class="card">
+        <div class="section-label"><%= cat %></div>
+        <div class="grid cols-2" style="gap:10px">
+          <% byCat[cat].forEach(function(c){ %>
+            <div class="spread" style="background:var(--bg-tint);border-radius:var(--r-md);padding:12px 14px">
+              <div style="min-width:0">
+                <a href="/clubs/<%= c.Club_ID %>" style="font-weight:640;color:var(--ink)"><%= c.Club_Name %></a>
+                <% if (c.my_role) { %><span class="chip brand"><%= c.my_role === 'ADMIN' ? '★ Admin' : 'Joined' %></span><% } %>
+                <div><small class="muted"><%= c.member_count %> members<% if (c.Description) { %> · <%= c.Description.slice(0,64) %><% } %></small></div>
+              </div>
+              <% if (!c.my_role) { %>
+                <form class="inline-form" action="/clubs/<%= c.Club_ID %>/join" method="post">
+                  <button class="btn btn-sm btn-primary" type="submit">Join</button>
+                </form>
+              <% } %>
+            </div>
+          <% }) %>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+<% } else { %>
+  <div class="card"><%- include('../partials/empty', { icon:'🎭', title:'No clubs yet', text:'Create the first club — sports, cultural, technical, or something entirely your own.', cta:'Create a club', href:'#new-club' }) %></div>
+<% } %>
+<script>
+  (function(){
+    var sel=document.getElementById('kc'), wrap=document.getElementById('customwrap');
+    if(!sel) return;
+    function sync(){ wrap.style.display = sel.value === 'Custom' ? '' : 'none'; }
+    sel.addEventListener('change', sync); sync();
+  })();
+</script>
+<%- include('../partials/foot') %>

@@ -1,0 +1,163 @@
+<%- include('partials/head', { title: 'Welcome', bare: true }) %>
+<div class="landing lp">
+
+  <!-- ============ framed hero composition ============ -->
+  <div class="framed" data-reveal>
+    <div class="framed-inner lp-hero">
+      <div class="lp-hero-copy">
+        <span class="eyebrow px-label"><%- include('partials/px', { id: 'sprout', size: 16, cls: 'pix-bob' }) %> Built for SCOPE · VIT Chennai</span>
+        <h1>Classes, clubs, projects and campus&nbsp;life —<br><span class="accent">one calm home for all of it.</span></h1>
+        <p>Campus Connect is shaped for the School of Computer Science and Engineering community — academic groups, study material, the social feed, communities, clubs, projects, peer help and campus services, together for students and faculty.</p>
+        <div class="row" style="margin-top:24px">
+          <a class="btn btn-primary btn-lg" href="/register">Create your account</a>
+          <a class="btn btn-lg" href="/login">Sign in</a>
+          <a class="btn btn-ghost btn-lg" href="/about">What is Campus Connect? →</a>
+        </div>
+        <div class="help-note" style="margin-top:22px">
+          <strong>Try a demo account</strong> — password <code>campus123</code><br>
+          <code>aarav@campus.edu</code> student ·
+          <code>suresh.rao@campus.edu</code> faculty ·
+          <code>admin@campus.edu</code> staff
+        </div>
+      </div>
+
+      <!-- pixel campus diorama : the strong focal visual -->
+      <div class="lp-diorama panel-dark" aria-hidden="true">
+        <div class="lp-sky">
+          <%- include('partials/px', { id: 'star',  size: 12, cls: 'd-star d-s1 pix-twinkle' }) %>
+          <%- include('partials/px', { id: 'star',  size: 9,  cls: 'd-star d-s2 pix-twinkle' }) %>
+          <%- include('partials/px', { id: 'star',  size: 14, cls: 'd-star d-s3 pix-twinkle' }) %>
+          <%- include('partials/px', { id: 'cloud', size: 44, cls: 'd-cloud d-c1 pix-float' }) %>
+          <%- include('partials/px', { id: 'cloud', size: 30, cls: 'd-cloud d-c2 pix-float' }) %>
+        </div>
+        <div class="lp-city">
+          <%- include('partials/px', { id: 'building', size: 68, cls: 'd-item d-b1' }) %>
+          <%- include('partials/px', { id: 'building', size: 52, cls: 'd-item d-b2' }) %>
+          <%- include('partials/px', { id: 'tent',     size: 46, cls: 'd-item d-t' }) %>
+          <%- include('partials/px', { id: 'flag',     size: 40, cls: 'd-item d-f' }) %>
+        </div>
+        <div class="lp-ground"></div>
+        <div class="lp-foreground">
+          <%- include('partials/px', { id: 'signpost', size: 44, cls: 'd-item d-s' }) %>
+          <%- include('partials/px', { id: 'hero',     size: 40, cls: 'd-item d-hero pix-bob' }) %>
+          <%- include('partials/px', { id: 'sprout',   size: 26, cls: 'd-item d-p' }) %>
+          <%- include('partials/px', { id: 'grass',    size: 22, cls: 'd-item d-g1' }) %>
+          <%- include('partials/px', { id: 'grass',    size: 18, cls: 'd-item d-g2' }) %>
+        </div>
+        <span class="lp-diorama-tag">a pixel campus world</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ asymmetric module panels ============ -->
+  <div class="lp-grid" data-reveal>
+    <div class="lp-panel lp-panel--wide panel-dark">
+      <div class="px-chip-ic" style="background:rgba(255,255,255,.1);border-color:transparent">
+        <%- include('partials/px', { id: 'signpost', size: 22 }) %>
+      </div>
+      <h3>You never build your groups</h3>
+      <p>Register with your programme once. You're placed into your SCOPE school, department, B.Tech CSE track, batch and current-semester course groups automatically — and every group shows you why.</p>
+    </div>
+
+    <div class="lp-panel lp-panel--wide card--focal">
+      <div class="px-chip-ic"><%- include('partials/px', { id: 'tent', size: 22 }) %></div>
+      <h3>Communities &amp; clubs</h3>
+      <p>Campus-wide communities with their own events, and clubs by category — cricket, photography, morning walks — or start one yourself.</p>
+    </div>
+
+    <div class="lp-panel">
+      <div class="px-chip-ic"><%- include('partials/px', { id: 'chat', size: 22 }) %></div>
+      <h3>The feed &amp; stories</h3>
+      <p>Post, comment and react across campus. Drop a story that's gone in 24 hours.</p>
+    </div>
+
+    <div class="lp-panel">
+      <div class="px-chip-ic"><%- include('partials/px', { id: 'rocket', size: 22 }) %></div>
+      <h3>Projects &amp; co-work</h3>
+      <p>Start a project, form teams, and approve people who ask to co-work with you.</p>
+    </div>
+
+    <div class="lp-panel">
+      <div class="px-chip-ic"><%- include('partials/px', { id: 'heart', size: 22 }) %></div>
+      <h3>Requests &amp; peer help</h3>
+      <p>Academic help, tech support, campus services, or a carpool — raised and tracked to resolved.</p>
+    </div>
+  </div>
+
+  <!-- ============ closing strip ============ -->
+  <div class="lp-close" data-reveal>
+    <div>
+      <h2>Ready to connect?</h2>
+      <p class="dim">A modern campus platform with a pixel-art heart.</p>
+      <div class="row" style="margin-top:14px">
+        <a class="btn btn-primary btn-lg" href="/register">Create your account</a>
+        <a class="btn btn-lg" href="/about">Take the tour</a>
+      </div>
+    </div>
+    <%- include('partials/pixel-scape', { variant: 'campus' }) %>
+  </div>
+</div>
+
+<style>
+  .lp{padding-bottom:70px}
+  .lp .eyebrow{margin-bottom:12px}
+  .lp h1{font-size:2.9rem;line-height:1.08;letter-spacing:-.03em;margin-bottom:.35em}
+  .lp h2{font-size:1.7rem;letter-spacing:-.025em}
+  .lp .accent{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--brand)}
+
+  /* hero */
+  .lp-hero{display:grid;grid-template-columns:1.02fr .98fr;gap:0;align-items:stretch}
+  .lp-hero-copy{padding:38px 40px}
+  .lp-hero-copy p{font-size:1.06rem;color:var(--ink-3);max-width:48ch}
+
+  /* diorama */
+  .lp-diorama{position:relative;overflow:hidden;min-height:420px;border-radius:0}
+  .lp-sky,.lp-city,.lp-foreground{position:absolute;left:0;right:0}
+  .lp-sky{top:0;height:60%}
+  .lp-ground{position:absolute;left:-10px;right:-10px;bottom:64px;height:12px;
+    background:var(--px-green-d);box-shadow:0 -5px 0 var(--px-green)}
+  .lp-city{bottom:74px;height:80px}
+  .lp-foreground{bottom:30px;height:70px}
+  .lp-diorama .d-item{position:absolute;filter:drop-shadow(0 4px 8px rgba(0,0,0,.4))}
+  .d-b1{left:6%;bottom:0}   .d-b2{left:26%;bottom:0}
+  .d-t{left:47%;bottom:0}   .d-f{right:10%;bottom:0}
+  .d-s{left:12%;bottom:0}   .d-hero{left:38%;bottom:0}
+  .d-p{right:26%;bottom:0}  .d-g1{right:12%;bottom:0} .d-g2{right:3%;bottom:0}
+  .lp-diorama .d-star{position:absolute}
+  .d-s1{top:14%;left:20%} .d-s2{top:26%;left:72%} .d-s3{top:10%;left:52%}
+  .lp-diorama .d-cloud{position:absolute;opacity:.4}
+  .d-c1{top:12%;left:8%} .d-c2{top:30%;right:14%}
+  html.anim .d-c1{animation:pxDrift 30s steps(12) infinite alternate}
+  html.anim .d-c2{animation:pxDrift 24s steps(12) infinite alternate-reverse}
+  .lp-diorama-tag{position:absolute;right:14px;bottom:12px;font-size:.68rem;font-weight:700;
+    letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+
+  /* module grid — varied sizes */
+  .lp-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-top:22px}
+  .lp-panel{grid-column:span 2;border-radius:var(--r-lg);padding:22px;
+    background:var(--paper);border:1px solid var(--line);box-shadow:var(--sh-xs)}
+  .lp-panel--wide{grid-column:span 3}
+  .lp-panel h3{display:flex;align-items:center;margin:14px 0 6px;font-size:1.06rem}
+  .lp-panel p{margin:0;font-size:.92rem;color:var(--ink-3);line-height:1.5}
+  .lp-panel.panel-dark p{color:rgba(255,255,255,.7)}
+  .lp-panel .px-chip-ic{margin-bottom:2px}
+
+  /* closing */
+  .lp-close{margin-top:40px;background:var(--paper);border:1px solid var(--line);
+    border-radius:var(--r-xl);box-shadow:var(--sh-xs);overflow:hidden;padding:36px 32px 0}
+  .lp-close .pixel-scape{margin-top:24px}
+
+  @media (max-width:920px){
+    .lp-hero{grid-template-columns:1fr}
+    .lp-hero-copy{padding:30px 26px}
+    .lp-diorama{min-height:320px}
+    .lp-grid{grid-template-columns:1fr 1fr}
+    .lp-panel,.lp-panel--wide{grid-column:span 1}
+  }
+  @media (max-width:600px){
+    .lp h1{font-size:2.1rem}
+    .lp-grid{grid-template-columns:1fr}
+    .d-b2,.d-f{display:none}
+  }
+</style>
+<%- include('partials/foot', { bare: true }) %>

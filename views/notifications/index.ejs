@@ -1,0 +1,52 @@
+<%- include('../partials/head', { title: 'Notifications' }) %>
+<%
+  var NIC = { SYSTEM:'⚙️', GROUP:'👥', SOCIAL:'💬', ACADEMIC:'🎓', REQUEST:'🤝', REPORT:'🛡️', PROJECT:'🛠️', COMMUNITY:'🌐' };
+%>
+<div class="page-head page-head--pix">
+  <span class="ph-badge"><%- include('../partials/px', { id: 'bell', size: 28, cls: unread ? 'pix-bob' : '' }) %></span>
+  <div><h1>Notifications</h1><p class="sub"><%= unread ? (unread + ' unread') : "You're all caught up" %></p></div>
+  <div class="row">
+    <div class="tabs">
+      <a class="<%= filter==='all'?'active':'' %>" href="/notifications">All</a>
+      <a class="<%= filter==='unread'?'active':'' %>" href="/notifications?filter=unread">Unread<% if (unread) { %> · <%= unread %><% } %></a>
+    </div>
+    <% if (unread > 0) { %>
+      <form class="inline-form" action="/notifications/read-all" method="post">
+        <button class="btn btn-sm" type="submit">Mark all read</button>
+      </form>
+    <% } %>
+  </div>
+</div>
+
+<div class="card" style="padding:8px 10px">
+  <% if (rows.length) { %>
+    <ul class="list-rows">
+      <% rows.forEach(function(n){ %>
+        <li class="<%= n.Is_Read ? '' : 'is-unread' %>">
+          <span class="notif-ic"><%= NIC[n.Notification_Type] || '🔔' %></span>
+          <div style="flex:1;min-width:0">
+            <div class="between">
+              <strong style="font-weight:<%= n.Is_Read ? 500 : 650 %>"><%= n.Notification_Title %></strong>
+              <small class="muted" style="white-space:nowrap"><%= timeAgo(n.Created_At) %></small>
+            </div>
+            <div class="dim" style="font-size:.9rem"><%= n.Notification_Message %></div>
+          </div>
+          <% if (!n.Is_Read) { %>
+            <form class="inline-form" action="/notifications/<%= n.Notification_ID %>/read" method="post">
+              <button class="btn btn-sm btn-ghost" type="submit" title="Mark read">✓</button>
+            </form>
+          <% } %>
+        </li>
+      <% }) %>
+    </ul>
+  <% } else { %>
+    <%- include('../partials/empty', { icon:'🔔', title: filter==='unread' ? 'No unread notifications' : 'No notifications yet', text:'Activity from your groups, feed, projects and requests will show up here.' }) %>
+  <% } %>
+</div>
+
+<style>
+  .list-rows > li.is-unread{background:var(--brand-wash-2)}
+  .notif-ic{width:34px;height:34px;flex:none;display:grid;place-items:center;background:var(--bg-tint);border-radius:10px;font-size:1rem}
+  .list-rows > li.is-unread .notif-ic{background:#fff}
+</style>
+<%- include('../partials/foot') %>

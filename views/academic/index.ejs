@@ -1,0 +1,36 @@
+<%- include('../partials/head', { title: 'Academic' }) %>
+<div class="page-head page-head--pix">
+  <span class="ph-badge"><%- include('../partials/px', { id: 'book', size: 28, cls: 'pix-bob' }) %></span>
+  <div><h1>Academic</h1><p class="sub">SCOPE and the wider campus — schools, departments, programmes and courses, plus your timetable, study material and rooms.</p></div>
+</div>
+
+<div class="grid cols-3" data-reveal style="margin-bottom:20px">
+  <a class="card card-hover" href="/academic/timetable"><h3 style="margin-bottom:2px">📅 My timetable</h3><p class="dim" style="margin:0;font-size:.88rem">Your week, class by class</p></a>
+  <a class="card card-hover" href="/academic/materials"><h3 style="margin-bottom:2px">📚 Study materials</h3><p class="dim" style="margin:0;font-size:.88rem">Notes &amp; slides from faculty</p></a>
+  <a class="card card-hover" href="/academic/buildings"><h3 style="margin-bottom:2px">🏛️ Buildings &amp; rooms</h3><p class="dim" style="margin:0;font-size:.88rem">Campus facilities directory</p></a>
+</div>
+
+<div class="stack" data-reveal>
+<% schools.forEach(function(s){ %>
+  <div class="card">
+    <div class="card-head">
+      <h3 style="margin:0"><%= s.School_Name %> <span class="chip mono"><%= s.School_Code %></span></h3>
+      <% if (s.Contact_Email) { %><small class="muted"><%= s.Contact_Email %></small><% } %>
+    </div>
+    <div class="grid cols-3">
+      <% departments.filter(function(d){ return d.School_ID === s.School_ID }).forEach(function(d){ %>
+        <a href="/academic/departments/<%= d.Department_ID %>" class="card card-hover card-tight" style="box-shadow:none;background:var(--bg-tint);border:0">
+          <strong><%= d.Department_Name %></strong>
+          <div><small class="mono muted"><%= d.Department_Code %></small></div>
+          <div class="row-tight" style="margin-top:10px">
+            <span class="chip"><%= d.program_count %> programs</span>
+            <span class="chip"><%= d.course_count %> courses</span>
+            <span class="chip"><%= d.faculty_count %> faculty</span>
+          </div>
+        </a>
+      <% }) %>
+    </div>
+  </div>
+<% }) %>
+</div>
+<%- include('../partials/foot') %>

@@ -1,0 +1,28 @@
+{
+  "name": "campus-connect",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Campus Connect - a campus social + academic networking platform (DA2 build on the finalized DA1 relational design).",
+  "main": "server.js",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning server.js",
+    "dev": "node --disable-warning=ExperimentalWarning --watch server.js",
+    "init-db": "node --disable-warning=ExperimentalWarning src/scripts/init-db.js",
+    "seed": "node --disable-warning=ExperimentalWarning src/scripts/seed.js",
+    "reset-db": "node --disable-warning=ExperimentalWarning src/scripts/reset-db.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "firebase-admin": "^14.3.0",
+    "firebase-functions": "^7.3.2",
+    "method-override": "^3.0.0",
+    "morgan": "^1.10.0"
+  }
+}

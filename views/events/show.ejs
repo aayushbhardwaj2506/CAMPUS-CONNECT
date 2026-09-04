@@ -1,0 +1,22 @@
+<%- include('../partials/head', { title: e.Event_Title }) %>
+<a class="backlink" href="/events">← Events</a>
+<div class="card">
+  <h1><%= e.Event_Title %></h1>
+  <div class="row" style="gap:6px;margin:6px 0">
+    <span class="chip">📅 <%= fmtDate(e.Event_Date) %></span>
+    <% if (e.Event_Time) { %><span class="chip">🕒 <%= e.Event_Time %></span><% } %>
+    <% if (e.Event_Location) { %><span class="chip">📍 <%= e.Event_Location %></span><% } %>
+  </div>
+  <% if (e.Event_Description) { %><p style="white-space:pre-wrap"><%= e.Event_Description %></p><% } %>
+  <hr>
+  <p class="dim">Hosted by <a href="/communities/<%= e.Community_ID %>"><%= e.Community_Name %></a>
+    <span class="chip teal"><%= e.Community_Type %></span></p>
+  <% if (!isMember) { %>
+    <form class="inline-form" action="/communities/<%= e.Community_ID %>/join" method="post">
+      <button class="btn btn-primary btn-sm" type="submit">Join <%= e.Community_Name %> to take part</button>
+    </form>
+  <% } else { %>
+    <span class="chip green">You're in this community</span>
+  <% } %>
+</div>
+<%- include('../partials/foot') %>

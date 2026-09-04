@@ -1,0 +1,27 @@
+<%- include('../partials/head', { title: 'Upload study material' }) %>
+<a class="backlink" href="/academic/materials">← Study materials</a>
+<div class="card" style="max-width:600px">
+  <h1>Upload study material</h1>
+  <p class="dim">Publishes to the course and notifies the course group. File metadata is also added to your vault.</p>
+  <form action="/academic/materials" method="post">
+    <div class="field"><label for="course_id">Course</label>
+      <select id="course_id" name="course_id" required>
+        <option value="">Choose a course…</option>
+        <% courses.forEach(function(c){ %>
+          <option value="<%= c.Course_ID %>" <%= String(preselect)===String(c.Course_ID)?'selected':'' %>><%= c.Course_Code %> — <%= c.Course_Name %></option>
+        <% }) %>
+      </select></div>
+    <div class="field"><label for="title">Title</label><input id="title" name="title" required placeholder="e.g. Unit 3 — Transactions & Concurrency"></div>
+    <div class="field"><label for="description">Description</label><textarea id="description" name="description" data-autogrow></textarea></div>
+    <div class="grid cols-3">
+      <div class="field"><label for="file_name">File name</label><input id="file_name" name="file_name" placeholder="unit3.pdf"></div>
+      <div class="field"><label for="file_type">File type</label><input id="file_type" name="file_type" value="application/pdf"></div>
+      <div class="field"><label for="file_size">Size (bytes)</label><input id="file_size" name="file_size" type="number" min="0" placeholder="420000"></div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-primary" type="submit">Publish</button>
+      <a class="btn" href="/academic/materials">Cancel</a>
+    </div>
+  </form>
+</div>
+<%- include('../partials/foot') %>

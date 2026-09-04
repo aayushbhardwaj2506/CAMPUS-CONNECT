@@ -1,0 +1,5 @@
+<%
+  var _size = (typeof size !== 'undefined') ? size : 24;
+  var _cls  = (typeof cls  !== 'undefined' && cls) ? cls : '';
+  var _title = (typeof title !== 'undefined' && title) ? title : '';
+%><svg class="pix s<%= _size %> <%= _cls %>" viewBox="0 0 16 16" role="<%= _title ? 'img' : 'presentation' %>" <%= _title ? ('aria-label="' + _title + '"') : 'aria-hidden="true"' %>><use href="#px-<%= id %>"/></svg>

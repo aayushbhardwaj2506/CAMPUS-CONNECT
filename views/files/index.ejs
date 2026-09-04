@@ -1,0 +1,46 @@
+<%- include('../partials/head', { title: 'Files' }) %>
+<%
+  function humanSize(b){ if(!b) return '0 B'; var u=['B','KB','MB','GB']; var i=Math.floor(Math.log(b)/Math.log(1024));
+    return (b/Math.pow(1024,i)).toFixed(i?1:0)+' '+u[i]; }
+%>
+<div class="page-head">
+  <div><h1>Your file vault</h1><p class="sub">Personal document references. <%= files.length %> files · <%= humanSize(totalBytes) %> total.</p></div>
+</div>
+
+<div class="grid cols-2">
+  <div class="card">
+    <h3>Files</h3>
+    <table class="tbl">
+      <thead><tr><th>Name</th><th>Type</th><th>Size</th><th>Added</th><th></th></tr></thead>
+      <tbody>
+        <% files.forEach(function(f){ %>
+          <tr>
+            <td><%= f.File_Name %></td>
+            <td><span class="chip"><%= f.File_Type %></span></td>
+            <td><%= humanSize(f.File_Size) %></td>
+            <td><%= timeAgo(f.Uploaded_At) %></td>
+            <td>
+              <form class="inline-form" action="/files/<%= f.File_ID %>/delete" method="post" data-confirm="Remove this file?">
+                <button class="btn btn-sm btn-ghost btn-danger" type="submit">Remove</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+        <% if (!files.length) { %><tr><td colspan="5" class="muted" style="padding:14px">No files yet.</td></tr><% } %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card" style="align-self:start">
+    <h3>Register a file</h3>
+    <p class="dim" style="font-size:.88rem">Records file metadata in your vault (name, type, size). Storage paths are kept internal.</p>
+    <form action="/files" method="post">
+      <div class="field"><label for="fn">File name</label><input id="fn" name="file_name" required placeholder="e.g. DA2-report.pdf"></div>
+      <div class="field"><label for="ft">Type</label>
+        <select id="ft" name="file_type"><% types.forEach(function(t){ %><option><%= t %></option><% }) %></select></div>
+      <div class="field"><label for="fs">Size (bytes)</label><input id="fs" name="file_size" type="number" min="0" placeholder="e.g. 348000"></div>
+      <button class="btn btn-primary btn-sm" type="submit">Add to vault</button>
+    </form>
+  </div>
+</div>
+<%- include('../partials/foot') %>

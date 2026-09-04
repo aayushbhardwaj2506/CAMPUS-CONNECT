@@ -1,0 +1,45 @@
+<%- include('../partials/head', { title: 'Moderation' }) %>
+<div class="page-head">
+  <div><h1>Moderation queue</h1><p class="sub">Reports submitted by the campus. Staff only.</p></div>
+</div>
+
+<div class="stat-grid" data-reveal style="max-width:520px;margin-bottom:18px">
+  <% ['OPEN','REVIEWING','RESOLVED','DISMISSED'].forEach(function(s){ %>
+    <div class="stat" style="background:<%= s==='OPEN' ? 'var(--brand-wash)' : (s==='RESOLVED' ? 'var(--green-wash)' : 'var(--bg-tint)') %>">
+      <span class="n"><%= counts[s] || 0 %></span><span class="l"><%= s %></span>
+    </div>
+  <% }) %>
+</div>
+
+<div class="tabs" style="margin-bottom:16px">
+  <a class="<%= !status?'active':'' %>" href="/moderation">All</a>
+  <% statuses.forEach(function(s){ %>
+    <a class="<%= status===s?'active':'' %>" href="/moderation?status=<%= s %>"><%= s %></a>
+  <% }) %>
+</div>
+
+<div class="card" style="padding:8px">
+  <% if (rows.length) { %>
+    <div class="table-wrap">
+      <table class="tbl">
+        <thead><tr><th>#</th><th>Type</th><th>Reason</th><th>Reporter</th><th>Submitted</th><th>Status</th><th></th></tr></thead>
+        <tbody>
+          <% rows.forEach(function(r){ %>
+            <tr>
+              <td class="mono muted">#<%= r.Report_ID %></td>
+              <td><span class="chip"><%= r.Report_Type %></span></td>
+              <td style="max-width:340px"><%= (r.Report_Reason||'').slice(0,140) %></td>
+              <td><a href="/u/<%= r.User_ID %>"><%= r.reporter_name %></a></td>
+              <td class="muted"><%= timeAgo(r.Submitted_At) %></td>
+              <td><span class="chip <%= r.Report_Status==='OPEN'?'brand':(r.Report_Status==='RESOLVED'?'green':(r.Report_Status==='DISMISSED'?'':'amber')) %>"><%= r.Report_Status %></span></td>
+              <td><a class="btn btn-sm" href="/moderation/<%= r.Report_ID %>">Review</a></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  <% } else { %>
+    <%- include('../partials/empty', { icon:'🛡️', title:'Queue is clear', text:'No reports match this filter. Nice and quiet.' }) %>
+  <% } %>
+</div>
+<%- include('../partials/foot') %>

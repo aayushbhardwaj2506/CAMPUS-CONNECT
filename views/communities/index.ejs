@@ -1,0 +1,44 @@
+<%- include('../partials/head', { title: 'Communities' }) %>
+<div class="page-head page-head--pix">
+  <span class="ph-badge"><%- include('../partials/px', { id: 'tent', size: 28, cls: 'pix-bob' }) %></span>
+  <div><h1>Communities</h1><p class="sub">Campus-wide groups around a shared interest. Join one, or start your own.</p></div>
+  <a class="btn btn-primary" data-open="new-community" href="#new-community">Start a community</a>
+</div>
+
+<details class="disclose" id="new-community" style="border:0;padding:0;margin-bottom:18px">
+  <summary style="display:none">New community</summary>
+  <div class="card">
+    <h3>Start a community</h3>
+    <form action="/communities" method="post">
+      <div class="grid cols-2">
+        <div class="field"><label for="cn">Name</label><input id="cn" name="name" required placeholder="e.g. Robotics Enthusiasts"></div>
+        <div class="field"><label for="ct">Type</label>
+          <select id="ct" name="type"><% types.forEach(function(t){ %><option><%= t %></option><% }) %></select></div>
+      </div>
+      <div class="field"><label for="cd">Description</label><textarea id="cd" name="description" data-autogrow placeholder="What's it about?"></textarea></div>
+      <button class="btn btn-primary" type="submit">Create community</button>
+    </form>
+  </div>
+</details>
+
+<% if (rows.length) { %>
+  <div class="grid cols-2" data-reveal>
+    <% rows.forEach(function(c){ %>
+      <a class="card card-hover" href="/communities/<%= c.Community_ID %>">
+        <div class="between" style="margin-bottom:8px">
+          <span class="chip teal"><%= c.Community_Type %></span>
+          <% if (c.my_role) { %><span class="chip brand"><%= c.my_role === 'ADMIN' ? '★ Admin' : 'Joined' %></span><% } %>
+        </div>
+        <h3 style="margin-bottom:6px"><%= c.Community_Name %></h3>
+        <p class="dim" style="font-size:.9rem;margin:0 0 12px;min-height:2.6em"><%= (c.Description || '').slice(0,110) %></p>
+        <div class="row-tight muted" style="font-size:.82rem">
+          <span>👤 <%= c.member_count %> members</span><span class="dot-sep">·</span>
+          <span>📅 <%= c.event_count %> events</span>
+        </div>
+      </a>
+    <% }) %>
+  </div>
+<% } else { %>
+  <div class="card"><%- include('../partials/empty', { icon:'🌐', title:'No communities yet', text:'Be the first — start a community around something you care about.', cta:'Start one', href:'#new-community' }) %></div>
+<% } %>
+<%- include('../partials/foot') %>

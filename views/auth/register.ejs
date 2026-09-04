@@ -1,0 +1,115 @@
+<%- include('../partials/head', { title: 'Create account', bare: true }) %>
+<%
+  const f = (typeof form !== 'undefined' && form) ? form : {};
+  const errs = (typeof errors !== 'undefined' && errors) ? errors : [];
+  const acct = f.account_type === 'faculty' ? 'faculty' : 'student';
+%>
+<div class="auth-wrap" style="max-width:540px" data-reveal>
+  <div class="auth-brand">
+    <span class="logo" aria-hidden="true">
+      <svg viewBox="0 0 32 32" width="22" height="22"><path d="M22 10a8 8 0 100 12" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+    </span>
+  </div>
+  <div class="auth-card">
+    <h1>Create your account</h1>
+    <p class="dim">Join as a student or faculty member. Pick your SCOPE programme and you'll be placed into your school, department, batch and current-semester course groups automatically.</p>
+
+    <% if (errs.length) { %>
+      <div class="flash error" style="align-items:flex-start">
+        <span class="flash-ic">!</span>
+        <ul style="margin:0;padding-left:16px"><% errs.forEach(function(e){ %><li><%= e %></li><% }) %></ul>
+      </div>
+    <% } %>
+
+    <form action="/register" method="post" id="regform">
+      <div class="field">
+        <label>I am a…</label>
+        <div class="seg-toggle">
+          <label><input type="radio" name="account_type" value="student" <%= acct==='student'?'checked':'' %>><span>🎓 Student</span></label>
+          <label><input type="radio" name="account_type" value="faculty" <%= acct==='faculty'?'checked':'' %>><span>🧑‍🏫 Faculty</span></label>
+        </div>
+      </div>
+
+      <div class="field"><label for="full_name">Full name</label>
+        <input id="full_name" name="full_name" required value="<%= f.full_name || '' %>"></div>
+      <div class="grid cols-2">
+        <div class="field"><label for="email">Email</label>
+          <input id="email" name="email" type="email" required value="<%= f.email || '' %>"></div>
+        <div class="field"><label for="phone">Phone</label>
+          <input id="phone" name="phone" value="<%= f.phone || '' %>"></div>
+      </div>
+      <div class="field"><label for="password">Password</label>
+        <input id="password" name="password" type="password" required minlength="6"></div>
+
+      <div class="grid cols-2">
+        <div class="field"><label for="dob">Date of birth</label>
+          <input id="dob" name="dob" type="date" value="<%= f.dob || '' %>"></div>
+        <div class="field"><label for="gender">Gender</label>
+          <select id="gender" name="gender">
+            <option value="">—</option>
+            <% ['Male','Female','Other','Prefer not to say'].forEach(function(g){ %>
+              <option <%= f.gender===g?'selected':'' %>><%= g %></option>
+            <% }) %>
+          </select></div>
+      </div>
+      <div class="field"><label for="bio">About you</label>
+        <textarea id="bio" name="bio" placeholder="A line or two about yourself"><%= f.bio || '' %></textarea></div>
+
+      <fieldset class="card-tight" data-role="student" style="border:1px solid var(--line);border-radius:12px;margin-bottom:14px">
+        <div class="section-label">Student details</div>
+        <div class="field"><label for="program_id">Program</label>
+          <select id="program_id" name="program_id">
+            <option value="">Select your program</option>
+            <% programs.forEach(function(p){ %>
+              <option value="<%= p.Program_ID %>" <%= String(f.program_id)===String(p.Program_ID)?'selected':'' %>>
+                <%= p.Program_Name %> (<%= p.Program_Code %>)</option>
+            <% }) %>
+          </select></div>
+        <div class="grid cols-3">
+          <div class="field"><label for="registration_number">Reg. number</label>
+            <input id="registration_number" name="registration_number" value="<%= f.registration_number || '' %>" placeholder="22BCE1010"></div>
+          <div class="field"><label for="admission_year">Admission year</label>
+            <input id="admission_year" name="admission_year" type="number" min="2000" max="2100" value="<%= f.admission_year || '' %>"></div>
+          <div class="field"><label for="current_semester">Semester</label>
+            <input id="current_semester" name="current_semester" type="number" min="1" max="12" value="<%= f.current_semester || '' %>"></div>
+        </div>
+      </fieldset>
+
+      <fieldset class="card-tight" data-role="faculty" style="border:1px solid var(--line);border-radius:12px;margin-bottom:14px">
+        <div class="section-label">Faculty details</div>
+        <div class="field"><label for="department_id">Department</label>
+          <select id="department_id" name="department_id">
+            <option value="">Select your department</option>
+            <% departments.forEach(function(d){ %>
+              <option value="<%= d.Department_ID %>" <%= String(f.department_id)===String(d.Department_ID)?'selected':'' %>><%= d.Department_Name %></option>
+            <% }) %>
+          </select></div>
+        <div class="grid cols-2">
+          <div class="field"><label for="employee_id">Employee ID</label>
+            <input id="employee_id" name="employee_id" value="<%= f.employee_id || '' %>" placeholder="EMP-CSE-09"></div>
+          <div class="field"><label for="designation">Designation</label>
+            <input id="designation" name="designation" value="<%= f.designation || '' %>" placeholder="Assistant Professor"></div>
+        </div>
+        <div class="field"><label for="specialization">Specialization</label>
+          <input id="specialization" name="specialization" value="<%= f.specialization || '' %>"></div>
+      </fieldset>
+
+      <button class="btn btn-primary btn-block" type="submit">Create account</button>
+    </form>
+    <p style="margin-top:12px" class="dim">Already have an account? <a href="/login">Sign in</a></p>
+  </div>
+</div>
+<script>
+  (function () {
+    var form = document.getElementById('regform');
+    function sync() {
+      var v = (form.querySelector('input[name=account_type]:checked') || {}).value || 'student';
+      form.querySelectorAll('[data-role]').forEach(function (fs) {
+        fs.style.display = (fs.getAttribute('data-role') === v) ? '' : 'none';
+      });
+    }
+    form.querySelectorAll('input[name=account_type]').forEach(function (r) { r.addEventListener('change', sync); });
+    sync();
+  })();
+</script>
+<%- include('../partials/foot', { bare: true }) %>

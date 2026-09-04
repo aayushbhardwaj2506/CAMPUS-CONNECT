@@ -1,0 +1,114 @@
+<%- include('../partials/head', { title: pj.Project_Name }) %>
+<% var stColor = { PLANNING:'blue', ACTIVE:'green', ON_HOLD:'amber', COMPLETED:'' }; %>
+<a class="backlink" href="/projects">← Projects</a>
+
+<div class="card">
+  <div class="spread">
+    <div>
+      <h1 style="margin-bottom:6px"><%= pj.Project_Name %></h1>
+      <div class="row-tight">
+        <span class="chip <%= stColor[pj.Project_Status] || '' %>"><%= pj.Project_Status %></span>
+        <span class="muted" style="font-size:.88rem">owner <a href="/u/<%= pj.owner_id %>"><%= pj.owner_name %></a></span>
+      </div>
+    </div>
+    <% if (!isOwner) { %>
+      <a class="btn btn-sm" href="/messages/new?to=<%= pj.owner_id %>">✉️ Message owner</a>
+    <% } %>
+  </div>
+  <% if (pj.Description) { %><p style="margin-top:12px;white-space:pre-wrap;color:var(--ink-2)"><%= pj.Description %></p><% } %>
+  <div class="row-tight" style="margin-top:4px">
+    <% if (pj.Start_Date) { %><span class="chip outline">Start <%= fmtDate(pj.Start_Date) %></span><% } %>
+    <% if (pj.End_Date) { %><span class="chip outline">Target <%= fmtDate(pj.End_Date) %></span><% } %>
+  </div>
+
+  <% if (isOwner) { %>
+    <details class="disclose" style="margin-top:14px">
+      <summary>Manage project</summary>
+      <form action="/projects/<%= pj.Project_ID %>/status" method="post" class="row" style="margin-top:12px">
+        <label style="margin:0">Status
+          <select name="status"><% statuses.forEach(function(s){ %><option <%= pj.Project_Status===s?'selected':'' %>><%= s %></option><% }) %></select>
+        </label>
+        <label style="margin:0">Target end <input type="date" name="end_date" value="<%= pj.End_Date || '' %>" style="width:auto"></label>
+        <button class="btn btn-sm btn-primary" type="submit">Save</button>
+      </form>
+    </details>
+  <% } %>
+</div>
+
+<div class="stack" data-reveal>
+<% teams.forEach(function(t){
+     var mine = myMemberships[t.Project_Team_ID];
+     var isActive = mine && mine.Membership_Status === 'ACTIVE';
+     var isPending = mine && mine.Membership_Status === 'PENDING';
+     var active = t.members.filter(function(m){ return m.Membership_Status === 'ACTIVE'; });
+     var pending = t.members.filter(function(m){ return m.Membership_Status === 'PENDING'; });
+%>
+  <div class="card">
+    <div class="spread" style="margin-bottom:12px">
+      <div>
+        <h3 style="margin:0"><%= t.Team_Name %> <span class="chip"><%= active.length %> member<%= active.length===1?'':'s' %></span></h3>
+        <% if (t.Team_Description) { %><small class="muted"><%= t.Team_Description %></small><% } %>
+      </div>
+      <div>
+        <% if (isActive) { %>
+          <form class="inline-form" action="/projects/members/<%= mine.Project_Membership_ID %>/leave" method="post" data-confirm="Leave this team?">
+            <button class="btn btn-sm" type="submit">Leave team</button></form>
+        <% } else if (isPending) { %>
+          <span class="chip amber">⏳ Request pending</span>
+        <% } else { %>
+          <form class="inline-form" action="/projects/teams/<%= t.Project_Team_ID %>/join" method="post">
+            <button class="btn btn-sm btn-primary" type="submit">🤝 Ask to co-work</button></form>
+        <% } %>
+      </div>
+    </div>
+
+    <ul class="list-rows">
+      <% active.forEach(function(m){ %>
+        <li>
+          <%- include('../partials/avatar', { name: m.Full_Name, img: m.Profile_Image, size:'sm', link:'/u/'+m.User_ID }) %>
+          <div style="flex:1;min-width:0">
+            <a href="/u/<%= m.User_ID %>" style="font-weight:600;color:var(--ink)"><%= m.Full_Name %></a>
+            <span class="chip <%= m.Team_Role === 'LEAD' ? 'brand' : '' %>"><%= m.Team_Role === 'LEAD' ? '★ Lead' : m.Team_Role %></span>
+          </div>
+        </li>
+      <% }) %>
+    </ul>
+
+    <% if (pending.length) { %>
+      <div class="section-label" style="margin:14px 0 6px">Join requests</div>
+      <ul class="list-rows">
+        <% pending.forEach(function(m){ %>
+          <li>
+            <%- include('../partials/avatar', { name: m.Full_Name, img: m.Profile_Image, size:'sm', link:'/u/'+m.User_ID }) %>
+            <div style="flex:1;min-width:0"><a href="/u/<%= m.User_ID %>" style="font-weight:600;color:var(--ink)"><%= m.Full_Name %></a>
+              <span class="chip amber">wants to co-work</span></div>
+            <% if (isOwner) { %>
+              <form class="inline-form" action="/projects/members/<%= m.Project_Membership_ID %>/approve" method="post">
+                <input type="hidden" name="decision" value="approve">
+                <button class="btn btn-sm btn-primary" type="submit">Approve</button></form>
+              <form class="inline-form" action="/projects/members/<%= m.Project_Membership_ID %>/approve" method="post">
+                <input type="hidden" name="decision" value="reject">
+                <button class="btn btn-sm btn-ghost btn-danger" type="submit">Decline</button></form>
+            <% } %>
+          </li>
+        <% }) %>
+      </ul>
+    <% } %>
+    <% if (!active.length && !pending.length) { %><p class="muted" style="margin:0">No members yet — be the first to co-work.</p><% } %>
+  </div>
+<% }) %>
+</div>
+
+<% if (isOwner) { %>
+  <div class="card">
+    <h3>Add a team</h3>
+    <form action="/projects/<%= pj.Project_ID %>/teams" method="post">
+      <div class="grid cols-2">
+        <div class="field"><label for="tn">Team name</label><input id="tn" name="team_name" required placeholder="e.g. Design, Backend, Research"></div>
+        <div class="field"><label for="td">Description</label><input id="td" name="team_description"></div>
+      </div>
+      <button class="btn btn-primary btn-sm" type="submit">Add team</button>
+    </form>
+  </div>
+<% } %>
+<%- include('../partials/foot') %>

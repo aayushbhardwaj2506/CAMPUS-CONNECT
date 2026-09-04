@@ -1,0 +1,62 @@
+<%- include('../partials/head', { title: 'Projects' }) %>
+<%
+  var stColor = { PLANNING:'blue', ACTIVE:'green', ON_HOLD:'amber', COMPLETED:'' };
+%>
+<div class="page-head page-head--pix">
+  <span class="ph-badge"><%- include('../partials/px', { id: 'rocket', size: 28, cls: 'pix-flick' }) %></span>
+  <div><h1>Projects</h1><p class="sub">Build something with people. Start a project, or ask to co-work on one.</p></div>
+  <a class="btn btn-primary" href="/projects/new">+ New project</a>
+</div>
+
+<div class="card">
+  <div class="card-head"><h3>Your projects</h3><span class="chip"><%= mine.length %></span></div>
+  <% if (mine.length) { %>
+    <ul class="list-plain">
+      <% mine.forEach(function(p){ %>
+        <li class="spread">
+          <div style="min-width:0">
+            <a href="/projects/<%= p.Project_ID %>" style="font-weight:640;color:var(--ink)"><%= p.Project_Name %></a>
+            <span class="chip <%= stColor[p.Project_Status] || '' %>"><%= p.Project_Status %></span>
+            <% if (p.is_owner) { %><span class="chip brand">★ Owner</span><% } %>
+            <div><small class="muted">by <%= p.owner_name %><% if (p.Start_Date) { %> · since <%= fmtDate(p.Start_Date) %><% } %></small></div>
+          </div>
+          <a class="btn btn-sm" href="/projects/<%= p.Project_ID %>">Open</a>
+        </li>
+      <% }) %>
+    </ul>
+  <% } else { %>
+    <%- include('../partials/empty', { icon:'🛠️', title:"You're not on a project yet", text:'Start your own or discover one below and ask to co-work.', cta:'New project', href:'/projects/new' }) %>
+  <% } %>
+</div>
+
+<div class="card">
+  <div class="card-head">
+    <h3 style="margin:0">Discover projects</h3>
+    <form method="get" action="/projects" class="row-tight">
+      <input name="q" value="<%= q || '' %>" placeholder="Search by name, status…" style="width:220px">
+      <button class="btn btn-sm btn-primary" type="submit">Search</button>
+      <% if (q) { %><a class="btn btn-sm btn-ghost" href="/projects">Clear</a><% } %>
+    </form>
+  </div>
+  <% if (discover.length) { %>
+    <div class="grid cols-2" data-reveal>
+      <% discover.forEach(function(p){ %>
+        <div class="card card-tight" style="box-shadow:none;background:var(--bg-tint);border:0">
+          <div class="between" style="margin-bottom:6px">
+            <span class="chip <%= stColor[p.Project_Status] || '' %>"><%= p.Project_Status %></span>
+            <span class="chip">👥 <%= p.team_count %> team<%= p.team_count === 1 ? '' : 's' %></span>
+          </div>
+          <a href="/projects/<%= p.Project_ID %>" style="font-weight:640;color:var(--ink);font-size:1rem"><%= p.Project_Name %></a>
+          <p class="dim" style="font-size:.88rem;margin:6px 0 10px"><%= (p.Description || '').slice(0,110) %></p>
+          <div class="between">
+            <small class="muted">by <%= p.owner_name %></small>
+            <a class="btn btn-sm btn-primary" href="/projects/<%= p.Project_ID %>">View &amp; co-work</a>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  <% } else { %>
+    <p class="muted" style="margin:0"><%= q ? 'No projects match that search.' : 'No other projects to show right now.' %></p>
+  <% } %>
+</div>
+<%- include('../partials/foot') %>

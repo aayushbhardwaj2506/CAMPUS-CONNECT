@@ -1,0 +1,47 @@
+<%- include('../partials/head', { title: 'Messages' }) %>
+<div class="page-head page-head--pix">
+  <span class="ph-badge"><%- include('../partials/px', { id: 'chat', size: 28, cls: 'pix-bob' }) %></span>
+  <div><h1>Messages</h1><p class="sub">Direct messages and your group conversations, newest first.</p></div>
+  <a class="btn btn-primary" href="/messages/new">+ New message</a>
+</div>
+
+<div class="card" style="padding:6px 10px" id="convoList">
+  <% if (convos.length) { %>
+    <% convos.forEach(function(c){ %>
+      <a class="convo-item" href="/messages/<%= c.Conversation_ID %>"
+         data-conv="<%= c.Conversation_ID %>" data-last="<%= c.last_at || '' %>">
+        <span class="convo-unread-dot" hidden></span>
+        <% if (c.Conversation_Type === 'DIRECT' && c.other) { %>
+          <%- include('../partials/avatar', { name: c.other.Full_Name, img: c.other.Profile_Image }) %>
+        <% } else { %>
+          <span class="avatar" style="background:var(--teal-wash);color:var(--teal)">#</span>
+        <% } %>
+        <div style="flex:1;min-width:0">
+          <div class="between">
+            <strong class="convo-name" style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><%= c.display %></strong>
+            <small class="muted" style="white-space:nowrap"><%= c.last_at ? timeAgo(c.last_at) : '' %></small>
+          </div>
+          <div class="dim" style="font-size:.88rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
+            <% if (c.Conversation_Type === 'GROUP') { %><span class="chip teal" style="height:18px;font-size:.68rem">Group</span> <% } %><%= c.last_msg || 'No messages yet' %>
+          </div>
+        </div>
+      </a>
+    <% }) %>
+  <% } else { %>
+    <%- include('../partials/empty', { icon:'✉️', title:'No conversations yet', text:"Start one from someone's profile, or with the button above.", cta:'New message', href:'/messages/new' }) %>
+  <% } %>
+</div>
+<script>
+  (function () {
+    document.querySelectorAll('#convoList .convo-item[data-conv]').forEach(function (row) {
+      var last = row.getAttribute('data-last'); if (!last) return;
+      var seen = null;
+      try { seen = localStorage.getItem('cc_seen_at_' + row.getAttribute('data-conv')); } catch (e) {}
+      if (!seen || new Date(last.replace(' ', 'T')) > new Date(seen)) {
+        row.classList.add('is-unread');
+        var dot = row.querySelector('.convo-unread-dot'); if (dot) dot.hidden = false;
+      }
+    });
+  })();
+</script>
+<%- include('../partials/foot') %>

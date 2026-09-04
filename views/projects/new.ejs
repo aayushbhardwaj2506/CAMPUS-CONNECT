@@ -1,0 +1,21 @@
+<%- include('../partials/head', { title: 'New project' }) %>
+<a class="backlink" href="/projects">← Projects</a>
+<div class="card" style="max-width:620px">
+  <h1>New project</h1>
+  <p class="dim">A "Core Team" is created automatically with you as LEAD. Others can request to co-work.</p>
+  <form action="/projects" method="post">
+    <div class="field"><label for="name">Project name</label><input id="name" name="name" required></div>
+    <div class="field"><label for="description">Description</label><textarea id="description" name="description" data-autogrow placeholder="What is it, and what help do you want?"></textarea></div>
+    <div class="grid cols-3">
+      <div class="field"><label for="start_date">Start date</label><input id="start_date" name="start_date" type="date"></div>
+      <div class="field"><label for="end_date">Target end</label><input id="end_date" name="end_date" type="date"></div>
+      <div class="field"><label for="status">Status</label>
+        <select id="status" name="status"><% statuses.forEach(function(s){ %><option><%= s %></option><% }) %></select></div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-primary" type="submit">Create project</button>
+      <a class="btn" href="/projects">Cancel</a>
+    </div>
+  </form>
+</div>
+<%- include('../partials/foot') %>

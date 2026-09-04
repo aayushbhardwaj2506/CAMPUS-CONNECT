@@ -1,0 +1,43 @@
+<%- include('../partials/head', { title: r.Request_Title }) %>
+<a class="backlink" href="/requests">← Requests</a>
+
+<div class="card">
+  <div class="between">
+    <div>
+      <h1 style="margin-bottom:4px"><%= r.Request_Title %></h1>
+      <span class="chip brand"><%= r.Category_Name %></span>
+      <span class="chip <%= r.Priority==='URGENT'||r.Priority==='HIGH'?'rose':'' %>"><%= r.Priority %></span>
+      <span class="chip <%= r.Status==='RESOLVED'?'green':(r.Status==='IN_PROGRESS'?'amber':(r.Status==='CLOSED'?'':'brand')) %>"><%= r.Status %></span>
+    </div>
+  </div>
+  <p style="white-space:pre-wrap;margin-top:10px"><%= r.Request_Description %></p>
+  <dl class="kv">
+    <dt>Raised by</dt><dd><a href="/u/<%= r.owner_id %>"><%= r.owner_name %></a></dd>
+    <dt>Created</dt><dd><%= fmtDate(r.Created_At) %> (<%= timeAgo(r.Created_At) %>)</dd>
+    <dt>Last update</dt><dd><%= timeAgo(r.Updated_At) %></dd>
+  </dl>
+</div>
+
+<% if (isOwner) { %>
+  <div class="card">
+    <h3>Manage</h3>
+    <form action="/requests/<%= r.Request_ID %>/status" method="post" class="row">
+      <label style="margin:0">Status
+        <select name="status"><% STATUSES.forEach(function(s){ %><option <%= r.Status===s?'selected':'' %>><%= s %></option><% }) %></select></label>
+      <label style="margin:0">Priority
+        <select name="priority"><% PRIORITIES.forEach(function(p){ %><option <%= r.Priority===p?'selected':'' %>><%= p %></option><% }) %></select></label>
+      <button class="btn btn-sm btn-primary" type="submit">Update</button>
+    </form>
+  </div>
+<% } else { %>
+  <div class="card">
+    <h3>Respond</h3>
+    <p class="dim">Offer to help or to join (e.g. share a carpool). The requester gets a notification and can reach you.</p>
+    <form action="/requests/<%= r.Request_ID %>/offer" method="post">
+      <div class="field"><label for="note">Message (optional)</label>
+        <input id="note" name="note" placeholder="e.g. I can help after 4pm / I have a seat spare"></div>
+      <button class="btn btn-primary btn-sm" type="submit">Offer to help / join</button>
+    </form>
+  </div>
+<% } %>
+<%- include('../partials/foot') %>
