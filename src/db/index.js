@@ -6,14 +6,14 @@
  *
  * Exposes: db (raw handle), get(), all(), run(), tx(), and initSchema().
  */
-const Database = require('better-sqlite3');
+const { DatabaseSync } = require('node:sqlite');
 const fs = require('fs');
 const path = require('path');
 
 const DB_PATH =
   process.env.CAMPUS_DB_PATH || path.join(__dirname, '..', '..', 'campus_connect.db');
 
-const db = new Database(DB_PATH);
+const db = new DatabaseSync(DB_PATH);
 db.exec('PRAGMA journal_mode = WAL;');
 db.exec('PRAGMA foreign_keys = ON;');
 
