@@ -10,6 +10,7 @@
   },
   "scripts": {
     "start": "node --experimental-sqlite --disable-warning=ExperimentalWarning server.js",
+    "build": "node --experimental-sqlite --disable-warning=ExperimentalWarning src/scripts/seed.js",
     "dev": "node --experimental-sqlite --disable-warning=ExperimentalWarning --watch server.js",
     "init-db": "node --experimental-sqlite --disable-warning=ExperimentalWarning src/scripts/init-db.js",
     "seed": "node --experimental-sqlite --disable-warning=ExperimentalWarning src/scripts/seed.js",

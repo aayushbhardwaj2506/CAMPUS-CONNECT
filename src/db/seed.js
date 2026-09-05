@@ -11,7 +11,8 @@ const { nowIso, isoPlusHours } = require('../lib/util');
 const { loadUser } = require('../lib/roles');
 const { syncMembershipsForUser, getOrCreateScopeGroup } = require('../lib/groups');
 
-const HASH = bcrypt.hashSync('campus123', 10);
+// Pre-computed bcrypt hash for 'campus123' (cost 10) to avoid freezing low-CPU containers
+const HASH = '$2a$10$pAo90si5O7n2qgwejrv7UeJ/IFCxNt782jxwyFcpw1vxnWAkUcina';
 
 const TABLES_IN_WIPE_ORDER = [
   'Audit_Log', 'Report', 'Notification', 'File',

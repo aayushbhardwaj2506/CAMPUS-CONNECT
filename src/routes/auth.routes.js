@@ -12,58 +12,21 @@ const router = express.Router();
 
 router.get('/login', (req, res) => {
   if (req.currentUser) return res.redirect('/');
-  try {
-    const uCount = get('SELECT COUNT(*) AS n FROM "User"');
-    const aarav = get('SELECT 1 FROM "User" WHERE lower(Email) = ?', ['aarav@campus.edu']);
-    if (!uCount || uCount.n < 10 || !aarav) {
-      console.log('[auth] Database missing demo accounts on /login request. Auto-seeding now...');
-      const { seed } = require('../db/seed');
-      seed();
-    }
-  } catch (e) {
-    console.error('[auth] Auto-seed error:', e);
-  }
   res.render('auth/login', { title: 'Sign in', bare: true, next: req.query.next || '' });
 });
 
 router.post('/login', (req, res) => {
   const email = (clean(req.body.email) || '').toLowerCase().trim();
   const password = (req.body.password || '').trim();
-  console.log(`[auth] Attempting login for: "${email}"`);
 
-  // Ensure accounts are populated if somehow empty
-  try {
-    const uCount = get('SELECT COUNT(*) AS n FROM "User"');
-    if (!uCount || uCount.n === 0) {
-      console.log('[auth] 0 users in DB during login. Auto-seeding...');
-      const { seed } = require('../db/seed');
-      seed();
-    }
-  } catch (e) {
-    console.error('[auth] Seed check error:', e);
-  }
-
-  let user = get('SELECT * FROM "User" WHERE lower(Email) = ?', [email]);
-  if (!user && (email.includes('@campus.edu') || email === 'aarav@campus.edu')) {
-    console.log('[auth] Demo account missing from database. Running auto-seed...');
-    try {
-      const { seed } = require('../db/seed');
-      seed();
-      user = get('SELECT * FROM "User" WHERE lower(Email) = ?', [email]);
-    } catch (seedErr) {
-      console.error('[auth] Auto-seed failed:', seedErr);
-    }
-  }
-
+  const user = get('SELECT * FROM "User" WHERE lower(Email) = ?', [email]);
   if (!user) {
-    console.warn(`[auth] User not found: "${email}"`);
-    req.flash('error', 'User not found. If this is your personal email, please click "Create an account" below to register first!');
+    req.flash('error', 'User not found. If using your personal email, please click "Create an account" below first!');
     return res.redirect('/login');
   }
 
   const passMatches = (password === 'campus123') || bcrypt.compareSync(password, user.Password_Hash || '');
   if (!passMatches) {
-    console.warn(`[auth] Password mismatch for: "${email}"`);
     req.flash('error', 'Incorrect email or password.');
     return res.redirect('/login');
   }
@@ -77,7 +40,7 @@ router.post('/login', (req, res) => {
   req.session.save((err) => {
     if (err) console.error('[auth] Session save error:', err);
     audit({ session: { userId: user.User_ID }, headers: req.headers, socket: req.socket }, 'LOGIN', 'User', user.User_ID);
-    try { syncMembershipsForUser(loadUser(user.User_ID)); } catch (e) { console.error(e); }
+    try { syncMembershipsForUser(loadUser(user.User_ID)); } catch (e) {}
     const dest = clean(req.body.next) || '/';
     req.flash('success', `Welcome back, ${user.Full_Name.split(' ')[0]}.`);
     res.redirect(dest.startsWith('/') ? dest : '/');
