@@ -9,20 +9,20 @@ document.addEventListener('DOMContentLoaded', () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-  // Create Anime Speed Line Particles
-  const particleCount = 2000;
+  // Ambient Starfield / Particle Cloud
+  const particleCount = 1600;
   const geometry = new THREE.BufferGeometry();
   const positions = new Float32Array(particleCount * 3);
   const speeds = new Float32Array(particleCount);
 
   for (let i = 0; i < particleCount; i++) {
-    // Random position in a wide cylinder
-    positions[i * 3] = (Math.random() - 0.5) * 200; // x
-    positions[i * 3 + 1] = (Math.random() - 0.5) * 200; // y
+    // Spread in comfortable depth cylinder
+    positions[i * 3] = (Math.random() - 0.5) * 220; // x
+    positions[i * 3 + 1] = (Math.random() - 0.5) * 220; // y
     positions[i * 3 + 2] = (Math.random() - 0.5) * 1000 - 100; // z (depth)
 
-    // Base speed for each particle
-    speeds[i] = Math.random() * 2 + 0.5;
+    // Gentle, calm base speed (relaxed ambient drift)
+    speeds[i] = Math.random() * 0.35 + 0.15;
   }
 
   geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
@@ -33,10 +33,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const material = new THREE.PointsMaterial({
     color: new THREE.Color(brandHex),
-    size: 1.5,
+    size: 1.4,
     sizeAttenuation: true,
     transparent: true,
-    opacity: 0.8
+    opacity: 0.65
   });
 
   const particles = new THREE.Points(geometry, material);
@@ -49,24 +49,30 @@ document.addEventListener('DOMContentLoaded', () => {
   let mouseY = 0;
   let targetX = 0;
   let targetY = 0;
-  let scrollSpeedMultiplier = 1;
 
-  // Mouse Interaction
+  // Smooth, comfortable scroll multipliers (Lerped to prevent sudden speed spikes)
+  let currentScrollMultiplier = 1.0;
+  let targetScrollMultiplier = 1.0;
+  let scrollTimeout;
+  let scrollParallaxY = 0;
+
+  // Mouse Interaction (subtle parallax)
   window.addEventListener('mousemove', (e) => {
-    // Normalize mouse coordinates from -1 to 1
     mouseX = (e.clientX / window.innerWidth) * 2 - 1;
     mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
-  });
+  }, { passive: true });
 
-  // Scroll Interaction (Anime Speed effect!)
-  let scrollTimeout;
+  // Gentle, comfortable scroll response
   window.addEventListener('scroll', () => {
-    scrollSpeedMultiplier = 5; // Zoom fast on scroll
+    // Modest gentle boost (only 1.35x instead of jarring 5x)
+    targetScrollMultiplier = 1.35;
+    scrollParallaxY = -(window.scrollY || window.pageYOffset || 0) * 0.015;
+
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(() => {
-      scrollSpeedMultiplier = 1; // Return to normal
-    }, 150);
-  });
+      targetScrollMultiplier = 1.0; // Gracefully ease back to 1.0
+    }, 200);
+  }, { passive: true });
 
   // Handle Resize
   window.addEventListener('resize', () => {
@@ -79,31 +85,33 @@ document.addEventListener('DOMContentLoaded', () => {
   function animate() {
     requestAnimationFrame(animate);
 
-    // Smooth mouse follow
-    targetX = mouseX * 25; // Max rotation angle
-    targetY = mouseY * 25;
+    // Smooth lerping for comfortable scroll multiplier
+    currentScrollMultiplier += (targetScrollMultiplier - currentScrollMultiplier) * 0.06;
+
+    // Smooth mouse follow + subtle vertical scroll parallax
+    targetX = mouseX * 18;
+    targetY = mouseY * 18;
 
     camera.position.x += (targetX - camera.position.x) * 0.05;
-    camera.position.y += (targetY - camera.position.y) * 0.05;
+    camera.position.y += (targetY + scrollParallaxY - camera.position.y) * 0.05;
     camera.lookAt(scene.position);
 
-    // Move particles forward
-    const positions = particles.geometry.attributes.position.array;
+    // Move particles forward at calm, comfortable pace
+    const posArr = particles.geometry.attributes.position.array;
     for (let i = 0; i < particleCount; i++) {
-      // z index
-      positions[i * 3 + 2] += speeds[i] * scrollSpeedMultiplier;
+      posArr[i * 3 + 2] += speeds[i] * currentScrollMultiplier;
 
-      // Reset if it flies past the camera
-      if (positions[i * 3 + 2] > 100) {
-        positions[i * 3 + 2] = -900;
-        positions[i * 3] = (Math.random() - 0.5) * 200;
-        positions[i * 3 + 1] = (Math.random() - 0.5) * 200;
+      // Reset if it passes the camera smoothly
+      if (posArr[i * 3 + 2] > 80) {
+        posArr[i * 3 + 2] = -900;
+        posArr[i * 3] = (Math.random() - 0.5) * 220;
+        posArr[i * 3 + 1] = (Math.random() - 0.5) * 220;
       }
     }
     particles.geometry.attributes.position.needsUpdate = true;
 
-    // Slowly rotate the entire particle field
-    particles.rotation.z += 0.001 * scrollSpeedMultiplier;
+    // Very gentle ambient rotation
+    particles.rotation.z += 0.0003;
 
     renderer.render(scene, camera);
   }
