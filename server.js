@@ -1,4 +1,29 @@
 'use strict';
+
+// --- Auto-enable SQLite on Node 22.5-22.11 if host runs plain "node server.js" ---
+try {
+  require('node:sqlite');
+} catch (err) {
+  if (err && err.code === 'ERR_UNKNOWN_BUILTIN_MODULE' && !process.env._SQLITE_RESPAWNED) {
+    const { spawn } = require('child_process');
+    console.log('[boot] Auto-enabling --experimental-sqlite flag for cloud container...');
+    const child = spawn(
+      process.execPath,
+      ['--experimental-sqlite', '--disable-warning=ExperimentalWarning', ...process.execArgv, ...process.argv.slice(1)],
+      {
+        stdio: 'inherit',
+        env: { ...process.env, _SQLITE_RESPAWNED: '1' },
+      }
+    );
+    child.on('exit', (code, signal) => {
+      if (signal) process.kill(process.pid, signal);
+      else process.exit(code ?? 0);
+    });
+    return;
+  }
+  throw err;
+}
+
 const path = require('path');
 const express = require('express');
 const session = require('express-session');
