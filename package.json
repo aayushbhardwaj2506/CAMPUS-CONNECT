@@ -6,14 +6,14 @@
   "main": "server.js",
   "type": "commonjs",
   "engines": {
-    "node": ">=23.0.0"
+    "node": ">=22.5.0"
   },
   "scripts": {
-    "start": "node --disable-warning=ExperimentalWarning server.js",
-    "dev": "node --disable-warning=ExperimentalWarning --watch server.js",
-    "init-db": "node --disable-warning=ExperimentalWarning src/scripts/init-db.js",
-    "seed": "node --disable-warning=ExperimentalWarning src/scripts/seed.js",
-    "reset-db": "node --disable-warning=ExperimentalWarning src/scripts/reset-db.js"
+    "start": "node --experimental-sqlite --disable-warning=ExperimentalWarning server.js",
+    "dev": "node --experimental-sqlite --disable-warning=ExperimentalWarning --watch server.js",
+    "init-db": "node --experimental-sqlite --disable-warning=ExperimentalWarning src/scripts/init-db.js",
+    "seed": "node --experimental-sqlite --disable-warning=ExperimentalWarning src/scripts/seed.js",
+    "reset-db": "node --experimental-sqlite --disable-warning=ExperimentalWarning src/scripts/reset-db.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
