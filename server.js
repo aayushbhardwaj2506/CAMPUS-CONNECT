@@ -121,8 +121,8 @@ app.use((err, req, res, _next) => {
 });
 
 if (require.main === module) {
-  app.listen(PORT, () => {
-    console.log(`\n  Campus Connect running →  http://localhost:${PORT}\n`);
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`\n  Campus Connect running →  http://0.0.0.0:${PORT}\n`);
   });
 }
 
