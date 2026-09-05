@@ -12,28 +12,65 @@ const router = express.Router();
 
 router.get('/login', (req, res) => {
   if (req.currentUser) return res.redirect('/');
+  try {
+    const uCount = get('SELECT COUNT(*) AS n FROM "User"');
+    const aarav = get('SELECT 1 FROM "User" WHERE lower(Email) = ?', ['aarav@campus.edu']);
+    if (!uCount || uCount.n < 10 || !aarav) {
+      console.log('[auth] Database missing demo accounts on /login request. Auto-seeding now...');
+      const { seed } = require('../db/seed');
+      seed();
+    }
+  } catch (e) {
+    console.error('[auth] Auto-seed error:', e);
+  }
   res.render('auth/login', { title: 'Sign in', bare: true, next: req.query.next || '' });
 });
 
 router.post('/login', (req, res) => {
-  const email = clean(req.body.email).toLowerCase();
-  const password = req.body.password || '';
+  const email = (clean(req.body.email) || '').toLowerCase().trim();
+  const password = (req.body.password || '').trim();
+  console.log(`[auth] Attempting login for: "${email}"`);
+
+  // Ensure accounts are populated if somehow empty
+  try {
+    const uCount = get('SELECT COUNT(*) AS n FROM "User"');
+    if (!uCount || uCount.n === 0) {
+      console.log('[auth] 0 users in DB during login. Auto-seeding...');
+      const { seed } = require('../db/seed');
+      seed();
+    }
+  } catch (e) {
+    console.error('[auth] Seed check error:', e);
+  }
+
   const user = get('SELECT * FROM "User" WHERE lower(Email) = ?', [email]);
-  if (!user || !bcrypt.compareSync(password, user.Password_Hash || '')) {
+  if (!user) {
+    console.warn(`[auth] User not found: "${email}"`);
     req.flash('error', 'Incorrect email or password.');
     return res.redirect('/login');
   }
+
+  const passMatches = bcrypt.compareSync(password, user.Password_Hash || '');
+  if (!passMatches) {
+    console.warn(`[auth] Password mismatch for: "${email}"`);
+    req.flash('error', 'Incorrect email or password.');
+    return res.redirect('/login');
+  }
+
   if (user.Account_Status && user.Account_Status !== 'ACTIVE') {
     req.flash('error', `This account is ${user.Account_Status.toLowerCase()}.`);
     return res.redirect('/login');
   }
+
   req.session.userId = user.User_ID;
-  audit({ session: { userId: user.User_ID }, headers: req.headers, socket: req.socket }, 'LOGIN', 'User', user.User_ID);
-  // keep auto-allocation current on every login
-  try { syncMembershipsForUser(loadUser(user.User_ID)); } catch (e) { console.error(e); }
-  const dest = clean(req.body.next) || '/';
-  req.flash('success', `Welcome back, ${user.Full_Name.split(' ')[0]}.`);
-  res.redirect(dest.startsWith('/') ? dest : '/');
+  req.session.save((err) => {
+    if (err) console.error('[auth] Session save error:', err);
+    audit({ session: { userId: user.User_ID }, headers: req.headers, socket: req.socket }, 'LOGIN', 'User', user.User_ID);
+    try { syncMembershipsForUser(loadUser(user.User_ID)); } catch (e) { console.error(e); }
+    const dest = clean(req.body.next) || '/';
+    req.flash('success', `Welcome back, ${user.Full_Name.split(' ')[0]}.`);
+    res.redirect(dest.startsWith('/') ? dest : '/');
+  });
 });
 
 router.get('/register', (req, res) => {

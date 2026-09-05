@@ -23,10 +23,28 @@
     <p style="margin-top:16px" class="dim">New to Campus Connect? <a href="/register">Create an account</a></p>
   </div>
   <div class="help-note" style="margin-top:14px">
-    <strong>Demo accounts</strong> — password <code>campus123</code><br>
-    <code>aarav@campus.edu</code> · student &nbsp;|&nbsp;
-    <code>suresh.rao@campus.edu</code> · faculty &nbsp;|&nbsp;
-    <code>admin@campus.edu</code> · staff
+    <div style="font-weight:700;margin-bottom:8px">Demo Accounts (Password: <code>campus123</code>):</div>
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <button type="button" class="btn btn-sm btn-subtle" onclick="quickFill('aarav@campus.edu', 'campus123')" style="width:100%;text-align:left;justify-content:flex-start;padding:6px 10px;cursor:pointer">
+        ⚡ <strong>aarav@campus.edu</strong> &nbsp;· Student (Aarav)
+      </button>
+      <button type="button" class="btn btn-sm btn-subtle" onclick="quickFill('suresh.rao@campus.edu', 'campus123')" style="width:100%;text-align:left;justify-content:flex-start;padding:6px 10px;cursor:pointer">
+        ⚡ <strong>suresh.rao@campus.edu</strong> &nbsp;· Faculty (Dr. Rao)
+      </button>
+      <button type="button" class="btn btn-sm btn-subtle" onclick="quickFill('admin@campus.edu', 'campus123')" style="width:100%;text-align:left;justify-content:flex-start;padding:6px 10px;cursor:pointer">
+        ⚡ <strong>admin@campus.edu</strong> &nbsp;· Staff / Admin
+      </button>
+    </div>
   </div>
 </div>
+<script>
+function quickFill(email, pwd) {
+  var e = document.getElementById('email');
+  var p = document.getElementById('password');
+  if (e) e.value = email;
+  if (p) p.value = pwd;
+  var form = document.querySelector('form');
+  if (form) form.submit();
+}
+</script>
 <%- include('../partials/foot', { bare: true }) %>
