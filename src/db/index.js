@@ -60,11 +60,12 @@ function initSchema() {
   db.exec(sql);
 }
 
-/** True once the core tables are present AND at least one user row exists. */
+/** True once the core tables are present AND the standard demo accounts exist. */
 function isSeeded() {
   try {
     const row = get('SELECT COUNT(*) AS n FROM "User"');
-    return row && row.n > 0;
+    const demo = get('SELECT 1 FROM "User" WHERE lower(Email) = ?', ['aarav@campus.edu']);
+    return Boolean(row && row.n >= 10 && demo);
   } catch {
     return false;
   }

@@ -146,4 +146,15 @@ router.post('/logout', (req, res) => {
   req.session.destroy(() => res.redirect('/login'));
 });
 
+router.get('/seed-db', (req, res) => {
+  try {
+    const { seed } = require('../db/seed');
+    const counts = seed();
+    req.flash('success', 'Database seeded successfully with all demo users!');
+    res.redirect('/login');
+  } catch (err) {
+    res.status(500).send(`Failed to seed database: ${err.message}`);
+  }
+});
+
 module.exports = router;
