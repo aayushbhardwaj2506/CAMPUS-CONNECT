@@ -28,10 +28,9 @@ const TABLES_IN_WIPE_ORDER = [
 function wipe() {
   db.exec('PRAGMA foreign_keys = OFF;');
   for (const t of TABLES_IN_WIPE_ORDER) {
-    const bare = t.replace(/"/g, '');
-    db.exec(`DELETE FROM ${t};`);
-    db.exec(`DELETE FROM sqlite_sequence WHERE name = '${bare}';`);
+    db.exec(`DROP TABLE IF EXISTS ${t};`);
   }
+  try { db.exec('DELETE FROM sqlite_sequence;'); } catch {}
   db.exec('PRAGMA foreign_keys = ON;');
 }
 
@@ -43,9 +42,9 @@ function insert(table, obj) {
 }
 
 function seed() {
+  wipe();
   initSchema();
   tx(() => {
-    wipe();
 
     // ---- MODULE 1 : ACADEMIC STRUCTURE -----------------------------------
     // Modelled on the real School of Computer Science and Engineering (SCOPE)

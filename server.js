@@ -36,11 +36,21 @@ const { flash, attachUser, requireActive } = require('./src/middleware/auth');
 const { timeAgo, fmtDate, initials } = require('./src/lib/util');
 
 // --- one-time DB bootstrap ------------------------------------------------
-initSchema();
-if (!isSeeded()) {
-  console.log('[db] empty database detected - seeding demo data...');
-  const counts = seed();
-  console.log('[db] seeded:', Object.entries(counts).map(([k, v]) => `${k}=${v}`).join(' '));
+try {
+  initSchema();
+  if (!isSeeded()) {
+    console.log('[db] empty database detected - seeding demo data...');
+    const counts = seed();
+    console.log('[db] seeded:', Object.entries(counts).map(([k, v]) => `${k}=${v}`).join(' '));
+  }
+} catch (dbErr) {
+  console.warn('[db] Schema/constraint issue detected (' + dbErr.message + '). Performing clean database reseed...');
+  try {
+    const counts = seed();
+    console.log('[db] Clean reseed complete:', Object.entries(counts).map(([k, v]) => `${k}=${v}`).join(' '));
+  } catch (fatalErr) {
+    console.error('[db] Fatal database initialization error:', fatalErr);
+  }
 }
 
 const app = express();
