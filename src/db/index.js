@@ -64,7 +64,7 @@ function initSchema() {
 function isSeeded() {
   try {
     const row = get('SELECT COUNT(*) AS n FROM "User"');
-    const demo = get('SELECT 1 FROM "User" WHERE lower(Email) = ?', ['aarav@campus.edu']);
+    const demo = get('SELECT 1 FROM "User" WHERE lower(Email) IN (?, ?)', ['aayush@campus.edu', 'aarav@campus.edu']);
     return Boolean(row && row.n >= 10 && demo);
   } catch {
     return false;

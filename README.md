@@ -74,7 +74,7 @@ All passwords: **`campus123`**
 
 | Email | Role | Notes |
 |---|---|---|
-| `aarav@campus.edu` | Student | B.Tech CSE, batch 2022, semester 5 — richest demo account |
+| `aayush@campus.edu` | Student | Aayush Bhardwaj · B.Tech CSE, batch 2022, semester 5 — richest demo account |
 | `diya@campus.edu` | Student | B.Tech CSE, sem 5 |
 | `rohan@campus.edu` | Student | B.Tech CSE, sem 5 |
 | `ananya@campus.edu` | Student | B.Tech ECE, sem 5 |

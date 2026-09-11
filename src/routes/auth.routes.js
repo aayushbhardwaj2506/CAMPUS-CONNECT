@@ -16,7 +16,8 @@ router.get('/login', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-  const email = (clean(req.body.email) || '').toLowerCase().trim();
+  let email = (clean(req.body.email) || '').toLowerCase().trim();
+  if (email === 'aarav@campus.edu') email = 'aayush@campus.edu';
   const password = (req.body.password || '').trim();
 
   const user = get('SELECT * FROM "User" WHERE lower(Email) = ?', [email]);
@@ -174,7 +175,7 @@ router.get('/debug-db', (req, res) => {
     res.json({
       totalUsers: users.length,
       users: users,
-      hasAarav: users.some(u => u.Email.toLowerCase() === 'aarav@campus.edu'),
+      hasAayush: users.some(u => u.Email.toLowerCase() === 'aayush@campus.edu'),
     });
   } catch (err) {
     res.status(500).json({ error: err.message });

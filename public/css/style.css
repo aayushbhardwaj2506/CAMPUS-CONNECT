@@ -206,41 +206,64 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-6px) rotate(-4
 .sidebar{
   position:sticky;top:calc(var(--topbar-h) + 20px);
   align-self:start;
-  display:flex;flex-direction:column;gap:2px;
-  padding-right:4px;
+  display:flex;flex-direction:column;gap:3px;
+  padding-right:6px;
 }
 
 .navitem{
   position:relative;
-  display:flex;align-items:center;gap:11px;
-  padding:9px 12px;border-radius:10px;
-  color:var(--ink-3);font-weight:560;font-size:.905rem;
+  display:flex;align-items:center;gap:12px;
+  padding:9px 13px;border-radius:8px;
+  color:var(--ink-3);font-weight:520;font-size:.91rem;
+  background:transparent;border:0;
   transition:background var(--dur) var(--ease),color var(--dur) var(--ease),transform var(--dur) var(--ease);
 }
-.navitem .navitem-ic{width:20px;text-align:center;font-size:1rem;filter:grayscale(.2);transition:filter var(--dur) var(--ease),transform var(--dur) var(--ease)}
-.navitem:hover{background:var(--bg-tint);color:var(--ink);text-decoration:none;transform:translateX(2px)}
-.navitem:hover .navitem-ic{filter:grayscale(0)}
-.navitem.active{background:var(--brand-wash);color:var(--brand-700);font-weight:640}
-.navitem.active .navitem-ic{filter:grayscale(0)}
+.navitem .navitem-ic{
+  width:20px;text-align:center;font-size:1.02rem;
+  filter:grayscale(.3);opacity:.85;
+  transition:transform .2s var(--ease),filter .2s var(--ease),opacity .2s var(--ease);
+}
+.navitem:hover{
+  background:rgba(255,255,255,0.05);
+  color:var(--ink);
+  text-decoration:none;
+  transform:translateX(3px);
+}
+.navitem:hover .navitem-ic{
+  filter:grayscale(0);opacity:1;
+  transform:scale(1.1);
+}
+.navitem.active{
+  background:rgba(255,255,255,0.08);
+  color:#ffffff;
+  font-weight:600;
+}
+.navitem.active .navitem-ic{
+  filter:grayscale(0);opacity:1;
+}
 .navitem.active::before{
   content:"";position:absolute;left:-4px;top:9px;bottom:9px;width:3px;
-  background:var(--brand);border-radius:3px;
+  background:var(--brand-700);border-radius:3px;
 }
 .navitem-count{
-  margin-left:auto;background:var(--brand);color:#fff;
-  font-size:.7rem;font-weight:700;line-height:1;
-  padding:3px 6px;border-radius:var(--r-pill);
+  margin-left:auto;
+  background:var(--brand);
+  color:#fff;
+  font-size:.68rem;font-weight:700;line-height:1;
+  padding:3px 7px;border-radius:10px;
 }
 .nav-label{
-  padding:16px 12px 6px;
-  font-size:.68rem;font-weight:750;letter-spacing:.09em;text-transform:uppercase;
+  padding:20px 13px 6px;
+  font-size:.67rem;font-weight:750;letter-spacing:.09em;text-transform:uppercase;
   color:var(--ink-4);
 }
-.nav-foot{margin-top:auto;padding-top:8px;border-top:1px solid var(--line)}
+.nav-foot{
+  margin-top:auto;padding-top:10px;
+  border-top:1px solid var(--line);
+}
 .nav-signout{display:none}
 .nav-signout button{width:100%;border:0;background:transparent;cursor:pointer;font:inherit;text-align:left}
 .nav-scrim{display:none}
-.sidebar{padding-bottom:8px}
 
 .content{min-width:0}
 .bare-main{min-height:60vh}
@@ -893,47 +916,44 @@ a.card:hover,.card-hover:hover{
 /* ---- floating / wheely sidebar (DESKTOP ONLY — must not override the
    mobile drawer rules, which are also unconditional .sidebar selectors) --- */
 @media (min-width:901px){
-  .sidebar{position:relative;perspective:900px}
+  .sidebar{position:relative}
   .sidebar-rail{
+    display:block;
     position:absolute;left:-5px;width:3px;border-radius:3px;
-    background:linear-gradient(var(--brand),#8b5cf6);
-    box-shadow:0 0 12px rgba(91,61,245,.55);
+    background:linear-gradient(180deg, var(--brand-700), #a855f7);
+    box-shadow:0 0 8px rgba(158,100,209,0.5);
     opacity:0;transform:translateY(0);height:0;
-    transition:transform .34s var(--ease-out),height .28s var(--ease-out),opacity .22s var(--ease);
+    transition:transform .22s cubic-bezier(0.2, 0.8, 0.2, 1), height .18s cubic-bezier(0.2, 0.8, 0.2, 1), opacity .18s ease;
     z-index:2;pointer-events:none;
   }
   .navitem{
-    background:var(--paper);
-    border:1px solid var(--line);
-    box-shadow:var(--sh-xs);
-    margin:3px 2px;
-    transform-style:preserve-3d;
+    margin:0;
     transition:background var(--dur) var(--ease),color var(--dur) var(--ease),
-               transform .22s var(--ease-out),box-shadow .22s var(--ease-out),border-color var(--dur) var(--ease);
+               transform .18s var(--ease-out);
   }
-  .navitem .navitem-ic{transition:transform .28s var(--ease-out),filter var(--dur) var(--ease)}
   .navitem:hover{
-    transform:translateX(6px) translateZ(10px);
-    box-shadow:var(--sh-sm);
-    border-color:#dcdde8;
+    transform:translateX(3px);
+    background:rgba(255,255,255,0.05);
   }
-  .navitem:hover .navitem-ic{transform:scale(1.18) rotate(-7deg)}
+  .navitem:hover .navitem-ic{transform:scale(1.1)}
   .navitem.active{
-    background:linear-gradient(120deg,var(--brand-wash),var(--brand-wash-2));
-    border-color:transparent;
-    box-shadow:0 6px 18px -6px rgba(91,61,245,.35);
+    transform:none;
+    background:rgba(255,255,255,0.08);
   }
-  .navitem.active::before{display:none}
-  .nav-label{padding-top:18px}
-  .nav-foot .navitem,.nav-signout .navitem{background:transparent;border-color:transparent;box-shadow:none}
-  .nav-foot .navitem:hover,.nav-signout .navitem:hover{background:var(--bg-tint);transform:translateX(4px)}
+  .navitem.active::before{
+    display:none; /* The smooth gliding rail handles the indicator seamlessly */
+  }
+  .navitem.active:hover{
+    transform:translateX(2px);
+  }
+  .nav-foot .navitem,.nav-signout .navitem{background:transparent;box-shadow:none}
+  .nav-foot .navitem:hover,.nav-signout .navitem:hover{background:rgba(255,255,255,0.05);transform:translateX(3px)}
 
-  /* nav entrance — JS adds .nav-in briefly, then removes it so hover transforms
-     keep working. Without JS the items are simply visible (no hidden default). */
+  /* nav entrance */
   html.anim .sidebar.nav-in .navitem{
     opacity:0;
-    animation:ccNavIn .5s var(--ease-out) forwards;
-    animation-delay:calc(var(--d,0) * 32ms);
+    animation:ccNavIn .4s var(--ease-out) forwards;
+    animation-delay:calc(var(--d,0) * 20ms);
   }
 }
 @keyframes ccNavIn{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:none}}

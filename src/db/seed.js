@@ -189,7 +189,7 @@ function seed() {
 
     const U = {};
     // students
-    U.aarav = mkUser('Aarav Sharma', 'aarav@campus.edu', '+91-9810000001');
+    U.aarav = mkUser('Aayush Bhardwaj', 'aayush@campus.edu', '+91-9810000001');
     U.diya = mkUser('Diya Patel', 'diya@campus.edu', '+91-9810000002');
     U.rohan = mkUser('Rohan Verma', 'rohan@campus.edu', '+91-9810000003');
     U.ananya = mkUser('Ananya Iyer', 'ananya@campus.edu', '+91-9810000004');
