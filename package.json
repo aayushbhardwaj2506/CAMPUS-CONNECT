@@ -14,7 +14,10 @@
     "dev": "node --experimental-sqlite --disable-warning=ExperimentalWarning --watch server.js",
     "init-db": "node --experimental-sqlite --disable-warning=ExperimentalWarning src/scripts/init-db.js",
     "seed": "node --experimental-sqlite --disable-warning=ExperimentalWarning src/scripts/seed.js",
-    "reset-db": "node --experimental-sqlite --disable-warning=ExperimentalWarning src/scripts/reset-db.js"
+    "graph:up": "docker compose -f docker-compose.neo4j.yml up -d",
+    "graph:import": "node --experimental-sqlite --disable-warning=ExperimentalWarning src/graph/import.js",
+    "graph:demo": "node --experimental-sqlite --disable-warning=ExperimentalWarning src/graph/demo-crud.js",
+    "reset-db":"node --experimental-sqlite --disable-warning=ExperimentalWarning src/scripts/reset-db.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -24,6 +27,7 @@
     "firebase-admin": "^14.3.0",
     "firebase-functions": "^7.3.2",
     "method-override": "^3.0.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "neo4j-driver": "^6.2.0"
   }
 }

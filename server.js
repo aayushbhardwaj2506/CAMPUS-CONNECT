@@ -104,6 +104,7 @@ app.use('/events', require('./src/routes/events.routes'));
 app.use('/projects', require('./src/routes/projects.routes'));
 app.use('/requests', require('./src/routes/requests.routes'));
 app.use('/files', require('./src/routes/files.routes'));
+app.use('/graph', require('./src/routes/graph.routes')); // DA3: Neo4j graph queries
 app.use('/', require('./src/routes/moderation.routes'));
 
 // 404
