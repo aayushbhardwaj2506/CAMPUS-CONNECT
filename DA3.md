@@ -19,7 +19,7 @@ Trade-off (be honest in the viva): graph databases are weaker for bulk reporting
 
 ## 2. Graph model (schema design)
 
-**Nodes (labels):** `School`, `Department`, `Program`, `Course`, `Person` (+ `Student` / `Faculty`), `Club`, `Community`, `Event`, `Project`, `Group`.
+**Nodes (labels):** `School`, `Department`, `Program`, `Course`, `Person` (+ `Student` / `Faculty`), `Club`, `Community`, `Event`, `Project`, `Group`, `Class` (a course + slot + faculty section).
 
 **Relationships:**
 
@@ -38,7 +38,10 @@ Trade-off (be honest in the viva): graph databases are weaker for bulk reporting
 | `OWNS` | Person → Project | Project.User_ID |
 | `WORKS_ON {role}` | Person → Project | Project_Membership + Project_Team |
 | `IN_GROUP` | Person → Group | Group_Membership |
-| `CONNECTED {shared, via}` | Person — Person | **derived**: share a club, community, project or course |
+| `OF_COURSE` | Class → Course | Class.Course_ID |
+| `TEACHES_CLASS` | Faculty → Class | Class.Faculty_ID (slot-registered classes) |
+| `REGISTERED_IN` | Student → Class | Group_Membership in the class's CLASS group (the student's slot → course → faculty registration) |
+| `CONNECTED {shared, via}` | Person — Person | **derived**: share (at least two of) a club, community, project, course or registered class |
 
 Why relational tables became relationships: each junction table (Club_Membership, Community_Membership, Project_Membership, Group_Membership, Class) is a many-to-many link — in a graph that is just an edge, with the extra columns (role) stored as edge properties.
 
@@ -49,15 +52,12 @@ Constraints: a uniqueness constraint on each node's id (`Person.userId`, `Club.c
 - **Import:** `npm run graph:import` reads the SQLite database and loads it into Neo4j (`src/graph/import.js`). It is re-runnable (wipes and rebuilds).
 - **Create:** `src/graph/extra.js` creates 30 **synthetic** sample students that exist only in the graph, each flagged `synthetic: true`, with random-but-deterministic clubs, communities, courses and projects. The SQLite demo has only 7 students, which is too small to show multi-hop queries.
 - **Derive:** `CONNECTED` relationships are generated with one Cypher statement after loading. Two people are connected when they share **at least two** of: a club, community, project, or course (one shared item would connect almost everyone — 491 edges for 41 people, every path 1 hop; with the threshold it is 190 edges and paths of 1–3 hops).
-- **Result:** 41 `Person` nodes (7 students + 4 faculty from SQLite, 30 synthetic), 29 `Group`, 13 `Course`, 8 `Program`, 8 `Club`, 7 `Department`, 7 `Event`, 5 `Community`, 4 `Project`, 3 `School`; 190 `CONNECTED` relationships.
+- **Result (current):** 408 `Person` nodes (66 students + 312 faculty from SQLite, 30 synthetic), 446 `Group`, 400 `Class`, 20 `Course`, plus clubs, communities, events, projects, programmes and departments; about 1,360 `CONNECTED` relationships. All 66 students and all 30 sample students are connected; a teacher is connected only if they share two or more classes with someone. From a student, other people are 1–4 hops away.
 
 ## 4. Run it
 
-**Where Neo4j runs:** Neo4j **AuraDB Free** (cloud). Connection settings are read from a git-ignored `.env.local`
-(`NEO4J_URI`, `NEO4J_USER`, `NEO4J_PASSWORD`), or from real environment variables. Without them the code defaults
-to a local Neo4j at `bolt://localhost:7687`. `docker-compose.neo4j.yml` is an alternative for running Neo4j locally in Docker.
-On Render, set the same three variables in the service's Environment settings — otherwise `/graph` shows a
-"graph database isn't running" message and the rest of the app is unaffected.
+**Where Neo4j runs:** a **local Neo4j Desktop** instance (`bolt://localhost:7687`), so the demo works offline. Connection settings are read from a git-ignored `.env.local` (`NEO4J_URI`, `NEO4J_USER`, `NEO4J_PASSWORD`). The earlier **Neo4j AuraDB Free** (cloud) login is kept as a backup in `.env.aura` — to switch back, copy its contents into `.env.local`. Before the demo: open Neo4j Desktop and **Start** the instance until it says Running, then `npm start`.
+On Render, set the same three variables in the service's Environment settings (a cloud database such as Aura is needed there; a laptop's local Neo4j can't be reached from Render) — otherwise `/graph` shows a "graph database isn't running" message and the rest of the app is unaffected.
 
 ```bash
 npm run graph:import    # SQLite → Neo4j (wipes and rebuilds the graph)
@@ -67,6 +67,8 @@ npm start               # app → sidebar "Campus graph"  (http://localhost:3000
 
 Neo4j Browser (visual explorer): from the Aura console → your instance → **Open** (log in with the instance credentials).
 Handy query to *see* the graph there: `MATCH (p:Person)-[c:CONNECTED]-(q:Person) RETURN p, c, q LIMIT 60`
+
+**Keeping the graph up to date:** the app writes to SQLite; Neo4j is a copy. The **⟳ Sync graph** button on the Campus graph page (`POST /graph/sync`) re-copies the current SQLite data into Neo4j in a few seconds (same code as `npm run graph:import`). Example for the demo: register a new student → they are not in the graph → click Sync graph → they appear.
 
 ## 5. Queries (also shown in the app, with their Cypher)
 

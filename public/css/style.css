@@ -1300,3 +1300,52 @@ html.anim .pixel-scape .ps-cloud-2{animation:pxDrift 34s steps(11) infinite alte
   pointer-events: none;
   opacity: 0.65; /* slightly faded so text remains readable */
 }
+
+/* ---- story tiles: link + graceful fallback when the image cannot load ---- */
+.story a.ring{display:block;color:inherit}
+.story .ring-ph{display:none;position:absolute;inset:0;z-index:1;place-items:center;font-size:1.6rem;opacity:.75}
+.story .ring.is-broken{background:linear-gradient(160deg,hsl(var(--h,260) 55% 42%),hsl(calc(var(--h,260) + 40) 60% 22%))}
+.story .ring.is-broken .ring-ph{display:grid}
+
+/* ---- story viewer (small in-page window) ------------------------------ */
+html.sv-open{overflow:hidden}
+.sv{position:fixed;inset:0;z-index:3000;display:none;align-items:center;justify-content:center;gap:14px;
+  background:rgba(6,5,12,.84);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.sv.is-open{display:flex;animation:svIn .18s ease-out}
+@keyframes svIn{from{opacity:0}to{opacity:1}}
+.sv-card{position:relative;width:min(380px,92vw);height:min(680px,86vh);border-radius:20px;overflow:hidden;
+  background:#0b0a14;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.08);outline:none;user-select:none}
+.sv-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.sv-fallback{position:absolute;inset:0;display:none;place-items:center;text-align:center;padding:28px;color:#fff;
+  background:linear-gradient(160deg,hsl(var(--h,260) 55% 42%),hsl(calc(var(--h,260) + 40) 60% 22%))}
+.sv-fb-ic{font-size:2.4rem;opacity:.8}
+.sv-fb-cap{font-size:1.15rem;font-weight:600;line-height:1.4;margin:10px 0}
+.sv-fb-open{display:inline-block;margin-top:4px;color:#fff;font-size:.85rem;text-decoration:underline}
+.sv-top{position:absolute;top:0;left:0;right:0;padding:12px 14px 22px;z-index:3;
+  background:linear-gradient(rgba(0,0,0,.65),transparent)}
+.sv-bars{display:flex;gap:4px}
+.sv-bar{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.32);overflow:hidden}
+.sv-bar i{display:block;height:100%;width:0;background:#fff}
+.sv-bar.done i{width:100%}
+.sv-bar.cur i{animation:svFill 5s linear forwards}
+.sv.is-paused .sv-bar.cur i{animation-play-state:paused}
+@keyframes svFill{from{width:0}to{width:100%}}
+.sv-who{display:flex;align-items:center;gap:9px;margin-top:11px;color:#fff;font-weight:700;font-size:.9rem}
+.sv-av{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:.8rem;
+  border:2px solid rgba(255,255,255,.85)}
+.sv-when{font-weight:500;opacity:.75;font-size:.76rem}
+.sv-x{position:absolute;top:30px;right:12px;z-index:5;width:34px;height:34px;border:0;border-radius:50%;
+  background:rgba(0,0,0,.35);color:#fff;font-size:1.4rem;line-height:1;cursor:pointer}
+.sv-x:hover{background:rgba(0,0,0,.55)}
+.sv-tap{position:absolute;top:70px;bottom:90px;z-index:2;cursor:pointer}
+.sv-tap-l{left:0;width:35%} .sv-tap-r{right:0;width:65%}
+.sv-cap{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:46px 18px 20px;color:#fff;font-size:.97rem;
+  line-height:1.45;background:linear-gradient(transparent,rgba(0,0,0,.78))}
+.sv-arrow{flex:none;width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;
+  font-size:1.8rem;line-height:1;cursor:pointer;transition:background .15s}
+.sv-arrow:hover{background:rgba(255,255,255,.28)}
+@media (max-width:560px){ .sv-arrow{display:none} .sv-card{height:min(82vh,680px)} }
+@media (prefers-reduced-motion:reduce){
+  .sv.is-open{animation:none}
+  .sv-bar.cur i{animation:none;width:100%}
+}

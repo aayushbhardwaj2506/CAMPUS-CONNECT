@@ -41,6 +41,8 @@ router.get('/', (req, res) => {
        FROM "Group" g
       WHERE g.Group_ID NOT IN (
         SELECT Group_ID FROM Group_Membership WHERE User_ID = ? AND Membership_Status = 'ACTIVE')
+        -- slot-registered class groups are joined by registering, not from here
+        AND NOT (g.Scope_Type = 'CLASS' AND g.Scope_ID IN (SELECT Class_ID FROM Class WHERE Slot_Code IS NOT NULL))
       ORDER BY (g.Group_Type = 'INTEREST') DESC, g.Group_Name`,
     [uid]
   );
@@ -120,6 +122,10 @@ router.get('/:id', (req, res) => {
 router.post('/:id/join', (req, res) => {
   const g = get(`SELECT * FROM "Group" WHERE Group_ID = ?`, [parseInt(req.params.id, 10)]);
   if (!g) return res.redirect('/groups');
+  if (g.Scope_Type === 'CLASS' && get(`SELECT 1 AS x FROM Class WHERE Class_ID = ? AND Slot_Code IS NOT NULL`, [g.Scope_ID])) {
+    req.flash('error', 'Class groups are joined by registering: Academic → Register for classes.');
+    return res.redirect('/academic/register');
+  }
   const existing = membership(g.Group_ID, req.currentUser.User_ID);
   if (existing) {
     run(`UPDATE Group_Membership SET Membership_Status = 'ACTIVE' WHERE Membership_ID = ?`, [existing.Membership_ID]);

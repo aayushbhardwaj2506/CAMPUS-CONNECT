@@ -6,6 +6,7 @@ const { timetableForStudent, timetableForFaculty } = require('../lib/queries');
 const { likeContains, clean, nowIso } = require('../lib/util');
 const { audit } = require('../lib/audit');
 const { notifyMany } = require('../lib/notify');
+const registration = require('../lib/registration');
 
 const router = express.Router();
 router.use(requireAuth);
@@ -100,6 +101,28 @@ router.get('/courses/:id', (req, res) => {
   res.render('academic/course', { title: course.Course_Code, course, classes, materials, courseGroup });
 });
 
+// ---- class registration: slot -> course -> faculty --------------------------
+router.get('/register', requireRole('student'), (req, res) => {
+  const uid = req.currentUser.User_ID;
+  res.render('academic/register', {
+    title: 'Register for classes',
+    catalog: registration.catalogue(),
+    mine: registration.registeredClasses(uid),
+  });
+});
+
+router.post('/register', requireRole('student'), (req, res) => {
+  const r = registration.register(req.currentUser.User_ID, parseInt(req.body.class_id, 10));
+  req.flash(r.ok ? 'success' : 'error', r.message);
+  res.redirect('/academic/register');
+});
+
+router.post('/register/:id/drop', requireRole('student'), (req, res) => {
+  const r = registration.drop(req.currentUser.User_ID, parseInt(req.params.id, 10));
+  req.flash(r.ok ? 'success' : 'error', r.message);
+  res.redirect('/academic/register');
+});
+
 // ---- my timetable ---------------------------------------------
 router.get('/timetable', (req, res) => {
   const u = req.currentUser;
@@ -107,10 +130,14 @@ router.get('/timetable', (req, res) => {
   if (u.role === 'student') rows = timetableForStudent(u.student);
   else if (u.role === 'faculty') rows = timetableForFaculty(u.faculty);
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  if (rows.some((r) => r.Day_Of_Week === 'Sunday')) days.push('Sunday');
   const byDay = {};
   days.forEach((d) => (byDay[d] = []));
   rows.forEach((r) => { if (byDay[r.Day_Of_Week]) byDay[r.Day_Of_Week].push(r); });
-  res.render('academic/timetable', { title: 'Timetable', byDay, days, hasAny: rows.length > 0 });
+  res.render('academic/timetable', {
+    title: 'Timetable', byDay, days, hasAny: rows.length > 0,
+    registered: u.role === 'student' && rows.some((r) => r.Slot_Code),
+  });
 });
 
 // ---- study materials library --------------------------------

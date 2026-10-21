@@ -12,7 +12,27 @@ const router = express.Router();
 
 router.get('/login', (req, res) => {
   if (req.currentUser) return res.redirect('/');
-  res.render('auth/login', { title: 'Sign in', bare: true, next: req.query.next || '' });
+  // Directory for the "I am a … / find your name" pickers (active accounts only).
+  const directory = { student: [], faculty: [], staff: [] };
+  for (const r of all(
+    `SELECT u.Full_Name AS name, u.Email AS email,
+            s.Registration_Number AS reg, d.Department_Name AS dept,
+            CASE WHEN s.User_ID IS NOT NULL THEN 'student'
+                 WHEN f.User_ID IS NOT NULL THEN 'faculty' ELSE 'staff' END AS role
+       FROM "User" u
+       LEFT JOIN Student s ON s.User_ID = u.User_ID
+       LEFT JOIN Faculty f ON f.User_ID = u.User_ID
+       LEFT JOIN Department d ON d.Department_ID = f.Department_ID
+      WHERE u.Account_Status = 'ACTIVE'
+      ORDER BY u.Full_Name`
+  )) {
+    const hint = r.role === 'student' ? r.reg : r.role === 'faculty' ? r.dept : 'Staff';
+    directory[r.role].push({ label: hint ? `${r.name} · ${hint}` : r.name, email: r.email });
+  }
+  res.render('auth/login', {
+    title: 'Sign in', bare: true, next: req.query.next || '',
+    directory, prefill: clean(req.query.email || ''),
+  });
 });
 
 router.post('/login', (req, res) => {
@@ -75,7 +95,7 @@ router.post('/register', (req, res) => {
   if (!form.Full_Name) errors.push('Full name is required.');
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.Email)) errors.push('A valid email is required.');
   if ((b.password || '').length < 6) errors.push('Password must be at least 6 characters.');
-  if (get('SELECT 1 FROM "User" WHERE lower(Email) = ?', [form.Email])) errors.push('That email is already registered.');
+  if (get('SELECT 1 FROM "User" WHERE lower(Email) = ?', [form.Email])) errors.push('An account with that email already exists.');
 
   let programId, departmentId;
   if (form.account_type === 'student') {
@@ -84,14 +104,14 @@ router.post('/register', (req, res) => {
       errors.push('Choose your program.');
     if (!clean(b.registration_number)) errors.push('Registration number is required.');
     else if (get('SELECT 1 FROM Student WHERE Registration_Number = ?', [clean(b.registration_number)]))
-      errors.push('That registration number is already in use.');
+      errors.push('An account with that registration number already exists.');
   } else {
     departmentId = parseInt(b.department_id, 10);
     if (!departmentId || !get('SELECT 1 FROM Department WHERE Department_ID = ?', [departmentId]))
       errors.push('Choose your department.');
     if (!clean(b.employee_id)) errors.push('Employee ID is required.');
     else if (get('SELECT 1 FROM Faculty WHERE Employee_ID = ?', [clean(b.employee_id)]))
-      errors.push('That employee ID is already in use.');
+      errors.push('An account with that employee ID already exists.');
   }
 
   if (errors.length) {

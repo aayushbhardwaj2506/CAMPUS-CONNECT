@@ -53,13 +53,7 @@
           <div class="cap">Add yours</div>
         </a>
         <% stories.forEach(function(s){ %>
-          <div class="story">
-            <div class="ring">
-              <% if (s.Media_URL) { %><img src="<%= s.Media_URL %>" alt=""><% } %>
-              <span class="who"><%= s.author_name.split(' ')[0] %></span>
-            </div>
-            <div class="cap"><%= s.Caption || '' %></div>
-          </div>
+          <%- include('partials/story', { s: s }) %>
         <% }) %>
       </div>
     </div>

@@ -26,7 +26,7 @@ async function createConstraints() {
     ['School', 'schoolId'], ['Department', 'deptId'], ['Program', 'programId'],
     ['Course', 'courseId'], ['Person', 'userId'], ['Club', 'clubId'],
     ['Community', 'communityId'], ['Event', 'eventId'], ['Project', 'projectId'],
-    ['Group', 'groupId'],
+    ['Group', 'groupId'], ['Class', 'classId'],
   ];
   for (const [label, prop] of cs) {
     await graph.write(
@@ -162,12 +162,38 @@ async function importFromSqlite() {
     all(`SELECT User_ID user, Group_ID grp FROM Group_Membership WHERE Membership_Status = 'ACTIVE'`)
   );
 
+  // Slot-registered classes (course + slot + faculty): who teaches them, who registered
+  counts.Class = await unwind(
+    `CREATE (cl:Class {classId: row.id, number: row.num, slot: row.slot,
+                       name: row.code + ' · ' + row.slot + ' · ' + row.faculty})
+     WITH cl, row MATCH (co:Course {courseId: row.course}) CREATE (cl)-[:OF_COURSE]->(co)`,
+    all(`SELECT c.Class_ID AS id, c.Section AS num, c.Slot_Code AS slot, c.Course_ID AS course,
+                co.Course_Code AS code, u.Full_Name AS faculty
+           FROM Class c JOIN Course co ON co.Course_ID = c.Course_ID
+           JOIN Faculty f ON f.Faculty_ID = c.Faculty_ID JOIN "User" u ON u.User_ID = f.User_ID
+          WHERE c.Slot_Code IS NOT NULL`)
+  );
+  counts.TeachesClass = await unwind(
+    `MATCH (p:Person:Faculty {userId: row.user}), (cl:Class {classId: row.cls}) CREATE (p)-[:TEACHES_CLASS]->(cl)`,
+    all(`SELECT f.User_ID AS user, c.Class_ID AS cls
+           FROM Class c JOIN Faculty f ON f.Faculty_ID = c.Faculty_ID WHERE c.Slot_Code IS NOT NULL`)
+  );
+  counts.RegisteredIn = await unwind(
+    `MATCH (p:Person:Student {userId: row.user}), (cl:Class {classId: row.cls}) CREATE (p)-[:REGISTERED_IN]->(cl)`,
+    all(`SELECT gm.User_ID AS user, g.Scope_ID AS cls
+           FROM Group_Membership gm
+           JOIN "Group" g ON g.Group_ID = gm.Group_ID AND g.Scope_Type = 'CLASS'
+           JOIN Class c ON c.Class_ID = g.Scope_ID AND c.Slot_Code IS NOT NULL
+           JOIN Student s ON s.User_ID = gm.User_ID
+          WHERE gm.Membership_Status = 'ACTIVE'`)
+  );
+
   return counts;
 }
 
 /**
  * Derive CONNECTED between two people who share AT LEAST TWO of: a club,
- * community, project, course taken/taught (a single shared item is too weak
+ * community, project, course taken/taught, or registered class (same section) (a single shared item is too weak
  * and would connect almost everyone to everyone).
  * (Big academic groups are NOT used — everyone is in
  * "All Students", which would connect the whole campus to itself.)
@@ -175,7 +201,7 @@ async function importFromSqlite() {
 async function deriveConnections() {
   await graph.write('MATCH ()-[c:CONNECTED]-() DELETE c');
   await graph.write(`
-    MATCH (a:Person)-[:MEMBER_OF|WORKS_ON|TAKES|TEACHES]->(x)<-[:MEMBER_OF|WORKS_ON|TAKES|TEACHES]-(b:Person)
+    MATCH (a:Person)-[:MEMBER_OF|WORKS_ON|TAKES|TEACHES|REGISTERED_IN|TEACHES_CLASS]->(x)<-[:MEMBER_OF|WORKS_ON|TAKES|TEACHES|REGISTERED_IN|TEACHES_CLASS]-(b:Person)
     WHERE a.userId < b.userId
     WITH a, b, collect(DISTINCT x.name) AS via, count(DISTINCT x) AS shared
     WHERE shared >= 2
@@ -186,31 +212,52 @@ async function deriveConnections() {
   return r[0].n;
 }
 
+let syncing = false;
+
+/**
+ * Wipe and rebuild the whole graph from SQLite. Used by the CLI and by the
+ * "Sync graph" button. Only one sync runs at a time.
+ */
+async function syncGraph({ withExtra = true, log = () => {} } = {}) {
+  if (syncing) throw new Error('A sync is already running.');
+  syncing = true;
+  const t0 = Date.now();
+  try {
+    log('[graph] clearing existing graph...');
+    await graph.write('MATCH (n) DETACH DELETE n');
+    await createConstraints();
+
+    log('[graph] importing from SQLite...');
+    const counts = await importFromSqlite();
+    log('[graph] imported: ' + Object.entries(counts).map(([k, v]) => k + '=' + v).join(' '));
+
+    let extra = 0;
+    if (withExtra) {
+      extra = await createExtraDataset();
+      log('[graph] created ' + extra + ' synthetic sample students (flagged synthetic:true)');
+    }
+
+    const connections = await deriveConnections();
+    log('[graph] derived CONNECTED relationships: ' + connections);
+
+    const nodes = await graph.read('MATCH (n) RETURN labels(n)[0] AS label, count(*) AS n ORDER BY n DESC');
+    log('[graph] nodes: ' + nodes.map((s) => s.label + '=' + s.n).join(' '));
+    return { counts, extra, connections, nodes, ms: Date.now() - t0 };
+  } finally {
+    syncing = false;
+  }
+}
+
+const isSyncing = () => syncing;
+
 async function main() {
   const withExtra = !process.argv.includes('--no-extra');
   if (!(await graph.isUp())) {
-    console.error('\nNeo4j is not reachable at ' + graph.URI + '.');
-    console.error('Start it with:  docker compose -f docker-compose.neo4j.yml up -d\n');
+    console.error('Neo4j is not reachable at ' + graph.URI + '.');
+    console.error('Check your .env.local / NEO4J_* settings, or start a local Neo4j.');
     process.exit(1);
   }
-  console.log('[graph] clearing existing graph...');
-  await graph.write('MATCH (n) DETACH DELETE n');
-  await createConstraints();
-
-  console.log('[graph] importing from SQLite...');
-  const counts = await importFromSqlite();
-  console.log('[graph] imported:', Object.entries(counts).map(([k, v]) => `${k}=${v}`).join(' '));
-
-  if (withExtra) {
-    const n = await createExtraDataset();
-    console.log(`[graph] created ${n} synthetic sample students (flagged synthetic:true)`);
-  }
-
-  const conn = await deriveConnections();
-  console.log(`[graph] derived CONNECTED relationships: ${conn}`);
-
-  const stats = await graph.read('MATCH (n) RETURN labels(n)[0] AS label, count(*) AS n ORDER BY n DESC');
-  console.log('[graph] nodes:', stats.map((s) => `${s.label}=${s.n}`).join(' '));
+  await syncGraph({ withExtra, log: console.log });
   await graph.close();
 }
 
@@ -218,4 +265,4 @@ if (require.main === module) {
   main().catch((e) => { console.error('[graph] import failed:', e.message); process.exit(1); });
 }
 
-module.exports = { importFromSqlite, deriveConnections };
+module.exports = { importFromSqlite, deriveConnections, syncGraph, isSyncing };

@@ -6,7 +6,7 @@ and campus services in one app.
 
 Built on the **finalized DA1 relational design (36 relations)**. Table names,
 columns, primary keys, foreign keys and UNIQUE/alternate keys are preserved
-exactly. Six small **additive** changes were made for features the brief asks
+exactly. Seven small **additive** changes were made for features the brief asks
 for that the base schema could not express — see [Schema extensions](#schema-extensions).
 
 > **Build status: complete.** Every module from the brief is implemented with
@@ -276,6 +276,7 @@ Both `src/db/schema.sql` (SQLite, used at runtime) and `src/db/schema.mysql.sql`
 | 4 | `Conversation_Participant` — new table (`Conversation_ID`, `User_ID`, `Joined_At`, UNIQUE pair) | The Chen model itself flags that conversation membership was only inferable from who had sent a message. Needed for group-chat and DM rosters. | Yes — drop the table. |
 | 5 | `Announcement.Is_Official` — new column, default `0` | Brief §16: distinguish Dean/HOD/office notices from ordinary faculty announcements. | Yes — drop the column. |
 | 6 | `UNIQUE (Post_ID, User_ID)` on `Reaction` | Enforces DA1's own documented assumption **A5** ("at most one reaction per user per post"). | Yes — drop the constraint. |
+| 7 | `Class.Slot_Code` — new NULL column (e.g. `D2+TD2`, `L7+L8`) | Course registration works by slot: a student picks slot → course → faculty. The slot code lets the app generate a class's `Timetable` rows from the slot chart (`src/lib/slots.js`). Registration itself needs no new table: it is `Group_Membership` in the class's `CLASS`-scope group. Classes without a slot code are still auto-allocated by program + semester. | Yes — drop the column. |
 
 No DA1 decision was changed silently. `Course.Department_ID` + `Course.Program_ID`
 redundancy, `Student.Current_Semester` as stored (not derived), and the
@@ -312,7 +313,7 @@ Student/Faculty-as-1:1 (not EER ISA) modelling are all left exactly as finalized
 
 **Database**
 - 36 DA1 relations created with original names, PKs, FKs and UNIQUE/AK constraints — see `src/db/schema.sql`
-- 6 additive items above, each tagged `[DA2 EXTENSION]` in both schema files
+- 7 additive items above, each tagged `[DA2 EXTENSION]` in both schema files
 - Fresh seed: 12 users, 3 schools / 3 departments / 3 programs / 8 courses, 7 classes, 27 auto-created scope groups, 91 group memberships, plus feed / message / community / club / event / project / request / file / notification / report / audit rows
 
 **Application — tested end-to-end via HTTP against a running server**

@@ -120,7 +120,10 @@ CREATE TABLE IF NOT EXISTS Class (
   Faculty_ID    INTEGER NOT NULL REFERENCES Faculty(Faculty_ID),
   Section       TEXT,
   Academic_Year TEXT,
-  Semester      INTEGER
+  Semester      INTEGER,
+  Slot_Code     TEXT    -- [DA2 EXTENSION] nullable: slot-chart code, e.g. "D2+TD2" / "L7+L8".
+                        -- Classes WITH a slot code are chosen by students (slot -> course -> faculty);
+                        -- classes without one are still auto-allocated by program + semester.
 );
 
 CREATE TABLE IF NOT EXISTS Timetable (

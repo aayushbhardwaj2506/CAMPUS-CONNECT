@@ -74,6 +74,18 @@ function seed() {
       Contact_Number: '+91-9000000003',
     });
 
+    // Schools that appear in the Fall 2026-27 registration data (BAHUM106, BASTS101).
+    const schoolSSL = insert('School', {
+      School_Name: 'School of Social Sciences and Languages', School_Code: 'SSL',
+      Address: 'Vandalur – Kelambakkam Road, Chennai 600127',
+      Contact_Email: 'ssl.office@campus.edu', Contact_Number: '+91-9000000004',
+    });
+    const schoolACAD = insert('School', {
+      School_Name: 'ACAD — Academic skills training', School_Code: 'ACAD',
+      Address: 'Vandalur – Kelambakkam Road, Chennai 600127',
+      Contact_Email: 'acad.office@campus.edu', Contact_Number: '+91-9000000005',
+    });
+
     // The six SCOPE departments. `deptCSE` stays the "home" of core B.Tech CSE
     // and of the DBMS course thread that the demo revolves around.
     const deptCSE = insert('Department', {
@@ -103,6 +115,15 @@ function seed() {
     const deptECE = insert('Department', {
       School_ID: schoolSENSE, Department_Name: 'Electronics & Communication Engineering',
       Department_Code: 'ECE', Description: 'Electronics, VLSI and communication systems.',
+    });
+
+    const deptSSL = insert('Department', {
+      School_ID: schoolSSL, Department_Name: 'Social Sciences and Languages',
+      Department_Code: 'SSL', Description: 'Humanities, economics and language courses.',
+    });
+    const deptACAD = insert('Department', {
+      School_ID: schoolACAD, Department_Name: 'Academic skills (APT)',
+      Department_Code: 'ACAD', Description: 'Soft-skill and aptitude training delivered by external trainers.',
     });
 
     // B.Tech CSE plus the SCOPE specialisation tracks, an integrated M.Tech,
@@ -147,6 +168,15 @@ function seed() {
       ['CSE3002', 'Operating Systems', deptCSE, progCSE, 4, 5],
       ['CSE3003', 'Computer Networks', deptCSE, progCSE, 3, 5],
       ['CSE3004', 'Theory of Computation', deptCSE, progCSE, 3, 5],
+      // Fall 2026-27 slot-registered courses: Semester is null so they are NOT auto-allocated;
+      // a student gets them by registering (slot -> course -> faculty).
+      ['BACSE102', 'Problem Solving Using Java', deptSWS, progCSE, 2, null],
+      ['BACSE106', 'Operating Systems', deptCSE, progCSE, 4, null],
+      ['BACSE201', 'Models of Computation', deptCSE, progCSE, 4, null],
+      ['BACSE202', 'Database Systems', deptCSE, progCSE, 4, null],
+      ['BACSE344', 'Cloud Infrastructure and Architecture', deptSWS, progCSE, 4, null],
+      ['BAHUM106', 'Micro Economics', deptSSL, progCSE, 3, null],
+      ['BASTS101', 'Qualitative and Quantitative Skills Practice I', deptACAD, progCSE, 1, null],
       ['CSE4001', 'Machine Learning', deptCI, progCSE, 4, 7],
       ['AIN3001', 'Artificial Intelligence', deptCI, progAIML, 4, 5],
       ['SEC3001', 'Cryptography and Network Security', deptIS, progCY, 4, 5],
@@ -224,7 +254,7 @@ function seed() {
         Admission_Year: year, Current_Semester: sem,
       });
     }
-    S.aarav = mkStudent(U.aarav, progCSE, '22BCE1001', 2022, 5);
+    S.aarav = mkStudent(U.aarav, progCSE, '25BCE1315', 2025, 5);
     S.diya = mkStudent(U.diya, progCSE, '22BCE1002', 2022, 5);
     S.rohan = mkStudent(U.rohan, progCSE, '22BCE1003', 2022, 5);
     S.ananya = mkStudent(U.ananya, progECE, '22BEC1001', 2022, 5);
@@ -243,6 +273,78 @@ function seed() {
     F.rao = mkFaculty(U.rao, deptCSE, 'EMP-DBS-01', 'Professor & Head — Database Systems', 'Database Systems, Query Optimization');
     F.menon = mkFaculty(U.menon, deptCI, 'EMP-CI-04', 'Associate Professor — Computational Intelligence', 'Machine Learning, Operating Systems');
     F.bose = mkFaculty(U.bose, deptECE, 'EMP-ECE-01', 'Assistant Professor — ECE', 'VLSI Design');
+
+    // ---- OPTIONAL: real class list (BACSE202, D2 slot, Fall 2026-27) --------
+    // Read from data/d2-slot.json, which is git-ignored because it holds real
+    // names and register numbers. Missing file => skipped silently (e.g. cloud).
+    // Login: <register no, lower-case>@campus.edu / campus123
+    try {
+      const fs = require('fs');
+      const path = require('path');
+      const file = path.join(__dirname, '..', '..', 'data', 'd2-slot.json');
+      if (fs.existsSync(file)) {
+        const people = JSON.parse(fs.readFileSync(file, 'utf8'));
+        const existing = new Set(
+          all('SELECT lower(Full_Name) AS n FROM "User"').map((r) => r.n)
+        );
+        let added = 0;
+        for (const p of people) {
+          if (existing.has(p.name.toLowerCase())) continue; // e.g. the demo user
+          const uid = mkUser(p.name, `${p.reg.toLowerCase()}@campus.edu`, null);
+          mkProfile(uid, `SCOPE · B.Tech CSE, Sem 3. BACSE202 Database Systems — D2 slot, team ${p.team}.`, null, null);
+          mkStudent(uid, progCSE, p.reg, 2000 + parseInt(p.reg.slice(0, 2), 10), 3);
+          U['cls_' + p.reg] = uid;
+          added++;
+        }
+        console.log(`[seed] class list: ${added} students added from data/d2-slot.json`);
+      }
+    } catch (e) {
+      console.warn('[seed] class list skipped:', e.message);
+    }
+
+    // ---- OPTIONAL: teachers from the Fall 2026-27 course allocation report ----
+    // data/fall26-faculty.json is git-ignored (real names). Login:
+    // <name as dotted lower-case>@campus.edu / campus123  e.g. m.braveen@campus.edu
+    const usedEmails = new Set(all('SELECT lower(Email) AS e FROM "User"').map((r) => r.e));
+    let facSeq = 0;
+    /** Create a faculty User + Profile + Faculty row; returns { uid, fid }. */
+    function addFacultyPerson(name, deptId, bio, designation, spec) {
+      const base = name.toLowerCase().replace(/[^a-z0-9]+/g, '.').replace(/^\.|\.$/g, '');
+      let slug = base, k = 2;
+      while (usedEmails.has(`${slug}@campus.edu`)) slug = `${base}${k++}`;
+      usedEmails.add(`${slug}@campus.edu`);
+      const uid = mkUser(name, `${slug}@campus.edu`, null);
+      mkProfile(uid, bio, null, null);
+      const fid = mkFaculty(uid, deptId, `FA26-${String(++facSeq).padStart(3, '0')}`, designation, spec);
+      U['fac_' + slug] = uid;
+      return { uid, fid };
+    }
+    try {
+      const fs = require('fs');
+      const path = require('path');
+      const file = path.join(__dirname, '..', '..', 'data', 'fall26-faculty.json');
+      if (fs.existsSync(file)) {
+        const list = JSON.parse(fs.readFileSync(file, 'utf8'));
+        const existing = new Set(all('SELECT lower(Full_Name) AS n FROM "User"').map((r) => r.n));
+        // Department is INFERRED from the topics of the courses each teacher
+        // teaches (the report does not state a department). Unclear => Software Systems.
+        const deptByKey = {
+          DBS: deptCSE, CI: deptCI, SWS: deptSWS, IS: deptIS, AN: deptAN, IOT: deptIOT,
+        };
+        let n = 0;
+        for (const t of list) {
+          if (existing.has(t.name.toLowerCase())) continue;
+          const courses = t.courses || [t.course];
+          addFacultyPerson(t.name, deptByKey[t.dept] || deptSWS,
+            `Faculty. Fall 2026-27 courses: ${courses.slice(0, 4).join(', ')}.`,
+            'Faculty', `Fall 2026-27: ${courses.slice(0, 4).join(', ')}`);
+          n++;
+        }
+        console.log(`[seed] teachers: ${n} faculty added from data/fall26-faculty.json`);
+      }
+    } catch (e) {
+      console.warn('[seed] teachers skipped:', e.message);
+    }
 
     // ---- CLASSES + TIMETABLE ------------------------------------------
     const CL = {};
@@ -279,6 +381,69 @@ function seed() {
     mkSlot(CL.sig, rooms['AB2-505'], 'Thursday', '11:00', '11:50');
     mkSlot(CL.swa, rooms['TP-012'], 'Friday', '09:00', '10:40');
 
+    // ---- OPTIONAL: Fall 2026-27 slot-based classes (registration catalogue) ----
+    // data/fall26-classes.json is built from the course allocation report: one row per
+    // class with its class number, slot code, room and faculty. Each class's timetable
+    // rows are GENERATED from its slot code using the slot chart (src/lib/slots.js).
+    try {
+      const fs = require('fs');
+      const path = require('path');
+      const file = path.join(__dirname, '..', '..', 'data', 'fall26-classes.json');
+      if (fs.existsSync(file)) {
+        const { meetingsFor } = require('../lib/slots');
+        const rows = JSON.parse(fs.readFileSync(file, 'utf8'));
+        const facByName = new Map(all(
+          'SELECT f.Faculty_ID AS id, lower(u.Full_Name) AS n FROM Faculty f JOIN "User" u ON u.User_ID = f.User_ID'
+        ).map((r) => [r.n, r.id]));
+        const buildingIds = new Map([['AB1', bAB1], ['AB2', bAB2], ['TP', bTP]]);
+        const roomIds = new Map(Object.entries(rooms));
+        const roomFor = (code) => {
+          if (roomIds.has(code)) return roomIds.get(code);
+          const dash = code.indexOf('-');
+          const blk = code.slice(0, dash), num = code.slice(dash + 1);
+          let bid = buildingIds.get(blk);
+          if (!bid) {
+            bid = insert('Building', {
+              Building_Name: /^AB\d$/.test(blk) ? `Academic Block ${blk.slice(2)}` : blk,
+              Block: blk, Campus: 'VIT Chennai',
+            });
+            buildingIds.set(blk, bid);
+          }
+          const level = parseInt(num, 10);
+          const id = insert('Room', {
+            Building_ID: bid, Room_Number: num,
+            Floor: Number.isFinite(level) ? Math.floor(level / 100) : null, Capacity: null,
+          });
+          roomIds.set(code, id);
+          return id;
+        };
+        const deptFor = (c) => (c === 'BAHUM106' ? deptSSL : c === 'BASTS101' ? deptACAD : deptSWS);
+        let nClass = 0, nFac = 0;
+        for (const r of rows) {
+          if (!C[r.course]) continue;
+          let fid = facByName.get(r.faculty.toLowerCase());
+          if (!fid) {
+            fid = addFacultyPerson(r.faculty, deptFor(r.course),
+              `Faculty. Fall 2026-27 course: ${r.course}.`, 'Faculty', `Fall 2026-27: ${r.course}`).fid;
+            facByName.set(r.faculty.toLowerCase(), fid);
+            nFac++;
+          }
+          const classId = insert('Class', {
+            Course_ID: C[r.course], Faculty_ID: fid, Section: r.classId,
+            Academic_Year: '2026-27', Semester: null, Slot_Code: r.slot,
+          });
+          const room = roomFor(r.room);
+          for (const m of meetingsFor(r.slot)) {
+            insert('Timetable', { Class_ID: classId, Room_ID: room, Day_Of_Week: m.day, Start_Time: m.start, End_Time: m.end });
+          }
+          nClass++;
+        }
+        console.log(`[seed] registration catalogue: ${nClass} classes (+${nFac} more faculty)`);
+      }
+    } catch (e) {
+      console.warn('[seed] class catalogue skipped:', e.message);
+    }
+
     // ---- AUTO GROUP ALLOCATION --------------------------------------
     // Build scope groups + memberships for every student and faculty.
     for (const key of Object.keys(U)) {
@@ -286,6 +451,29 @@ function seed() {
       if (full && (full.role === 'student' || full.role === 'faculty')) {
         syncMembershipsForUser(full);
       }
+    }
+
+    // ---- STUDENT CLASS REGISTRATION (slot -> course -> faculty) ------------------
+    // Teachers were placed in their class groups by the allocation above. Students
+    // join class groups by REGISTERING: the demo account gets the real registration
+    // from the user's registration page, everyone else a valid random allotment.
+    if (get('SELECT 1 AS x FROM Class WHERE Slot_Code IS NOT NULL LIMIT 1')) {
+      const { register, allotRandomly, rng } = require('../lib/registration');
+      const REAL = ['CH2026270101655', 'CH2026270102151', 'CH2026270102240', 'CH2026270101802',
+        'CH2026270101716', 'CH2026270102052', 'CH2026270101696', 'CH2026270103030', 'CH2026270100035'];
+      let real = 0;
+      for (const no of REAL) {
+        const cl = get('SELECT Class_ID FROM Class WHERE Section = ?', [no]);
+        if (cl && register(U.aarav, cl.Class_ID).ok) real++;
+      }
+      const rand = rng(2026);
+      let students = 0;
+      for (const uid of Object.values(U)) {
+        if (uid === U.aarav) continue;
+        const full = loadUser(uid);
+        if (full && full.role === 'student') { allotRandomly(uid, rand); students++; }
+      }
+      console.log(`[seed] registration: demo account ${real}/${REAL.length} real classes; ${students} students allotted randomly`);
     }
 
     // A couple of INTEREST groups (student-created, not auto). These use the
@@ -599,7 +787,7 @@ function seed() {
         Notification_Type: type, Is_Read: read ? 1 : 0, Created_At: isoPlusHours(-hoursAgo),
       });
     }
-    mkNotif(U.aarav, 'Added to your academic groups', 'You were auto-added to your SCOPE school, Database Systems department, B.Tech CSE program, Batch of 2022 and your Semester 5 course groups.', 'GROUP', 1, 72);
+    mkNotif(U.aarav, 'Added to your academic groups', 'You were auto-added to your SCOPE school, Database Systems department, B.Tech CSE program, Batch of 2025 and your Semester 5 course groups.', 'GROUP', 1, 72);
     mkNotif(U.aarav, 'New comment on your post', 'Rohan Verma replied to your post about normalization.', 'SOCIAL', 0, 5);
     mkNotif(U.aarav, 'New study material', 'Dr. Suresh Rao uploaded "DA-2 rubric" for CSE3001.', 'ACADEMIC', 0, 3);
     mkNotif(U.diya, 'Your request is live', 'Your carpool request is visible to campus. 0 responses so far.', 'REQUEST', 0, 2);

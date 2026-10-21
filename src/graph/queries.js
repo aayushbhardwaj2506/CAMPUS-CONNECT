@@ -8,9 +8,9 @@ const QUERIES = {
   // 1. Who is closest to me? (multi-hop pattern over 4 relationship types)
   closest: {
     title: 'People who share the most with you',
-    blurb: 'Counts the clubs, communities, projects and courses you have in common.',
-    cypher: `MATCH (me:Person {userId: $me})-[:MEMBER_OF|WORKS_ON|TAKES|TEACHES]->(x)
-      <-[:MEMBER_OF|WORKS_ON|TAKES|TEACHES]-(o:Person)
+    blurb: 'Counts the clubs, communities, projects, courses and classes you have in common.',
+    cypher: `MATCH (me:Person {userId: $me})-[:MEMBER_OF|WORKS_ON|TAKES|TEACHES|REGISTERED_IN|TEACHES_CLASS]->(x)
+      <-[:MEMBER_OF|WORKS_ON|TAKES|TEACHES|REGISTERED_IN|TEACHES_CLASS]-(o:Person)
 WHERE o <> me
 RETURN o.userId AS userId, o.name AS name, count(DISTINCT x) AS shared,
        collect(DISTINCT x.name)[..4] AS via
@@ -84,12 +84,14 @@ LIMIT 5`,
   },
   people: {
     title: 'All people',
-    cypher: 'MATCH (p:Person) RETURN p.userId AS userId, p.name AS name ORDER BY p.name',
+    // only people with at least one connection: anyone else can never be reached by a path
+    cypher: 'MATCH (p:Person)-[:CONNECTED]-() RETURN DISTINCT p.userId AS userId, p.name AS name ORDER BY p.name',
   },
   ego: {
     title: 'My neighbourhood',
     cypher: `MATCH (me:Person {userId: $me})-[c:CONNECTED]-(o:Person)
-RETURN o.userId AS userId, o.name AS name, c.shared AS shared
+RETURN o.userId AS userId, o.name AS name, c.shared AS shared, c.via AS via,
+       'Faculty' IN labels(o) AS faculty, coalesce(o.synthetic, false) AS synthetic
 ORDER BY shared DESC, name LIMIT 12`,
   },
 };

@@ -1,0 +1,182 @@
+<%- include('../partials/head', { title: 'Register for classes' }) %>
+<%
+  var DAY = { Monday:'Mon', Tuesday:'Tue', Wednesday:'Wed', Thursday:'Thu', Friday:'Fri', Saturday:'Sat', Sunday:'Sun' };
+  // JSON for the cascading dropdowns (< escaped so it can never close the script tag)
+  var catalogJson = JSON.stringify(catalog.map(function(c){
+    return { id:c.id, slot:c.slot, kind:c.kind, code:c.code, title:c.title, faculty:c.faculty,
+             room:c.room, classNo:c.classNo, meetings:c.meetings };
+  })).replace(/</g, '\\u003c');
+  var mineJson = JSON.stringify(mine.map(function(c){
+    return { id:c.id, code:c.code, slot:c.slot, meetings:c.meetings };
+  })).replace(/</g, '\\u003c');
+%>
+<div class="page-head page-head--pix">
+  <span class="ph-badge"><%- include('../partials/px', { id: 'book', size: 28, cls: 'pix-bob' }) %></span>
+  <div><h1>Register for classes</h1>
+    <p class="sub">Pick a <strong>slot</strong>, then a <strong>course</strong>, then a <strong>faculty</strong>. You're added to that class's group and your timetable is built from the slot.</p></div>
+  <a class="btn" href="/academic/timetable">My timetable →</a>
+</div>
+
+<div class="card" data-reveal>
+  <div class="card-head"><h3 style="margin:0">Add a class</h3><span class="chip"><%= catalog.length %> classes available</span></div>
+  <form action="/academic/register" method="post" id="regForm">
+    <div class="grid cols-3">
+      <div class="field">
+        <label for="selSlot">1 · Slot</label>
+        <select id="selSlot"><option value="">Choose a slot…</option></select>
+      </div>
+      <div class="field">
+        <label for="selCourse">2 · Course</label>
+        <select id="selCourse" disabled><option value="">Choose a slot first</option></select>
+      </div>
+      <div class="field">
+        <label for="selFaculty">3 · Faculty</label>
+        <select id="selFaculty" disabled><option value="">Choose a course first</option></select>
+      </div>
+    </div>
+    <input type="hidden" name="class_id" id="classId" value="">
+    <div class="reg-preview" id="preview" hidden>
+      <div id="previewWhen"></div>
+      <div id="previewWarn" class="reg-warn" hidden></div>
+    </div>
+    <div class="form-actions" style="margin-top:12px">
+      <span class="dim" style="font-size:.85rem">Slot clashes with your other classes are blocked.</span>
+      <span class="grow"></span>
+      <button class="btn btn-primary" type="submit" id="regBtn" disabled>Register</button>
+    </div>
+  </form>
+</div>
+
+<div class="card" style="margin-top:18px" data-reveal>
+  <div class="card-head"><h3 style="margin:0">Your registered classes</h3><span class="chip brand"><%= mine.length %></span></div>
+  <% if (mine.length) { %>
+    <div class="table-wrap">
+      <table class="tbl">
+        <thead><tr><th>Course</th><th>Type</th><th>Slot</th><th>When</th><th>Room</th><th>Faculty</th><th></th></tr></thead>
+        <tbody>
+          <% mine.forEach(function(c){ %>
+            <tr>
+              <td><strong><%= c.code %></strong><br><small class="muted"><%= c.title %></small></td>
+              <td><span class="chip <%= c.kind === 'lab' ? 'teal' : '' %>"><%= c.kind === 'lab' ? 'Lab' : 'Theory' %></span></td>
+              <td class="mono"><%= c.slot %></td>
+              <td><small><%= c.meetings.map(function(m){ return DAY[m.day] + ' ' + m.start + '–' + m.end; }).join(' · ') %></small></td>
+              <td><%= c.room || '—' %></td>
+              <td><%= c.faculty %></td>
+              <td style="text-align:right">
+                <form action="/academic/register/<%= c.id %>/drop" method="post" onsubmit="return confirm('Drop <%= c.code %> (<%= c.slot %>)?')">
+                  <button class="btn btn-sm btn-ghost" type="submit">Drop</button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  <% } else { %>
+    <%- include('../partials/empty', { title: 'No classes yet', text: 'Pick a slot above to register for your first class.' }) %>
+  <% } %>
+</div>
+
+<script type="application/json" id="catalogData"><%- catalogJson %></script>
+<script type="application/json" id="mineData"><%- mineJson %></script>
+<script>
+(function () {
+  var catalog = JSON.parse(document.getElementById('catalogData').textContent);
+  var mine = JSON.parse(document.getElementById('mineData').textContent);
+  var DAY = { Monday:'Mon', Tuesday:'Tue', Wednesday:'Wed', Thursday:'Thu', Friday:'Fri', Saturday:'Sat', Sunday:'Sun' };
+  var $ = function (id) { return document.getElementById(id); };
+  var selSlot = $('selSlot'), selCourse = $('selCourse'), selFaculty = $('selFaculty');
+  var btn = $('regBtn'), classId = $('classId'), preview = $('preview');
+  var mineIds = {}; mine.forEach(function (m) { mineIds[m.id] = true; });
+
+  function mins(t) { return parseInt(t.slice(0, 2), 10) * 60 + parseInt(t.slice(3), 10); }
+  function clashWith(meetings) {
+    for (var i = 0; i < mine.length; i++)
+      for (var a = 0; a < meetings.length; a++)
+        for (var b = 0; b < mine[i].meetings.length; b++) {
+          var x = meetings[a], y = mine[i].meetings[b];
+          if (x.day === y.day && mins(x.start) < mins(y.end) && mins(y.start) < mins(x.end)) return mine[i];
+        }
+    return null;
+  }
+  function fill(sel, placeholder, items) {
+    sel.innerHTML = '';
+    var o = document.createElement('option'); o.value = ''; o.textContent = placeholder; sel.appendChild(o);
+    items.forEach(function (it) {
+      var op = document.createElement('option'); op.value = it.value; op.textContent = it.label; sel.appendChild(op);
+    });
+  }
+
+  // 1 · slots, grouped into theory and lab
+  var slotCount = {};
+  catalog.forEach(function (c) { slotCount[c.slot] = (slotCount[c.slot] || 0) + 1; });
+  function slotGroup(kind, title) {
+    var slots = Object.keys(slotCount).filter(function (s) {
+      return catalog.some(function (c) { return c.slot === s && c.kind === kind; });
+    }).sort();
+    if (!slots.length) return;
+    var g = document.createElement('optgroup'); g.label = title;
+    slots.forEach(function (s) {
+      var op = document.createElement('option'); op.value = s;
+      op.textContent = s + '  ·  ' + slotCount[s] + ' class' + (slotCount[s] === 1 ? '' : 'es');
+      g.appendChild(op);
+    });
+    selSlot.appendChild(g);
+  }
+  slotGroup('theory', 'Theory slots');
+  slotGroup('lab', 'Lab slots');
+
+  function reset(fromLevel) {
+    classId.value = ''; btn.disabled = true; preview.hidden = true; $('previewWarn').hidden = true;
+    if (fromLevel <= 2) { fill(selFaculty, 'Choose a course first', []); selFaculty.disabled = true; }
+  }
+
+  selSlot.addEventListener('change', function () {
+    reset(1);
+    var slot = selSlot.value;
+    if (!slot) { fill(selCourse, 'Choose a slot first', []); selCourse.disabled = true; fill(selFaculty, 'Choose a course first', []); selFaculty.disabled = true; return; }
+    var seen = {}, items = [];
+    catalog.forEach(function (c) {
+      if (c.slot !== slot || seen[c.code]) return;
+      seen[c.code] = true; items.push({ value: c.code, label: c.code + ' — ' + c.title });
+    });
+    fill(selCourse, 'Choose a course', items); selCourse.disabled = false;
+    fill(selFaculty, 'Choose a course first', []); selFaculty.disabled = true;
+    if (items.length === 1) { selCourse.value = items[0].value; selCourse.dispatchEvent(new Event('change')); }
+  });
+
+  selCourse.addEventListener('change', function () {
+    reset(2);
+    var slot = selSlot.value, code = selCourse.value;
+    if (!code) { fill(selFaculty, 'Choose a course first', []); selFaculty.disabled = true; return; }
+    var items = catalog.filter(function (c) { return c.slot === slot && c.code === code; }).map(function (c) {
+      return { value: String(c.id), label: c.faculty + (c.room ? '  ·  ' + c.room : '') + (mineIds[c.id] ? '  (registered)' : '') };
+    });
+    fill(selFaculty, 'Choose a faculty', items); selFaculty.disabled = false;
+    if (items.length === 1) { selFaculty.value = items[0].value; selFaculty.dispatchEvent(new Event('change')); }
+  });
+
+  selFaculty.addEventListener('change', function () {
+    reset(3);
+    var id = parseInt(selFaculty.value, 10);
+    var c = catalog.filter(function (x) { return x.id === id; })[0];
+    if (!c) return;
+    classId.value = String(c.id);
+    $('previewWhen').innerHTML = '<strong>' + c.code + '</strong> · ' + (c.kind === 'lab' ? 'Lab' : 'Theory') + ' · ' +
+      c.meetings.map(function (m) { return DAY[m.day] + ' ' + m.start + '–' + m.end; }).join(' · ') +
+      (c.room ? ' · ' + c.room : '') + ' · class ' + String(c.classNo || '').slice(-4);
+    preview.hidden = false;
+    var clash = mineIds[c.id] ? { code: 'this very class (already registered)' } : clashWith(c.meetings);
+    if (clash) {
+      $('previewWarn').textContent = mineIds[c.id] ? 'You are already registered for this class.' : 'Clashes with your ' + clash.code + ' (' + clash.slot + ').';
+      $('previewWarn').hidden = false; btn.disabled = true;
+    } else { btn.disabled = false; }
+  });
+})();
+</script>
+
+<style>
+  .reg-preview{margin-top:6px;padding:12px 14px;border-radius:12px;background:var(--bg-tint);border:1px solid var(--line);font-size:.92rem}
+  .reg-warn{margin-top:6px;color:#f28ba8;font-weight:600;font-size:.88rem}
+</style>
+<%- include('../partials/foot') %>

@@ -110,7 +110,8 @@ CREATE TABLE `Class` (
   `Faculty_ID` int NOT NULL,
   `Section` varchar(255),
   `Academic_Year` varchar(255),
-  `Semester` int
+  `Semester` int,
+  `Slot_Code` varchar(64) NULL                 -- [DA2 EXTENSION] slot-chart code, e.g. D2+TD2
 );
 
 CREATE TABLE `Timetable` (

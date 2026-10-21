@@ -31,6 +31,13 @@ function getOrCreateScopeGroup(scopeType, scopeId, name, description, courseId =
   return get('SELECT * FROM "Group" WHERE Group_ID = ?', [info.lastInsertRowid]);
 }
 
+/** Group name for a class (slot-registered classes show slot + class number). */
+function classGroupName(courseCode, cl) {
+  return cl.Slot_Code
+    ? `${courseCode} · ${cl.Slot_Code} · class ${String(cl.Section || '').slice(-4)}`
+    : `${courseCode} — Section ${cl.Section} (${cl.Academic_Year})`;
+}
+
 /** Courses a student is expected to be taking right now (program + current semester). */
 function coursesForStudent(student) {
   if (!student) return [];
@@ -102,14 +109,14 @@ function eligibleGroupsForStudent(student) {
       role: 'MEMBER',
     });
     const classes = all(
-      `SELECT * FROM Class WHERE Course_ID = ? AND (Semester = ? OR Semester IS NULL)`,
+      `SELECT * FROM Class WHERE Course_ID = ? AND (Semester = ? OR Semester IS NULL) AND Slot_Code IS NULL`,
       [c.Course_ID, student.Current_Semester]
     );
     for (const cl of classes) {
       out.push({
         scopeType: 'CLASS',
         scopeId: cl.Class_ID,
-        name: `${c.Course_Code} — Section ${cl.Section} (${cl.Academic_Year})`,
+        name: classGroupName(c.Course_Code, cl),
         description: `Class/section group for ${c.Course_Code} section ${cl.Section}.`,
         courseId: c.Course_ID,
         role: 'MEMBER',
@@ -162,7 +169,7 @@ function eligibleGroupsForFaculty(faculty) {
     out.push({
       scopeType: 'CLASS',
       scopeId: cl.Class_ID,
-      name: `${cl.Course_Code} — Section ${cl.Section} (${cl.Academic_Year})`,
+      name: classGroupName(cl.Course_Code, cl),
       description: `Class/section group for ${cl.Course_Code} section ${cl.Section}.`,
       courseId: cl.Course_ID,
       role: 'MODERATOR',
@@ -224,8 +231,21 @@ function membershipReason(group) {
       return 'Auto-added: your admission batch.';
     case 'COURSE':
       return 'Auto-added: this course is in your current semester.';
-    case 'CLASS':
-      return 'Auto-added: your class/section for this course.';
+    case 'CLASS': {
+      // callers pass different column subsets, so look the class up by whichever id we have
+      let cl = null;
+      if (group.Scope_ID != null) {
+        cl = get('SELECT Slot_Code FROM Class WHERE Class_ID = ?', [group.Scope_ID]);
+      } else if (group.Group_ID != null) {
+        cl = get(
+          'SELECT c.Slot_Code FROM "Group" g JOIN Class c ON c.Class_ID = g.Scope_ID WHERE g.Group_ID = ?',
+          [group.Group_ID]
+        );
+      }
+      return cl && cl.Slot_Code
+        ? 'Registered: you picked this slot and faculty for the course.'
+        : 'Auto-added: your class/section for this course.';
+    }
     default:
       return group.Group_Type === 'INTEREST'
         ? 'You joined this group.'
@@ -241,4 +261,5 @@ module.exports = {
   eligibleGroupsForFaculty,
   syncMembershipsForUser,
   membershipReason,
+  classGroupName,
 };

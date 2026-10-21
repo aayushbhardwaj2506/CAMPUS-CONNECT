@@ -7,6 +7,7 @@ const { audit } = require('../lib/audit');
 const { notify, notifyMany } = require('../lib/notify');
 const { feedPosts, activeStories } = require('../lib/queries');
 
+const { directImageUrl, resolveImage } = require('../lib/media');
 const router = express.Router();
 router.use(requireAuth);
 
@@ -39,10 +40,22 @@ router.post('/', (req, res) => {
 });
 
 // ---- create story ----------------------------------------------
-router.post('/stories', (req, res) => {
+// live preview for the "Add a story" form: turns any pasted link into an image address
+router.get('/story-preview', async (req, res) => {
+  const url = await resolveImage(clean(req.query.url));
+  res.json({ url });
+});
+
+router.post('/stories', async (req, res) => {
   const caption = clean(req.body.caption);
-  const media = clean(req.body.media_url) || `https://picsum.photos/seed/s${Date.now()}/480/720`;
-  if (!caption && !clean(req.body.media_url)) {
+  const typed = clean(req.body.media_url);
+  const link = await resolveImage(typed); // web pages (Pinterest etc.) -> their preview image
+  if (typed && !link) {
+    req.flash('error', "That doesn't look like a valid image link. Paste a full link that starts with https://");
+    return res.redirect('back');
+  }
+  const media = link || `https://picsum.photos/seed/s${Date.now()}/480/720`;
+  if (!caption && !typed) {
     req.flash('error', 'Add a caption or a media URL for your story.');
     return res.redirect('back');
   }

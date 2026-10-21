@@ -2,6 +2,11 @@
 <div class="page-head page-head--pix">
   <span class="ph-badge"><%- include('../partials/px', { id: 'star', size: 28, cls: 'pix-twinkle' }) %></span>
   <div><h1>Campus graph</h1><p class="sub">Relationships between people, courses, clubs and projects — answered by Neo4j, a graph database.</p></div>
+  <% if (!down) { %>
+    <form action="/graph/sync" method="post" onsubmit="var b=this.querySelector('button');b.disabled=true;b.textContent='Syncing…';">
+      <button class="btn btn-primary" type="submit" title="Re-copy the current app data into Neo4j">⟳ Sync graph</button>
+    </form>
+  <% } %>
 </div>
 
 <% if (down) { %>
@@ -16,30 +21,51 @@ npm run graph:import</pre>
 
   <% if (!inGraph) { %>
     <div class="callout" style="margin-bottom:16px">
-      Staff accounts aren't part of the people graph, so this page shows the network around <strong><%= focusName %></strong>.
+      <% if (currentUser.role === 'staff') { %>
+        Staff accounts aren't part of the people graph, so this page shows the network around <strong><%= focusName %></strong>.
+      <% } else { %>
+        You're not in the graph yet. Click <strong>Sync graph</strong> to add your latest data — until then this page shows the network around <strong><%= focusName %></strong>.
+      <% } %>
     </div>
   <% } %>
 
-  <div class="grid cols-2" data-reveal style="margin-bottom:18px">
+  <div class="graph-top" data-reveal>
     <!-- neighbourhood -->
     <div class="card">
       <div class="card-head"><h3 style="margin:0">Your neighbourhood</h3><span class="chip"><%= ego.nodes.length %> nearest</span></div>
-      <p class="dim" style="margin:0 0 8px;font-size:.86rem">Line thickness = things you share with <%= focusName.split(' ')[0] %> (clubs, communities, projects, courses).</p>
+      <p class="dim" style="margin:0 0 6px;font-size:.86rem">Closer and thicker = more in common with <%= focusName.split(' ')[0] %> (clubs, communities, projects, courses). Hover a person for details.</p>
       <% if (ego.nodes.length) { %>
       <svg class="ego" viewBox="0 0 <%= ego.W %> <%= ego.H %>" role="img" aria-label="Connections of <%= focusName %>">
-        <% ego.nodes.forEach(function(n){ %>
-          <line x1="<%= ego.cx %>" y1="<%= ego.cy %>" x2="<%= n.x %>" y2="<%= n.y %>" stroke-width="<%= 1 + n.shared * 1.3 %>"/>
+        <defs>
+          <radialGradient id="egoGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#a78bfa" stop-opacity=".30"/>
+            <stop offset="100%" stop-color="#a78bfa" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <ellipse cx="<%= ego.cx %>" cy="<%= ego.cy %>" rx="<%= ego.guides[1].rx + 20 %>" ry="<%= ego.guides[1].ry + 20 %>" fill="url(#egoGlow)"/>
+        <% ego.guides.forEach(function(g){ %>
+          <ellipse class="ego-guide" cx="<%= ego.cx %>" cy="<%= ego.cy %>" rx="<%= g.rx %>" ry="<%= g.ry %>"/>
         <% }) %>
         <% ego.nodes.forEach(function(n){ %>
-          <g>
-            <circle cx="<%= n.x %>" cy="<%= n.y %>" r="17" class="ego-n"/>
-            <text x="<%= n.x %>" y="<%= n.y + 4 %>" class="ego-i"><%= initials(n.name) %></text>
-            <text x="<%= n.x %>" y="<%= n.y + 32 %>" class="ego-l"><%= n.name.split(' ')[0] %></text>
+          <g class="ego-node t-<%= n.type %>">
+            <title><%= n.name %> — <%= n.shared %> in common<%= n.via ? ': ' + n.via : '' %></title>
+            <line class="ego-edge" x1="<%= ego.cx %>" y1="<%= ego.cy %>" x2="<%= n.x %>" y2="<%= n.y %>" stroke-width="<%= n.width %>"/>
+            <circle class="ego-dot" cx="<%= n.x %>" cy="<%= n.y %>" r="<%= n.r %>"/>
+            <text class="ego-i" x="<%= n.x %>" y="<%= n.y + 3.5 %>"><%= initials(n.name) %></text>
+            <text class="ego-l" x="<%= n.lx %>" y="<%= n.ly %>" text-anchor="<%= n.anchor %>"><%= n.label %></text>
+            <text class="ego-s" x="<%= n.lx %>" y="<%= n.ly + 11 %>" text-anchor="<%= n.anchor %>"><%= n.shared %> shared</text>
           </g>
         <% }) %>
-        <circle cx="<%= ego.cx %>" cy="<%= ego.cy %>" r="27" class="ego-c"/>
-        <text x="<%= ego.cx %>" y="<%= ego.cy + 5 %>" class="ego-ci"><%= initials(ego.centre) %></text>
+        <circle class="ego-pulse" cx="<%= ego.cx %>" cy="<%= ego.cy %>" r="32"/>
+        <circle class="ego-c" cx="<%= ego.cx %>" cy="<%= ego.cy %>" r="31"/>
+        <text class="ego-ci" x="<%= ego.cx %>" y="<%= ego.cy + 5 %>"><%= initials(ego.centre) %></text>
       </svg>
+      <div class="ego-legend">
+        <span><i class="lg lg-me"></i>You</span>
+        <span><i class="lg lg-student"></i>Student</span>
+        <span><i class="lg lg-faculty"></i>Faculty</span>
+        <span><i class="lg lg-sample"></i>Sample student</span>
+      </div>
       <% } else { %>
         <p class="muted">No connections found yet.</p>
       <% } %>
@@ -155,13 +181,32 @@ npm run graph:import</pre>
 <style>
   .cy{background:#1b1737;color:#e9e4ff;border-radius:10px;padding:12px 14px;font-size:.78rem;line-height:1.5;
     overflow:auto;margin:8px 0 0;white-space:pre}
-  svg.ego{width:100%;height:auto;display:block}
-  svg.ego line{stroke:var(--brand);opacity:.28;stroke-linecap:round}
-  .ego-n{fill:#fff;stroke:var(--brand);stroke-width:1.6}
-  .ego-i{font-size:9.5px;font-weight:700;text-anchor:middle;fill:var(--brand)}
-  .ego-l{font-size:10px;text-anchor:middle;fill:var(--ink-3)}
-  .ego-c{fill:var(--brand)}
-  .ego-ci{font-size:12px;font-weight:700;text-anchor:middle;fill:#fff}
+  svg.ego{width:100%;height:auto;display:block;overflow:visible}
+  .ego-guide{fill:none;stroke:#8b7bd6;stroke-opacity:.22;stroke-dasharray:3 6}
+  .ego-node{--c:#a78bfa;cursor:default}
+  .ego-node.t-faculty{--c:#f4b63f}
+  .ego-node.t-sample{--c:#46c48d}
+  .ego-edge{stroke:var(--c);stroke-opacity:.5;stroke-linecap:round;transition:stroke-opacity .15s}
+  .ego-dot{fill:#1d1a2b;stroke:var(--c);stroke-width:2.2;transition:transform .15s;transform-box:fill-box;transform-origin:center}
+  .graph-top{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:18px;margin-bottom:18px;align-items:start}
+  @media (max-width:980px){ .graph-top{grid-template-columns:1fr} }
+  .ego-i{font-size:12px;font-weight:700;text-anchor:middle;fill:var(--c);pointer-events:none}
+  .ego-l{font-size:14px;fill:#f1edff;font-weight:600}
+  .ego-s{font-size:11px;fill:#a39cc4}
+  .ego-node:hover .ego-edge{stroke-opacity:1}
+  .ego-node:hover .ego-dot{transform:scale(1.18)}
+  .ego-c{fill:var(--brand);stroke:#c4b5fd;stroke-width:2}
+  .ego-ci{font-size:13px;font-weight:700;text-anchor:middle;fill:#fff}
+  .ego-pulse{fill:none;stroke:#a78bfa;stroke-opacity:.5;stroke-width:1.5;transform-box:fill-box;transform-origin:center}
+  html.anim .ego-pulse{animation:egoPulse 2.6s ease-out infinite}
+  @keyframes egoPulse{0%{transform:scale(1);stroke-opacity:.55}100%{transform:scale(1.9);stroke-opacity:0}}
+  @media (prefers-reduced-motion:reduce){ html.anim .ego-pulse{animation:none} .ego-dot{transition:none} }
+  .ego-legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:8px;font-size:.78rem;color:var(--ink-3)}
+  .ego-legend span{display:inline-flex;align-items:center;gap:6px}
+  .ego-legend .lg{width:10px;height:10px;border-radius:50%;border:2px solid #a78bfa;background:#1d1a2b;display:inline-block}
+  .ego-legend .lg-me{background:var(--brand);border-color:#c4b5fd}
+  .ego-legend .lg-faculty{border-color:#f4b63f}
+  .ego-legend .lg-sample{border-color:#46c48d}
   .path-strip{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
   .path-strip .flow-node{display:inline-flex;padding:7px 12px;border-radius:12px;background:var(--bg-tint);
     border:1px solid var(--line);font-size:.88rem;font-weight:600}

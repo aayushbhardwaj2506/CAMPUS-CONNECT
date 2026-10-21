@@ -10,9 +10,24 @@
     <p class="dim">Sign in to Campus Connect.</p>
     <form action="/login" method="post">
       <input type="hidden" name="next" value="<%= next || '' %>">
+      <div class="grid cols-2 who-pick">
+        <div class="field">
+          <label for="whoRole">I am a…</label>
+          <select id="whoRole">
+            <option value="student">Student</option>
+            <option value="faculty">Faculty</option>
+            <option value="staff">Staff</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="whoName">Find your name</label>
+          <input id="whoName" list="whoList" placeholder="Start typing…" autocomplete="off">
+          <datalist id="whoList"></datalist>
+        </div>
+      </div>
       <div class="field">
         <label for="email">Email</label>
-        <input id="email" name="email" type="email" required autofocus autocomplete="email" placeholder="you@campus.edu">
+        <input id="email" name="email" type="email" required autofocus autocomplete="email" placeholder="you@campus.edu" value="<%= prefill || '' %>">
       </div>
       <div class="field">
         <label for="password">Password</label>
@@ -37,7 +52,45 @@
     </div>
   </div>
 </div>
+<style>
+  /* let the demo-account rows wrap instead of overflowing the box */
+  .help-note .btn.btn-sm{white-space:normal;height:auto;min-height:32px;line-height:1.35;
+    overflow-wrap:anywhere;flex-wrap:wrap;box-sizing:border-box}
+  .help-note{box-sizing:border-box;max-width:100%}
+</style>
+<script type="application/json" id="whoData"><%- JSON.stringify(directory).replace(/</g, '\\u003c') %></script>
 <script>
+// "I am a… / Find your name": pick a role, type to search, and the email fills in.
+(function () {
+  var dir = JSON.parse(document.getElementById('whoData').textContent);
+  var role = document.getElementById('whoRole'), name = document.getElementById('whoName');
+  var list = document.getElementById('whoList'), email = document.getElementById('email');
+  function fill() {
+    list.innerHTML = '';
+    (dir[role.value] || []).forEach(function (p) {
+      var o = document.createElement('option'); o.value = p.label; list.appendChild(o);
+    });
+    name.value = '';
+    name.placeholder = (dir[role.value] || []).length
+      ? 'Start typing — ' + dir[role.value].length + ' ' + role.value + (dir[role.value].length === 1 ? ' account' : ' accounts')
+      : 'No ' + role.value + ' accounts yet';
+  }
+  function pick() {
+    var hit = (dir[role.value] || []).filter(function (p) { return p.label === name.value; })[0];
+    if (hit) { email.value = hit.email; document.getElementById('password').focus(); }
+  }
+  role.addEventListener('change', fill);
+  name.addEventListener('input', pick);
+  name.addEventListener('change', pick);
+  // pre-select the role of whatever email was prefilled
+  if (email.value) {
+    ['student', 'faculty', 'staff'].forEach(function (r) {
+      (dir[r] || []).forEach(function (p) { if (p.email === email.value.toLowerCase()) role.value = r; });
+    });
+  }
+  fill();
+})();
+
 function quickFill(email, pwd) {
   var e = document.getElementById('email');
   var p = document.getElementById('password');

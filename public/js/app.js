@@ -294,3 +294,16 @@
     window.addEventListener('resize', function () { placeRail(activeItem, true); });
   }
 })();
+
+
+/* Story tiles: if an image finished loading but is broken (e.g. the error fired before
+   this script ran), swap in the coloured fallback tile. */
+(function () {
+  function fixStoryImages() {
+    document.querySelectorAll('.story .ring img').forEach(function (img) {
+      if (img.complete && img.naturalWidth === 0) { img.parentNode.classList.add('is-broken'); img.remove(); }
+    });
+  }
+  fixStoryImages();
+  window.addEventListener('load', function () { fixStoryImages(); setTimeout(fixStoryImages, 3000); });
+})();

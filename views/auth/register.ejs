@@ -14,20 +14,28 @@
     <h1>Create your account</h1>
     <p class="dim">Join as a student or faculty member. Pick your SCOPE programme and you'll be placed into your school, department, batch and current-semester course groups automatically.</p>
 
+    <div class="callout" style="margin-bottom:14px">
+      Many people already have an account. <a href="/login"><strong>Sign in</strong></a> and pick your name from the list
+      (choose Student or Faculty, then search) before creating a new one.
+    </div>
+
     <% if (errs.length) { %>
       <div class="flash error" style="align-items:flex-start">
         <span class="flash-ic">!</span>
         <ul style="margin:0;padding-left:16px"><% errs.forEach(function(e){ %><li><%= e %></li><% }) %></ul>
+        <% if (errs.some(function(e){ return /already/i.test(e); })) { %>
+          <p style="margin:8px 0 0">That looks like an existing account — <a href="/login"><strong>sign in instead</strong></a>.</p>
+        <% } %>
       </div>
     <% } %>
 
     <form action="/register" method="post" id="regform">
       <div class="field">
-        <label>I am a…</label>
-        <div class="seg-toggle">
-          <label><input type="radio" name="account_type" value="student" <%= acct==='student'?'checked':'' %>><span>🎓 Student</span></label>
-          <label><input type="radio" name="account_type" value="faculty" <%= acct==='faculty'?'checked':'' %>><span>🧑‍🏫 Faculty</span></label>
-        </div>
+        <label for="account_type">I am a…</label>
+        <select id="account_type" name="account_type">
+          <option value="student" <%= acct==='student'?'selected':'' %>>🎓 Student</option>
+          <option value="faculty" <%= acct==='faculty'?'selected':'' %>>🧑‍🏫 Faculty</option>
+        </select>
       </div>
 
       <div class="field"><label for="full_name">Full name</label>
@@ -103,12 +111,12 @@
   (function () {
     var form = document.getElementById('regform');
     function sync() {
-      var v = (form.querySelector('input[name=account_type]:checked') || {}).value || 'student';
+      var v = document.getElementById('account_type').value || 'student';
       form.querySelectorAll('[data-role]').forEach(function (fs) {
         fs.style.display = (fs.getAttribute('data-role') === v) ? '' : 'none';
       });
     }
-    form.querySelectorAll('input[name=account_type]').forEach(function (r) { r.addEventListener('change', sync); });
+    document.getElementById('account_type').addEventListener('change', sync);
     sync();
   })();
 </script>

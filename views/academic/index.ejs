@@ -5,6 +5,7 @@
 </div>
 
 <div class="grid cols-3" data-reveal style="margin-bottom:20px">
+  <% if (currentUser.role === 'student') { %><a class="card card-hover" href="/academic/register"><h3 style="margin-bottom:2px">📝 Register for classes</h3><p class="dim" style="margin:0;font-size:.88rem">Pick slot → course → faculty</p></a><% } %>
   <a class="card card-hover" href="/academic/timetable"><h3 style="margin-bottom:2px">📅 My timetable</h3><p class="dim" style="margin:0;font-size:.88rem">Your week, class by class</p></a>
   <a class="card card-hover" href="/academic/materials"><h3 style="margin-bottom:2px">📚 Study materials</h3><p class="dim" style="margin:0;font-size:.88rem">Notes &amp; slides from faculty</p></a>
   <a class="card card-hover" href="/academic/buildings"><h3 style="margin-bottom:2px">🏛️ Buildings &amp; rooms</h3><p class="dim" style="margin:0;font-size:.88rem">Campus facilities directory</p></a>

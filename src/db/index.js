@@ -58,6 +58,9 @@ function tx(fn) {
 function initSchema() {
   const sql = fs.readFileSync(path.join(__dirname, 'schema.sql'), 'utf8');
   db.exec(sql);
+  // Older database files were created before the additive Class.Slot_Code column.
+  const cols = db.prepare('PRAGMA table_info(Class)').all().map((c) => c.name);
+  if (!cols.includes('Slot_Code')) db.exec('ALTER TABLE Class ADD COLUMN Slot_Code TEXT');
 }
 
 /** True once the core tables are present AND the standard demo accounts exist. */

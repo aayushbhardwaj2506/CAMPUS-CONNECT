@@ -15,11 +15,7 @@
           <div class="cap">Add yours</div>
         </a>
         <% stories.forEach(function(s){ %>
-          <div class="story">
-            <div class="ring"><% if (s.Media_URL) { %><img src="<%= s.Media_URL %>" alt=""><% } %>
-              <span class="who"><%= s.author_name.split(' ')[0] %></span></div>
-            <div class="cap"><%= s.Caption || '' %></div>
-          </div>
+          <%- include('../partials/story', { s: s }) %>
         <% }) %>
       </div>
       <details class="disclose" id="add-story" style="margin-top:12px">
@@ -27,8 +23,12 @@
         <form action="/feed/stories" method="post" style="margin-top:12px">
           <div class="field"><label for="s_cap">Caption</label>
             <input id="s_cap" name="caption" placeholder="What's happening right now?"></div>
-          <div class="field"><label for="s_url">Media URL <small>optional — leave blank for a placeholder image</small></label>
-            <input id="s_url" name="media_url" placeholder="https://…"></div>
+          <div class="field"><label for="s_url">Image link <small>optional — a direct image link (.jpg / .png) or a Google Drive / Imgur share link. Leave blank for a placeholder.</small></label>
+            <input id="s_url" name="media_url" placeholder="https://…" autocomplete="off"></div>
+          <div class="story-prev" id="storyPrev" hidden>
+            <img id="storyPrevImg" alt="" referrerpolicy="no-referrer">
+            <small id="storyPrevMsg"></small>
+          </div>
           <button class="btn btn-primary btn-sm" type="submit">Share story</button>
         </form>
       </details>
@@ -71,7 +71,52 @@
     </div>
   </aside>
 </div>
+<script>
+(function () {
+  var input = document.getElementById('s_url'); if (!input) return;
+  var box = document.getElementById('storyPrev'), img = document.getElementById('storyPrevImg'), msg = document.getElementById('storyPrevMsg');
+  var timer;
+  // same share-link conversions the server applies
+  function direct(u) {
+    u = (u || '').trim(); if (!u) return '';
+    if (!/^https?:///i.test(u)) u = 'https://' + u;
+    var m = u.match(/drive.google.com/file/d/([w-]+)/) || u.match(/drive.google.com/open?id=([w-]+)/);
+    if (m) return 'https://drive.google.com/thumbnail?id=' + m[1] + '&sz=w1000';
+    m = u.match(/^https?://(?:www.)?imgur.com/(?!a/|gallery/)([A-Za-z0-9]+)$/);
+    if (m) return 'https://i.imgur.com/' + m[1] + '.jpg';
+    try {
+      var p = new URL(u);
+      if (/(^|.)google.[a-z.]+$/i.test(p.hostname) && p.pathname === '/imgres' && p.searchParams.get('imgurl')) {
+        return direct(p.searchParams.get('imgurl'));
+      }
+    } catch (e) {}
+    return u;
+  }
+  input.addEventListener('input', function () {
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      var u = direct(input.value);
+      if (!u) { box.hidden = true; return; }
+      box.hidden = false; msg.textContent = 'Checking the image…'; msg.className = '';
+      img.onload = function () { msg.textContent = 'Image found ✓'; msg.className = 'ok'; };
+      img.onerror = function () {
+        msg.textContent = "Couldn't find an image at that link. Right-click the picture and choose 'Copy image address', or use a public Google Drive / Imgur link.";
+        msg.className = 'bad';
+      };
+      // ask the server: for web pages (Pinterest, articles …) it returns the page's preview image
+      fetch('/feed/story-preview?url=' + encodeURIComponent(u), { credentials: 'same-origin' })
+        .then(function (r) { return r.json(); })
+        .then(function (d) { img.src = (d && d.url) || u; })
+        .catch(function () { img.src = u; });
+    }, 400);
+  });
+})();
+</script>
 <style>
+  .story-prev{display:flex;align-items:center;gap:12px;margin:-4px 0 12px}
+  .story-prev img{width:54px;height:76px;object-fit:cover;border-radius:10px;background:var(--bg-tint);border:1px solid var(--line)}
+  .story-prev small{font-size:.82rem;color:var(--ink-3)}
+  .story-prev small.ok{color:#46c48d} .story-prev small.bad{color:#f28ba8}
   .feed-grid{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:22px}
   @media (max-width:980px){ .feed-grid{grid-template-columns:1fr} .feed-grid aside{display:none} }
 </style>

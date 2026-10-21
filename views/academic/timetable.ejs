@@ -2,11 +2,12 @@
 <div class="page-head">
   <div><h1>My timetable</h1>
     <p class="sub">
-      <% if (currentUser.role === 'student') { %>Derived from your program and current semester.
+      <% if (currentUser.role === 'student') { %><%= registered ? 'Built from the slot, course and faculty you registered.' : 'Derived from your program and current semester.' %>
       <% } else if (currentUser.role === 'faculty') { %>Classes you teach.
       <% } else { %>Staff accounts have no timetable.<% } %>
     </p>
   </div>
+  <% if (currentUser.role === 'student') { %><a class="btn btn-primary" href="/academic/register">Register / change classes</a><% } %>
 </div>
 
 <% if (!hasAny) { %>
@@ -22,7 +23,7 @@
               <li>
                 <strong><%= t.Course_Code %></strong> <%= t.Course_Name %><br>
                 <small><%= t.Start_Time %>–<%= t.End_Time %> · <%= t.Block %>-<%= t.Room_Number %>
-                · Sec <%= t.Section %><% if (t.faculty_name) { %> · <%= t.faculty_name %><% } %></small>
+                · <%= t.Slot_Code ? 'Slot ' + t.Slot_Code : 'Sec ' + t.Section %><% if (t.faculty_name) { %> · <%= t.faculty_name %><% } %></small>
               </li>
             <% }) %>
           </ul>

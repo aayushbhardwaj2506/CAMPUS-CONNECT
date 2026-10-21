@@ -1,0 +1,30 @@
+<%
+  // One story tile. Params: s (row from activeStories).
+  // Clicking it opens the in-page story viewer (public/js/stories.js). Without JS the
+  // link simply opens the image. If the image can't load, the tile falls back to a
+  // coloured card that still shows who posted it.
+  var _url = s.Media_URL || '';
+  var _hue = (Number(s.User_ID || 0) * 47) % 360;
+  var _first = String(s.author_name || '').split(' ')[0];
+  var _when = (typeof timeAgo === 'function' && s.Created_At) ? timeAgo(s.Created_At) : '';
+%>
+<div class="story">
+  <% if (_url) { %>
+    <a class="ring" data-story style="--h:<%= _hue %>" href="<%= _url %>" target="_blank" rel="noopener noreferrer"
+       title="View story" data-img="<%= _url %>" data-who="<%= s.author_name %>" data-cap="<%= s.Caption || '' %>"
+       data-when="<%= _when %>" data-hue="<%= _hue %>">
+      <img src="<%= _url %>" alt="" referrerpolicy="no-referrer"
+           onerror="this.parentNode.classList.add('is-broken');this.remove()">
+      <span class="ring-ph" aria-hidden="true">🖼️</span>
+      <span class="who"><%= _first %></span>
+    </a>
+  <% } else { %>
+    <div class="ring is-broken" data-story role="button" tabindex="0" style="--h:<%= _hue %>"
+         title="View story" data-img="" data-who="<%= s.author_name %>" data-cap="<%= s.Caption || '' %>"
+         data-when="<%= _when %>" data-hue="<%= _hue %>">
+      <span class="ring-ph" aria-hidden="true">🖼️</span>
+      <span class="who"><%= _first %></span>
+    </div>
+  <% } %>
+  <div class="cap"><%= s.Caption || '' %></div>
+</div>

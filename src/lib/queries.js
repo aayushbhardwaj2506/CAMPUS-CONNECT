@@ -1,4 +1,5 @@
 'use strict';
+const { directImageUrl } = require('./media');
 const { get, all } = require('../db');
 
 /** Posts visible to `viewer`, newest first, with author + counts + viewer's reaction. */
@@ -36,7 +37,7 @@ function activeStories(limit = 20) {
       ORDER BY s.Created_At DESC
       LIMIT ?`,
     [new Date().toISOString(), limit]
-  );
+  ).map((s) => ({ ...s, Media_URL: directImageUrl(s.Media_URL) || s.Media_URL }));
 }
 
 /** Groups the user is an active member of, with scope info. */
@@ -61,7 +62,7 @@ function myGroups(userId) {
 function timetableForStudent(student) {
   if (!student) return [];
   return all(
-    `SELECT t.*, c.Section, c.Academic_Year, co.Course_Code, co.Course_Name,
+    `SELECT t.*, c.Section, c.Academic_Year, c.Slot_Code, co.Course_Code, co.Course_Name,
             r.Room_Number, b.Building_Name, b.Block,
             fu.Full_Name AS faculty_name
        FROM Timetable t
@@ -71,13 +72,24 @@ function timetableForStudent(student) {
        JOIN Building b ON b.Building_ID = r.Building_ID
        JOIN Faculty f ON f.Faculty_ID = c.Faculty_ID
        JOIN "User" fu ON fu.User_ID = f.User_ID
-      WHERE co.Program_ID = ? AND (c.Semester = ? OR c.Semester IS NULL)
+      WHERE c.Class_ID IN (
+              SELECT g.Scope_ID
+                FROM Group_Membership gm
+                JOIN "Group" g ON g.Group_ID = gm.Group_ID
+               WHERE gm.User_ID = ? AND gm.Membership_Status = 'ACTIVE' AND g.Scope_Type = 'CLASS')
+        -- once a student has registered slot-based classes, those ARE their timetable;
+        -- otherwise fall back to the auto-allocated (non-slot) classes
+        AND (c.Slot_Code IS NOT NULL OR NOT EXISTS (
+              SELECT 1 FROM Group_Membership gm2
+                JOIN "Group" g2 ON g2.Group_ID = gm2.Group_ID AND g2.Scope_Type = 'CLASS'
+                JOIN Class c2 ON c2.Class_ID = g2.Scope_ID
+               WHERE gm2.User_ID = ? AND gm2.Membership_Status = 'ACTIVE' AND c2.Slot_Code IS NOT NULL))
       ORDER BY
         CASE t.Day_Of_Week
           WHEN 'Monday' THEN 1 WHEN 'Tuesday' THEN 2 WHEN 'Wednesday' THEN 3
           WHEN 'Thursday' THEN 4 WHEN 'Friday' THEN 5 WHEN 'Saturday' THEN 6 ELSE 7 END,
         t.Start_Time`,
-    [student.Program_ID, student.Current_Semester]
+    [student.User_ID, student.User_ID]
   );
 }
 
@@ -85,7 +97,7 @@ function timetableForStudent(student) {
 function timetableForFaculty(faculty) {
   if (!faculty) return [];
   return all(
-    `SELECT t.*, c.Section, c.Academic_Year, co.Course_Code, co.Course_Name,
+    `SELECT t.*, c.Section, c.Academic_Year, c.Slot_Code, co.Course_Code, co.Course_Name,
             r.Room_Number, b.Building_Name, b.Block
        FROM Timetable t
        JOIN Class c   ON c.Class_ID = t.Class_ID
