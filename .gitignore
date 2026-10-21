@@ -4,3 +4,5 @@ campus_connect.db-wal
 campus_connect.db-shm
 *.log
 .env
+
+.env.local

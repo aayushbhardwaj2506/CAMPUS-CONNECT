@@ -1,0 +1,170 @@
+<%- include('../partials/head', { title: 'Campus graph' }) %>
+<div class="page-head page-head--pix">
+  <span class="ph-badge"><%- include('../partials/px', { id: 'star', size: 28, cls: 'pix-twinkle' }) %></span>
+  <div><h1>Campus graph</h1><p class="sub">Relationships between people, courses, clubs and projects — answered by Neo4j, a graph database.</p></div>
+</div>
+
+<% if (down) { %>
+  <div class="card">
+    <h3 style="margin-top:0">The graph database isn't running</h3>
+    <p class="dim">Campus Connect keeps working without it — this page just needs Neo4j (<code><%= uri %></code>). Start it and load the data:</p>
+    <pre class="cy">docker compose -f docker-compose.neo4j.yml up -d
+npm run graph:import</pre>
+    <p class="dim" style="margin-bottom:0">Neo4j Browser (visual graph explorer) opens at <code>http://localhost:7474</code> — user <code>neo4j</code>.</p>
+  </div>
+<% } else { %>
+
+  <% if (!inGraph) { %>
+    <div class="callout" style="margin-bottom:16px">
+      Staff accounts aren't part of the people graph, so this page shows the network around <strong><%= focusName %></strong>.
+    </div>
+  <% } %>
+
+  <div class="grid cols-2" data-reveal style="margin-bottom:18px">
+    <!-- neighbourhood -->
+    <div class="card">
+      <div class="card-head"><h3 style="margin:0">Your neighbourhood</h3><span class="chip"><%= ego.nodes.length %> nearest</span></div>
+      <p class="dim" style="margin:0 0 8px;font-size:.86rem">Line thickness = things you share with <%= focusName.split(' ')[0] %> (clubs, communities, projects, courses).</p>
+      <% if (ego.nodes.length) { %>
+      <svg class="ego" viewBox="0 0 <%= ego.W %> <%= ego.H %>" role="img" aria-label="Connections of <%= focusName %>">
+        <% ego.nodes.forEach(function(n){ %>
+          <line x1="<%= ego.cx %>" y1="<%= ego.cy %>" x2="<%= n.x %>" y2="<%= n.y %>" stroke-width="<%= 1 + n.shared * 1.3 %>"/>
+        <% }) %>
+        <% ego.nodes.forEach(function(n){ %>
+          <g>
+            <circle cx="<%= n.x %>" cy="<%= n.y %>" r="17" class="ego-n"/>
+            <text x="<%= n.x %>" y="<%= n.y + 4 %>" class="ego-i"><%= initials(n.name) %></text>
+            <text x="<%= n.x %>" y="<%= n.y + 32 %>" class="ego-l"><%= n.name.split(' ')[0] %></text>
+          </g>
+        <% }) %>
+        <circle cx="<%= ego.cx %>" cy="<%= ego.cy %>" r="27" class="ego-c"/>
+        <text x="<%= ego.cx %>" y="<%= ego.cy + 5 %>" class="ego-ci"><%= initials(ego.centre) %></text>
+      </svg>
+      <% } else { %>
+        <p class="muted">No connections found yet.</p>
+      <% } %>
+    </div>
+
+    <!-- graph overview -->
+    <div class="card">
+      <div class="card-head"><h3 style="margin:0">What's in the graph</h3><span class="chip brand">Neo4j</span></div>
+      <div class="section-label">Nodes</div>
+      <div class="row-tight" style="flex-wrap:wrap;gap:7px;margin-bottom:12px">
+        <% nodeStats.forEach(function(s){ %><span class="chip"><%= s.label %> · <strong><%= s.n %></strong></span><% }) %>
+      </div>
+      <div class="section-label">Relationships</div>
+      <div class="row-tight" style="flex-wrap:wrap;gap:7px">
+        <% relStats.forEach(function(s){ %><span class="chip teal mono"><%= s.rel %> · <strong><%= s.n %></strong></span><% }) %>
+      </div>
+      <p class="dim" style="font-size:.82rem;margin:14px 0 0">Imported from the relational database (SQLite), plus synthetic sample students flagged <code>synthetic:true</code>. <code>CONNECTED</code> is derived: two people who share a club, community, project or course.</p>
+    </div>
+  </div>
+
+  <div class="grid cols-2" data-reveal>
+    <!-- closest -->
+    <div class="card">
+      <div class="card-head"><h3 style="margin:0"><%= Q.closest.title %></h3></div>
+      <p class="dim" style="margin:0 0 8px;font-size:.86rem"><%= Q.closest.blurb %></p>
+      <ul class="list-plain">
+        <% closest.forEach(function(r){ %>
+          <li class="between"><span><a href="/u/<%= r.userId %>"><%= r.name %></a><br><small class="muted"><%= r.via.join(' · ') %></small></span><span class="chip brand"><%= r.shared %> shared</span></li>
+        <% }) %>
+        <% if (!closest.length) { %><li class="muted">Nothing in common found.</li><% } %>
+      </ul>
+      <details class="disclose" style="margin-top:10px"><summary>Cypher</summary><pre class="cy"><%= Q.closest.cypher %></pre></details>
+    </div>
+
+    <!-- fof -->
+    <div class="card">
+      <div class="card-head"><h3 style="margin:0"><%= Q.fof.title %></h3></div>
+      <p class="dim" style="margin:0 0 8px;font-size:.86rem"><%= Q.fof.blurb %></p>
+      <ul class="list-plain">
+        <% fof.forEach(function(r){ %>
+          <li class="between"><span><a href="/u/<%= r.userId %>"><%= r.name %></a><br><small class="muted">via <%= r.through.join(', ') %></small></span><span class="chip teal"><%= r.mutual %> mutual</span></li>
+        <% }) %>
+        <% if (!fof.length) { %><li class="muted">You're already connected to everyone nearby.</li><% } %>
+      </ul>
+      <details class="disclose" style="margin-top:10px"><summary>Cypher</summary><pre class="cy"><%= Q.fof.cypher %></pre></details>
+    </div>
+
+    <!-- clubs -->
+    <div class="card">
+      <div class="card-head"><h3 style="margin:0"><%= Q.clubs.title %></h3></div>
+      <p class="dim" style="margin:0 0 8px;font-size:.86rem"><%= Q.clubs.blurb %></p>
+      <ul class="list-plain">
+        <% clubs.forEach(function(r){ %>
+          <li class="between"><span><a href="/clubs/<%= r.id %>"><%= r.name %></a><br><small class="muted"><%= r.category %></small></span><span class="chip"><%= r.connections %> of your connections</span></li>
+        <% }) %>
+        <% if (!clubs.length) { %><li class="muted">No new clubs to suggest.</li><% } %>
+      </ul>
+      <details class="disclose" style="margin-top:10px"><summary>Cypher</summary><pre class="cy"><%= Q.clubs.cypher %></pre></details>
+    </div>
+
+    <!-- path -->
+    <div class="card">
+      <div class="card-head"><h3 style="margin:0"><%= Q.path.title %></h3></div>
+      <p class="dim" style="margin:0 0 8px;font-size:.86rem"><%= Q.path.blurb %></p>
+      <form method="get" action="/graph" class="row-tight" style="margin-bottom:10px">
+        <span class="dim" style="font-size:.88rem"><%= focusName.split(' ')[0] %> →</span>
+        <select name="to" style="flex:1;min-width:0">
+          <% people.filter(function(p){ return p.userId !== focus; }).forEach(function(p){ %>
+            <option value="<%= p.userId %>" <%= p.userId === to ? 'selected' : '' %>><%= p.name %></option>
+          <% }) %>
+        </select>
+        <button class="btn btn-sm btn-primary" type="submit">Find</button>
+      </form>
+      <% if (path && path.people && path.people.length) { %>
+        <div class="path-strip">
+          <% path.people.forEach(function(n, i){ %>
+            <span class="flow-node"><%= n %></span><% if (i < path.people.length - 1) { %><span class="flow-arrow">→</span><% } %>
+          <% }) %>
+        </div>
+        <p class="dim" style="font-size:.85rem;margin:8px 0 0"><%= path.hops %> hop<%= path.hops === 1 ? '' : 's' %> apart.</p>
+      <% } else { %>
+        <p class="muted" style="margin:0">No path found within 6 hops.</p>
+      <% } %>
+      <details class="disclose" style="margin-top:10px"><summary>Cypher</summary><pre class="cy"><%= Q.path.cypher %></pre></details>
+    </div>
+
+    <!-- central -->
+    <div class="card">
+      <div class="card-head"><h3 style="margin:0"><%= Q.central.title %></h3></div>
+      <p class="dim" style="margin:0 0 8px;font-size:.86rem"><%= Q.central.blurb %></p>
+      <ul class="list-plain">
+        <% central.forEach(function(r, i){ %>
+          <li class="between"><span><%= i + 1 %>. <a href="/u/<%= r.userId %>"><%= r.name %></a><% if (r.synthetic) { %> <small class="muted">(sample)</small><% } %></span><span class="chip"><%= r.connections %> connections</span></li>
+        <% }) %>
+      </ul>
+      <details class="disclose" style="margin-top:10px"><summary>Cypher</summary><pre class="cy"><%= Q.central.cypher %></pre></details>
+    </div>
+
+    <!-- overlap -->
+    <div class="card">
+      <div class="card-head"><h3 style="margin:0"><%= Q.overlap.title %></h3></div>
+      <p class="dim" style="margin:0 0 8px;font-size:.86rem"><%= Q.overlap.blurb %></p>
+      <ul class="list-plain">
+        <% overlap.forEach(function(r){ %>
+          <li class="between"><span><%= r.clubA %> <span class="muted">+</span> <%= r.clubB %></span><span class="chip"><%= r.shared %> members</span></li>
+        <% }) %>
+      </ul>
+      <details class="disclose" style="margin-top:10px"><summary>Cypher</summary><pre class="cy"><%= Q.overlap.cypher %></pre></details>
+    </div>
+  </div>
+<% } %>
+
+<style>
+  .cy{background:#1b1737;color:#e9e4ff;border-radius:10px;padding:12px 14px;font-size:.78rem;line-height:1.5;
+    overflow:auto;margin:8px 0 0;white-space:pre}
+  svg.ego{width:100%;height:auto;display:block}
+  svg.ego line{stroke:var(--brand);opacity:.28;stroke-linecap:round}
+  .ego-n{fill:#fff;stroke:var(--brand);stroke-width:1.6}
+  .ego-i{font-size:9.5px;font-weight:700;text-anchor:middle;fill:var(--brand)}
+  .ego-l{font-size:10px;text-anchor:middle;fill:var(--ink-3)}
+  .ego-c{fill:var(--brand)}
+  .ego-ci{font-size:12px;font-weight:700;text-anchor:middle;fill:#fff}
+  .path-strip{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+  .path-strip .flow-node{display:inline-flex;padding:7px 12px;border-radius:12px;background:var(--bg-tint);
+    border:1px solid var(--line);font-size:.88rem;font-weight:600}
+  .path-strip .flow-arrow{color:var(--brand);font-weight:800}
+</style>
+<%- include('../partials/foot') %>
