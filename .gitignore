@@ -1,5 +1,4 @@
 node_modules/
-campus_connect.db
 campus_connect.db-wal
 campus_connect.db-shm
 *.log
