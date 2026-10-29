@@ -14,6 +14,11 @@ const { syncMembershipsForUser, getOrCreateScopeGroup } = require('../lib/groups
 // Pre-computed bcrypt hash for 'campus123' (cost 10) to avoid freezing low-CPU containers
 const HASH = '$2a$10$pAo90si5O7n2qgwejrv7UeJ/IFCxNt782jxwyFcpw1vxnWAkUcina';
 
+// The data/ folder holds real names (class list, teachers, class catalogue). On a public
+// deployment (Render sets RENDER=true) or when SKIP_PRIVATE_DATA is set, the seed ignores it
+// and creates only the demo accounts, so no real person's account is ever published online.
+const USE_REAL_DATA = !(process.env.RENDER || process.env.SKIP_PRIVATE_DATA);
+
 const TABLES_IN_WIPE_ORDER = [
   'Audit_Log', 'Report', 'Notification', 'File',
   'Project_Membership', 'Project_Team', 'Project',
@@ -282,7 +287,7 @@ function seed() {
       const fs = require('fs');
       const path = require('path');
       const file = path.join(__dirname, '..', '..', 'data', 'd2-slot.json');
-      if (fs.existsSync(file)) {
+      if (USE_REAL_DATA && fs.existsSync(file)) {
         const people = JSON.parse(fs.readFileSync(file, 'utf8'));
         const existing = new Set(
           all('SELECT lower(Full_Name) AS n FROM "User"').map((r) => r.n)
@@ -323,7 +328,7 @@ function seed() {
       const fs = require('fs');
       const path = require('path');
       const file = path.join(__dirname, '..', '..', 'data', 'fall26-faculty.json');
-      if (fs.existsSync(file)) {
+      if (USE_REAL_DATA && fs.existsSync(file)) {
         const list = JSON.parse(fs.readFileSync(file, 'utf8'));
         const existing = new Set(all('SELECT lower(Full_Name) AS n FROM "User"').map((r) => r.n));
         // Department is INFERRED from the topics of the courses each teacher
@@ -389,7 +394,7 @@ function seed() {
       const fs = require('fs');
       const path = require('path');
       const file = path.join(__dirname, '..', '..', 'data', 'fall26-classes.json');
-      if (fs.existsSync(file)) {
+      if (USE_REAL_DATA && fs.existsSync(file)) {
         const { meetingsFor } = require('../lib/slots');
         const rows = JSON.parse(fs.readFileSync(file, 'utf8'));
         const facByName = new Map(all(
