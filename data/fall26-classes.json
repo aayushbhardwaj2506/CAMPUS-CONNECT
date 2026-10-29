@@ -1,0 +1,4002 @@
+[
+ {
+  "classId": "CH2026270100011",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-103",
+  "slot": "F1+TF1",
+  "faculty": "Ethnus (APT)"
+ },
+ {
+  "classId": "CH2026270100012",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-104",
+  "slot": "F1+TF1",
+  "faculty": "Face (APT)"
+ },
+ {
+  "classId": "CH2026270100013",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-105",
+  "slot": "F1+TF1",
+  "faculty": "Sixphrase(APT)"
+ },
+ {
+  "classId": "CH2026270100014",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-106",
+  "slot": "F1+TF1",
+  "faculty": "Ethnus (APT)"
+ },
+ {
+  "classId": "CH2026270100015",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-107",
+  "slot": "F1+TF1",
+  "faculty": "Face (APT)"
+ },
+ {
+  "classId": "CH2026270100016",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-108",
+  "slot": "F1+TF1",
+  "faculty": "Sixphrase(APT)"
+ },
+ {
+  "classId": "CH2026270100017",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-109",
+  "slot": "F1+TF1",
+  "faculty": "Ethnus (APT)"
+ },
+ {
+  "classId": "CH2026270100018",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-203",
+  "slot": "F1+TF1",
+  "faculty": "Face (APT)"
+ },
+ {
+  "classId": "CH2026270100019",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-204",
+  "slot": "F1+TF1",
+  "faculty": "Sixphrase(APT)"
+ },
+ {
+  "classId": "CH2026270100020",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-205",
+  "slot": "F1+TF1",
+  "faculty": "Ethnus (APT)"
+ },
+ {
+  "classId": "CH2026270100021",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-206",
+  "slot": "F1+TF1",
+  "faculty": "Face (APT)"
+ },
+ {
+  "classId": "CH2026270100022",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-207",
+  "slot": "F1+TF1",
+  "faculty": "Sixphrase(APT)"
+ },
+ {
+  "classId": "CH2026270100023",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-103",
+  "slot": "F2+TF2",
+  "faculty": "Ethnus (APT)"
+ },
+ {
+  "classId": "CH2026270100024",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-104",
+  "slot": "F2+TF2",
+  "faculty": "Face (APT)"
+ },
+ {
+  "classId": "CH2026270100025",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-105",
+  "slot": "F2+TF2",
+  "faculty": "Sixphrase(APT)"
+ },
+ {
+  "classId": "CH2026270100026",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-106",
+  "slot": "F2+TF2",
+  "faculty": "Ethnus (APT)"
+ },
+ {
+  "classId": "CH2026270100027",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-107",
+  "slot": "F2+TF2",
+  "faculty": "Face (APT)"
+ },
+ {
+  "classId": "CH2026270100028",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-108",
+  "slot": "F2+TF2",
+  "faculty": "Sixphrase(APT)"
+ },
+ {
+  "classId": "CH2026270100029",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-109",
+  "slot": "F2+TF2",
+  "faculty": "Ethnus (APT)"
+ },
+ {
+  "classId": "CH2026270100030",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-203",
+  "slot": "F2+TF2",
+  "faculty": "Face (APT)"
+ },
+ {
+  "classId": "CH2026270100031",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-204",
+  "slot": "F2+TF2",
+  "faculty": "Sixphrase(APT)"
+ },
+ {
+  "classId": "CH2026270100032",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-205",
+  "slot": "F2+TF2",
+  "faculty": "Ethnus (APT)"
+ },
+ {
+  "classId": "CH2026270100033",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-206",
+  "slot": "F2+TF2",
+  "faculty": "Face (APT)"
+ },
+ {
+  "classId": "CH2026270100034",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-207",
+  "slot": "F2+TF2",
+  "faculty": "Sixphrase(APT)"
+ },
+ {
+  "classId": "CH2026270100035",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-208",
+  "slot": "F2+TF2",
+  "faculty": "Ethnus (APT)"
+ },
+ {
+  "classId": "CH2026270100036",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB2-301",
+  "slot": "B1+TB1",
+  "faculty": "Face (APT)"
+ },
+ {
+  "classId": "CH2026270100037",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB2-302",
+  "slot": "B1+TB1",
+  "faculty": "Sixphrase(APT)"
+ },
+ {
+  "classId": "CH2026270100038",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB2-303",
+  "slot": "B1+TB1",
+  "faculty": "Ethnus (APT)"
+ },
+ {
+  "classId": "CH2026270100039",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB1-402",
+  "slot": "B1+TB1",
+  "faculty": "Face (APT)"
+ },
+ {
+  "classId": "CH2026270100040",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB1-408",
+  "slot": "B1+TB1",
+  "faculty": "Sixphrase(APT)"
+ },
+ {
+  "classId": "CH2026270100041",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB2-301",
+  "slot": "B2+TB2",
+  "faculty": "Ethnus (APT)"
+ },
+ {
+  "classId": "CH2026270100042",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB2-302",
+  "slot": "B2+TB2",
+  "faculty": "Face (APT)"
+ },
+ {
+  "classId": "CH2026270100043",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB1-402",
+  "slot": "B2+TB2",
+  "faculty": "Sixphrase(APT)"
+ },
+ {
+  "classId": "CH2026270100044",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB1-301",
+  "slot": "B1+TB1",
+  "faculty": "Ethnus (APT)"
+ },
+ {
+  "classId": "CH2026270100045",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB1-302",
+  "slot": "B1+TB1",
+  "faculty": "Face (APT)"
+ },
+ {
+  "classId": "CH2026270100046",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB1-308",
+  "slot": "B1+TB1",
+  "faculty": "Sixphrase(APT)"
+ },
+ {
+  "classId": "CH2026270100047",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB1-309",
+  "slot": "B1+TB1",
+  "faculty": "Ethnus (APT)"
+ },
+ {
+  "classId": "CH2026270100048",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB1-608",
+  "slot": "B1+TB1",
+  "faculty": "Face (APT)"
+ },
+ {
+  "classId": "CH2026270100049",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB1-609",
+  "slot": "B1+TB1",
+  "faculty": "Sixphrase(APT)"
+ },
+ {
+  "classId": "CH2026270100050",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB1-610",
+  "slot": "B1+TB1",
+  "faculty": "Ethnus (APT)"
+ },
+ {
+  "classId": "CH2026270100051",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB4-514",
+  "slot": "B1+TB1",
+  "faculty": "Face (APT)"
+ },
+ {
+  "classId": "CH2026270100052",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB1-301",
+  "slot": "B2+TB2",
+  "faculty": "Sixphrase(APT)"
+ },
+ {
+  "classId": "CH2026270100053",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB1-302",
+  "slot": "B2+TB2",
+  "faculty": "Ethnus (APT)"
+ },
+ {
+  "classId": "CH2026270100054",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB1-308",
+  "slot": "B2+TB2",
+  "faculty": "Face (APT)"
+ },
+ {
+  "classId": "CH2026270100055",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB1-309",
+  "slot": "B2+TB2",
+  "faculty": "Sixphrase(APT)"
+ },
+ {
+  "classId": "CH2026270100056",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB1-608",
+  "slot": "B2+TB2",
+  "faculty": "Ethnus (APT)"
+ },
+ {
+  "classId": "CH2026270100057",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB1-609",
+  "slot": "B2+TB2",
+  "faculty": "Face (APT)"
+ },
+ {
+  "classId": "CH2026270100059",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB1-702",
+  "slot": "B1+TB1",
+  "faculty": "Ethnus (APT)"
+ },
+ {
+  "classId": "CH2026270100060",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB2-401",
+  "slot": "B1+TB1",
+  "faculty": "Face (APT)"
+ },
+ {
+  "classId": "CH2026270100061",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB2-402",
+  "slot": "B1+TB1",
+  "faculty": "Sixphrase(APT)"
+ },
+ {
+  "classId": "CH2026270100062",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB2-406",
+  "slot": "B1+TB1",
+  "faculty": "Ethnus (APT)"
+ },
+ {
+  "classId": "CH2026270100063",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB2-401",
+  "slot": "B2+TB2",
+  "faculty": "Face (APT)"
+ },
+ {
+  "classId": "CH2026270100064",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB2-402",
+  "slot": "B2+TB2",
+  "faculty": "Sixphrase(APT)"
+ },
+ {
+  "classId": "CH2026270100065",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "ADB-702",
+  "slot": "B1+TB1",
+  "faculty": "Ethnus (APT)"
+ },
+ {
+  "classId": "CH2026270100141",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-208",
+  "slot": "E1+TE1",
+  "faculty": "Face (APT)"
+ },
+ {
+  "classId": "CH2026270100142",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-209",
+  "slot": "E1+TE1",
+  "faculty": "Sixphrase(APT)"
+ },
+ {
+  "classId": "CH2026270100143",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-211",
+  "slot": "E1+TE1",
+  "faculty": "Ethnus (APT)"
+ },
+ {
+  "classId": "CH2026270100144",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-303",
+  "slot": "E1+TE1",
+  "faculty": "Face (APT)"
+ },
+ {
+  "classId": "CH2026270100146",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-304",
+  "slot": "E1+TE1",
+  "faculty": "Sixphrase(APT)"
+ },
+ {
+  "classId": "CH2026270100147",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-305",
+  "slot": "E1+TE1",
+  "faculty": "Ethnus (APT)"
+ },
+ {
+  "classId": "CH2026270100148",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-306",
+  "slot": "E1+TE1",
+  "faculty": "Face (APT)"
+ },
+ {
+  "classId": "CH2026270100149",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-307",
+  "slot": "E1+TE1",
+  "faculty": "Sixphrase(APT)"
+ },
+ {
+  "classId": "CH2026270100150",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-308",
+  "slot": "E1+TE1",
+  "faculty": "Ethnus (APT)"
+ },
+ {
+  "classId": "CH2026270100151",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-309",
+  "slot": "E1+TE1",
+  "faculty": "Face (APT)"
+ },
+ {
+  "classId": "CH2026270100152",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-313",
+  "slot": "E1+TE1",
+  "faculty": "Sixphrase(APT)"
+ },
+ {
+  "classId": "CH2026270100153",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-403",
+  "slot": "E1+TE1",
+  "faculty": "Ethnus (APT)"
+ },
+ {
+  "classId": "CH2026270100154",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-404",
+  "slot": "E1+TE1",
+  "faculty": "Face (APT)"
+ },
+ {
+  "classId": "CH2026270100155",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-209",
+  "slot": "E2+TE2",
+  "faculty": "Sixphrase(APT)"
+ },
+ {
+  "classId": "CH2026270100156",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-211",
+  "slot": "E2+TE2",
+  "faculty": "Ethnus (APT)"
+ },
+ {
+  "classId": "CH2026270100157",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-303",
+  "slot": "E2+TE2",
+  "faculty": "Face (APT)"
+ },
+ {
+  "classId": "CH2026270100158",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-304",
+  "slot": "E2+TE2",
+  "faculty": "Sixphrase(APT)"
+ },
+ {
+  "classId": "CH2026270100159",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-305",
+  "slot": "E2+TE2",
+  "faculty": "Ethnus (APT)"
+ },
+ {
+  "classId": "CH2026270100160",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-306",
+  "slot": "E2+TE2",
+  "faculty": "Face (APT)"
+ },
+ {
+  "classId": "CH2026270100161",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-307",
+  "slot": "E2+TE2",
+  "faculty": "Sixphrase(APT)"
+ },
+ {
+  "classId": "CH2026270100162",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-308",
+  "slot": "E2+TE2",
+  "faculty": "Ethnus (APT)"
+ },
+ {
+  "classId": "CH2026270100163",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-309",
+  "slot": "E2+TE2",
+  "faculty": "Face (APT)"
+ },
+ {
+  "classId": "CH2026270100164",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB3-313",
+  "slot": "E2+TE2",
+  "faculty": "Sixphrase(APT)"
+ },
+ {
+  "classId": "CH2026270100165",
+  "course": "BASTS101",
+  "title": "Qualitative and Quantitative Skills Practice I",
+  "credits": 1.0,
+  "kind": "theory",
+  "room": "AB2-406",
+  "slot": "B2+TB2",
+  "faculty": "Ethnus (APT)"
+ },
+ {
+  "classId": "CH2026270100577",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB1-607",
+  "slot": "L1+L2+L19+L20",
+  "faculty": "Angeline Ezhilarasi G"
+ },
+ {
+  "classId": "CH2026270101635",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB1-506A",
+  "slot": "L31+L32+L49+L50",
+  "faculty": "Anusooya G"
+ },
+ {
+  "classId": "CH2026270101637",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-511",
+  "slot": "L9+L10+L27+L28",
+  "faculty": "Anusooya G"
+ },
+ {
+  "classId": "CH2026270101640",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-511",
+  "slot": "L51+L52+L55+L56",
+  "faculty": "Janaki Meena M"
+ },
+ {
+  "classId": "CH2026270101642",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-511",
+  "slot": "L1+L2+L19+L20",
+  "faculty": "Pradeep K"
+ },
+ {
+  "classId": "CH2026270101643",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-202",
+  "slot": "L31+L32+L49+L50",
+  "faculty": "Radha R"
+ },
+ {
+  "classId": "CH2026270101644",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-602",
+  "slot": "L51+L52+L55+L56",
+  "faculty": "Indra Priyadharshini"
+ },
+ {
+  "classId": "CH2026270101645",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB1-208",
+  "slot": "L1+L2+L9+L10",
+  "faculty": "Indra Priyadharshini"
+ },
+ {
+  "classId": "CH2026270101646",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-412",
+  "slot": "L31+L32+L49+L50",
+  "faculty": "Joshan"
+ },
+ {
+  "classId": "CH2026270101648",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-511",
+  "slot": "L31+L32+L49+L50",
+  "faculty": "Mansoor Hussain D"
+ },
+ {
+  "classId": "CH2026270101649",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB1-313",
+  "slot": "L1+L2+L27+L28",
+  "faculty": "Mansoor Hussain D"
+ },
+ {
+  "classId": "CH2026270101650",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-612",
+  "slot": "L31+L32+L49+L50",
+  "faculty": "Dinakaran M"
+ },
+ {
+  "classId": "CH2026270101651",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-402",
+  "slot": "L9+L10+L19+L20",
+  "faculty": "Dominic Savio M"
+ },
+ {
+  "classId": "CH2026270101652",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-402",
+  "slot": "L31+L32+L49+L50",
+  "faculty": "Palani Thanaraj K"
+ },
+ {
+  "classId": "CH2026270101653",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB1-209",
+  "slot": "L1+L2+L9+L10",
+  "faculty": "Palani Thanaraj K"
+ },
+ {
+  "classId": "CH2026270101654",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB1-210",
+  "slot": "L1+L2+L9+L10",
+  "faculty": "Senthil Prakash P N"
+ },
+ {
+  "classId": "CH2026270101655",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-612",
+  "slot": "L1+L2+L19+L20",
+  "faculty": "Kanniga Devi R"
+ },
+ {
+  "classId": "CH2026270101656",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-602",
+  "slot": "L1+L2+L27+L28",
+  "faculty": "Karthikeyan N"
+ },
+ {
+  "classId": "CH2026270101657",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-611",
+  "slot": "L31+L32+L49+L50",
+  "faculty": "Kabilan K"
+ },
+ {
+  "classId": "CH2026270101658",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-611",
+  "slot": "L1+L2+L27+L28",
+  "faculty": "Saravanan P"
+ },
+ {
+  "classId": "CH2026270101659",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-412",
+  "slot": "L9+L10+L19+L20",
+  "faculty": "Saravanan P"
+ },
+ {
+  "classId": "CH2026270101660",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-410",
+  "slot": "L45+L46+L51+L52",
+  "faculty": "Marimuthu M"
+ },
+ {
+  "classId": "CH2026270101661",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-612",
+  "slot": "L51+L52+L55+L56",
+  "faculty": "Lekshmi K"
+ },
+ {
+  "classId": "CH2026270101662",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-310",
+  "slot": "L1+L2+L9+L10",
+  "faculty": "Lekshmi K"
+ },
+ {
+  "classId": "CH2026270101663",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB1-605B",
+  "slot": "L1+L2+L9+L10",
+  "faculty": "Jai Vinita L"
+ },
+ {
+  "classId": "CH2026270101664",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-611",
+  "slot": "L51+L52+L55+L56",
+  "faculty": "Srinivasan B"
+ },
+ {
+  "classId": "CH2026270101892",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-612",
+  "slot": "L37+L38+L43+L44",
+  "faculty": "Pradeep K V"
+ },
+ {
+  "classId": "CH2026270101893",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB1-313",
+  "slot": "L13+L14+L25+L26",
+  "faculty": "Pradeep K V"
+ },
+ {
+  "classId": "CH2026270101895",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-302",
+  "slot": "L7+L8+L15+L16",
+  "faculty": "Janaki Meena M"
+ },
+ {
+  "classId": "CH2026270101897",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-412",
+  "slot": "L13+L14+L25+L26",
+  "faculty": "Vijayakumar K P"
+ },
+ {
+  "classId": "CH2026270101898",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-511",
+  "slot": "L5+L6+L37+L38",
+  "faculty": "Vijayakumar K P"
+ },
+ {
+  "classId": "CH2026270101899",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-511",
+  "slot": "L13+L14+L25+L26",
+  "faculty": "Radha R"
+ },
+ {
+  "classId": "CH2026270101900",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-612",
+  "slot": "L13+L14+L27+L28",
+  "faculty": "Sherly A"
+ },
+ {
+  "classId": "CH2026270101901",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-202",
+  "slot": "L39+L40+L55+L56",
+  "faculty": "Sherly A"
+ },
+ {
+  "classId": "CH2026270101902",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-611",
+  "slot": "L13+L14+L25+L26",
+  "faculty": "Joshan"
+ },
+ {
+  "classId": "CH2026270101903",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-202",
+  "slot": "L45+L46+L57+L58",
+  "faculty": "Dinakaran M"
+ },
+ {
+  "classId": "CH2026270101905",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-611",
+  "slot": "L39+L40+L57+L58",
+  "faculty": "Dominic Savio M"
+ },
+ {
+  "classId": "CH2026270101907",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-412",
+  "slot": "L45+L46+L57+L58",
+  "faculty": "S Jahangeer Sidiq"
+ },
+ {
+  "classId": "CH2026270101908",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-511",
+  "slot": "L7+L8+L15+L16",
+  "faculty": "S Jahangeer Sidiq"
+ },
+ {
+  "classId": "CH2026270101911",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-611",
+  "slot": "L5+L6+L37+L38",
+  "faculty": "Senthil Prakash P N"
+ },
+ {
+  "classId": "CH2026270101912",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-311",
+  "slot": "L37+L38+L43+L44",
+  "faculty": "Kanniga Devi R"
+ },
+ {
+  "classId": "CH2026270101913",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-412",
+  "slot": "L39+L40+L55+L56",
+  "faculty": "Karthikeyan N"
+ },
+ {
+  "classId": "CH2026270101914",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-302",
+  "slot": "L45+L46+L57+L58",
+  "faculty": "Kabilan K"
+ },
+ {
+  "classId": "CH2026270101915",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-410",
+  "slot": "L7+L8+L13+L14",
+  "faculty": "Sivakami R"
+ },
+ {
+  "classId": "CH2026270101916",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-612",
+  "slot": "L5+L6+L21+L22",
+  "faculty": "Sivakami R"
+ },
+ {
+  "classId": "CH2026270101917",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-302",
+  "slot": "L39+L40+L55+L56",
+  "faculty": "Dhavakumar P"
+ },
+ {
+  "classId": "CH2026270101918",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-410",
+  "slot": "L5+L6+L19+L20",
+  "faculty": "Dhavakumar P"
+ },
+ {
+  "classId": "CH2026270101919",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-402",
+  "slot": "L39+L40+L55+L56",
+  "faculty": "Marimuthu M"
+ },
+ {
+  "classId": "CH2026270101920",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-402",
+  "slot": "L45+L46+L57+L58",
+  "faculty": "Jai Vinita L"
+ },
+ {
+  "classId": "CH2026270101921",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB3-602",
+  "slot": "L5+L6+L13+L14",
+  "faculty": "Srinivasan B"
+ },
+ {
+  "classId": "CH2026270102069",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB1-607B",
+  "slot": "L31+L32+L37+L38",
+  "faculty": "Sheena Christabel Pravin"
+ },
+ {
+  "classId": "CH2026270102070",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB1-607B",
+  "slot": "L3+L4+L15+L16",
+  "faculty": "Sheena Christabel Pravin"
+ },
+ {
+  "classId": "CH2026270102072",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB1-607B",
+  "slot": "L39+L40+L57+L58",
+  "faculty": "Kiruthika"
+ },
+ {
+  "classId": "CH2026270102074",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB1-607B",
+  "slot": "L5+L6+L43+L44",
+  "faculty": "Kiruthika"
+ },
+ {
+  "classId": "CH2026270102075",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB1-607B",
+  "slot": "L13+L14+L27+L28",
+  "faculty": "Kiruthika"
+ },
+ {
+  "classId": "CH2026270102316",
+  "course": "BACSE102",
+  "title": "Problem Solving Using Java",
+  "credits": 2.0,
+  "kind": "lab",
+  "room": "AB1-603A",
+  "slot": "L11+L12+L23+L24",
+  "faculty": "Chendur Kumaran R"
+ },
+ {
+  "classId": "CH2026270101573",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-204",
+  "slot": "E1+TE1",
+  "faculty": "Sivagami M"
+ },
+ {
+  "classId": "CH2026270101574",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-107",
+  "slot": "E2+TE2",
+  "faculty": "Sivagami M"
+ },
+ {
+  "classId": "CH2026270101575",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-202",
+  "slot": "L43+L44",
+  "faculty": "Sivagami M"
+ },
+ {
+  "classId": "CH2026270101577",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-103",
+  "slot": "E1+TE1",
+  "faculty": "Thomas Abraham J V"
+ },
+ {
+  "classId": "CH2026270101579",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-104",
+  "slot": "E1+TE1",
+  "faculty": "Rabindra Kumar Singh"
+ },
+ {
+  "classId": "CH2026270101581",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-204",
+  "slot": "E2+TE2",
+  "faculty": "Rabindra Kumar Singh"
+ },
+ {
+  "classId": "CH2026270101583",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-106",
+  "slot": "E1+TE1",
+  "faculty": "Shola Usha Rani"
+ },
+ {
+  "classId": "CH2026270101584",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-202",
+  "slot": "L33+L34",
+  "faculty": "Shola Usha Rani"
+ },
+ {
+  "classId": "CH2026270101585",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-203",
+  "slot": "E1+TE1",
+  "faculty": "Rajalakshmi R"
+ },
+ {
+  "classId": "CH2026270101586",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-402",
+  "slot": "L43+L44",
+  "faculty": "Rajalakshmi R"
+ },
+ {
+  "classId": "CH2026270101589",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-107",
+  "slot": "E1+TE1",
+  "faculty": "V. Muthumanikandan"
+ },
+ {
+  "classId": "CH2026270101590",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-412",
+  "slot": "L43+L44",
+  "faculty": "V. Muthumanikandan"
+ },
+ {
+  "classId": "CH2026270101591",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-108",
+  "slot": "E2+TE2",
+  "faculty": "Sk Ayesha"
+ },
+ {
+  "classId": "CH2026270101593",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-108",
+  "slot": "E1+TE1",
+  "faculty": "Menaka Pushpa A"
+ },
+ {
+  "classId": "CH2026270101595",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-205",
+  "slot": "E2+TE2",
+  "faculty": "Sandeep Kumar Satapathy"
+ },
+ {
+  "classId": "CH2026270101597",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-106",
+  "slot": "E2+TE2",
+  "faculty": "Sudha"
+ },
+ {
+  "classId": "CH2026270101598",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-311",
+  "slot": "L13+L14",
+  "faculty": "Sudha"
+ },
+ {
+  "classId": "CH2026270101599",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-103",
+  "slot": "E2+TE2",
+  "faculty": "Mercy Rajaselvi Beaulah P"
+ },
+ {
+  "classId": "CH2026270101601",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-205",
+  "slot": "E1+TE1",
+  "faculty": "S A Amutha Jeevakumari"
+ },
+ {
+  "classId": "CH2026270101603",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-105",
+  "slot": "E2+TE2",
+  "faculty": "S A Amutha Jeevakumari"
+ },
+ {
+  "classId": "CH2026270101604",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-402",
+  "slot": "L13+L14",
+  "faculty": "S A Amutha Jeevakumari"
+ },
+ {
+  "classId": "CH2026270101605",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-206",
+  "slot": "E1+TE1",
+  "faculty": "Monica"
+ },
+ {
+  "classId": "CH2026270101617",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-104",
+  "slot": "E2+TE2",
+  "faculty": "Rajakumar R"
+ },
+ {
+  "classId": "CH2026270101619",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-105",
+  "slot": "E1+TE1",
+  "faculty": "Sankari M"
+ },
+ {
+  "classId": "CH2026270101620",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-412",
+  "slot": "L33+L34",
+  "faculty": "Sankari M"
+ },
+ {
+  "classId": "CH2026270101621",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-109",
+  "slot": "E1+TE1",
+  "faculty": "Ravichandran M"
+ },
+ {
+  "classId": "CH2026270101622",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-511",
+  "slot": "L33+L34",
+  "faculty": "Ravichandran M"
+ },
+ {
+  "classId": "CH2026270101927",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-307",
+  "slot": "C1+TC1",
+  "faculty": "Renuka Devi S"
+ },
+ {
+  "classId": "CH2026270101930",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-308",
+  "slot": "C1+TC1",
+  "faculty": "Mary Shamala L"
+ },
+ {
+  "classId": "CH2026270101931",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-309",
+  "slot": "C1+TC1",
+  "faculty": "T Raja Sree"
+ },
+ {
+  "classId": "CH2026270101932",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-208",
+  "slot": "C1+TC1",
+  "faculty": "Vatchala S"
+ },
+ {
+  "classId": "CH2026270101933",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-209",
+  "slot": "C1+TC1",
+  "faculty": "Suganya R"
+ },
+ {
+  "classId": "CH2026270101935",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-211",
+  "slot": "C1+TC1",
+  "faculty": "Rajesh R"
+ },
+ {
+  "classId": "CH2026270101936",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-306",
+  "slot": "C2+TC2",
+  "faculty": "Rajesh R"
+ },
+ {
+  "classId": "CH2026270101937",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-303",
+  "slot": "C1+TC1",
+  "faculty": "Anubha Pearline S"
+ },
+ {
+  "classId": "CH2026270101938",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-304",
+  "slot": "C1+TC1",
+  "faculty": "Avuthu Avinash Reddy"
+ },
+ {
+  "classId": "CH2026270101939",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-307",
+  "slot": "C2+TC2",
+  "faculty": "Avuthu Avinash Reddy"
+ },
+ {
+  "classId": "CH2026270101940",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-305",
+  "slot": "C1+TC1",
+  "faculty": "Padmanaban R"
+ },
+ {
+  "classId": "CH2026270101941",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-305",
+  "slot": "C2+TC2",
+  "faculty": "Padmanaban R"
+ },
+ {
+  "classId": "CH2026270101942",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-404",
+  "slot": "C1+TC1",
+  "faculty": "Sreeja P S"
+ },
+ {
+  "classId": "CH2026270101943",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-306",
+  "slot": "C1+TC1",
+  "faculty": "Sambath M"
+ },
+ {
+  "classId": "CH2026270101944",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-309",
+  "slot": "C2+TC2",
+  "faculty": "Sambath M"
+ },
+ {
+  "classId": "CH2026270101946",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-313",
+  "slot": "C1+TC1",
+  "faculty": "Linda Joseph"
+ },
+ {
+  "classId": "CH2026270101947",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-313",
+  "slot": "C2+TC2",
+  "faculty": "Linda Joseph"
+ },
+ {
+  "classId": "CH2026270101950",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-403",
+  "slot": "C1+TC1",
+  "faculty": "Srimathi C"
+ },
+ {
+  "classId": "CH2026270101951",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-507",
+  "slot": "C2+TC2",
+  "faculty": "Srimathi C"
+ },
+ {
+  "classId": "CH2026270101956",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-208",
+  "slot": "L5+L6",
+  "faculty": "Renuka Devi S"
+ },
+ {
+  "classId": "CH2026270102041",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB1-609",
+  "slot": "C1+TC1",
+  "faculty": "Logesh R"
+ },
+ {
+  "classId": "CH2026270102044",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB1-610",
+  "slot": "C1+TC1",
+  "faculty": "Sudhakaran"
+ },
+ {
+  "classId": "CH2026270102047",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB4-407",
+  "slot": "L5+L6",
+  "faculty": "Logesh R"
+ },
+ {
+  "classId": "CH2026270102048",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB4-407",
+  "slot": "L33+L34",
+  "faculty": "Sudhakaran"
+ },
+ {
+  "classId": "CH2026270102054",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB1-608",
+  "slot": "C2+TC2",
+  "faculty": "Suganthi K"
+ },
+ {
+  "classId": "CH2026270102056",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB4-407",
+  "slot": "L1+L2",
+  "faculty": "Suganthi K"
+ },
+ {
+  "classId": "CH2026270102058",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB1-609",
+  "slot": "C2+TC2",
+  "faculty": "Sudhakaran"
+ },
+ {
+  "classId": "CH2026270102060",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB4-407",
+  "slot": "L21+L22",
+  "faculty": "Sudhakaran"
+ },
+ {
+  "classId": "CH2026270102148",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-207",
+  "slot": "E1+TE1",
+  "faculty": "Shyamala L"
+ },
+ {
+  "classId": "CH2026270102150",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-203",
+  "slot": "E2+TE2",
+  "faculty": "Shola Usha Rani"
+ },
+ {
+  "classId": "CH2026270102151",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-208",
+  "slot": "E2+TE2",
+  "faculty": "Menaka Pushpa A"
+ },
+ {
+  "classId": "CH2026270102152",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-207",
+  "slot": "E2+TE2",
+  "faculty": "Monica"
+ },
+ {
+  "classId": "CH2026270102153",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-109",
+  "slot": "E2+TE2",
+  "faculty": "Sankari M"
+ },
+ {
+  "classId": "CH2026270102157",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-206",
+  "slot": "E2+TE2",
+  "faculty": "Ravichandran M"
+ },
+ {
+  "classId": "CH2026270102158",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-308",
+  "slot": "C2+TC2",
+  "faculty": "Sangeetha N"
+ },
+ {
+  "classId": "CH2026270102159",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-303",
+  "slot": "C2+TC2",
+  "faculty": "Mary Shamala L"
+ },
+ {
+  "classId": "CH2026270102161",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-304",
+  "slot": "C2+TC2",
+  "faculty": "T Raja Sree"
+ },
+ {
+  "classId": "CH2026270102162",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-209",
+  "slot": "C2+TC2",
+  "faculty": "Vatchala S"
+ },
+ {
+  "classId": "CH2026270102163",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB1-608",
+  "slot": "C1+TC1",
+  "faculty": "Karthik R"
+ },
+ {
+  "classId": "CH2026270102165",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-211",
+  "slot": "C2+TC2",
+  "faculty": "Suganya R"
+ },
+ {
+  "classId": "CH2026270102167",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB4-407",
+  "slot": "L55+L56",
+  "faculty": "Karthik R"
+ },
+ {
+  "classId": "CH2026270102215",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-402",
+  "slot": "L15+L16",
+  "faculty": "Sivagami M"
+ },
+ {
+  "classId": "CH2026270102218",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-605A",
+  "slot": "L33+L34",
+  "faculty": "Thomas Abraham J V"
+ },
+ {
+  "classId": "CH2026270102224",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-302",
+  "slot": "L43+L44",
+  "faculty": "Rabindra Kumar Singh"
+ },
+ {
+  "classId": "CH2026270102227",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-412",
+  "slot": "L15+L16",
+  "faculty": "Rabindra Kumar Singh"
+ },
+ {
+  "classId": "CH2026270102229",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-202",
+  "slot": "L13+L14",
+  "faculty": "Shola Usha Rani"
+ },
+ {
+  "classId": "CH2026270102233",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-410",
+  "slot": "L43+L44",
+  "faculty": "Shyamala L"
+ },
+ {
+  "classId": "CH2026270102235",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-302",
+  "slot": "L21+L22",
+  "faculty": "Sk Ayesha"
+ },
+ {
+  "classId": "CH2026270102240",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-208",
+  "slot": "L13+L14",
+  "faculty": "Menaka Pushpa A"
+ },
+ {
+  "classId": "CH2026270102243",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-412",
+  "slot": "L21+L22",
+  "faculty": "Sandeep Kumar Satapathy"
+ },
+ {
+  "classId": "CH2026270102245",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-202",
+  "slot": "L21+L22",
+  "faculty": "Mercy Rajaselvi Beaulah P"
+ },
+ {
+  "classId": "CH2026270102246",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-402",
+  "slot": "L33+L34",
+  "faculty": "S A Amutha Jeevakumari"
+ },
+ {
+  "classId": "CH2026270102247",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-611",
+  "slot": "L43+L44",
+  "faculty": "Monica"
+ },
+ {
+  "classId": "CH2026270102252",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-402",
+  "slot": "L21+L22",
+  "faculty": "Rajakumar R"
+ },
+ {
+  "classId": "CH2026270102265",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-611",
+  "slot": "L15+L16",
+  "faculty": "Monica"
+ },
+ {
+  "classId": "CH2026270102268",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-210",
+  "slot": "L13+L14",
+  "faculty": "Sankari M"
+ },
+ {
+  "classId": "CH2026270102284",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-302",
+  "slot": "L33+L34",
+  "faculty": "Menaka Pushpa A"
+ },
+ {
+  "classId": "CH2026270102286",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-302",
+  "slot": "L13+L14",
+  "faculty": "Ravichandran M"
+ },
+ {
+  "classId": "CH2026270102290",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-302",
+  "slot": "L1+L2",
+  "faculty": "T Raja Sree"
+ },
+ {
+  "classId": "CH2026270102291",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-402",
+  "slot": "L1+L2",
+  "faculty": "Vatchala S"
+ },
+ {
+  "classId": "CH2026270102293",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-412",
+  "slot": "L1+L2",
+  "faculty": "Suganya R"
+ },
+ {
+  "classId": "CH2026270102294",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-202",
+  "slot": "L1+L2",
+  "faculty": "Rajesh R"
+ },
+ {
+  "classId": "CH2026270102295",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-311",
+  "slot": "L1+L2",
+  "faculty": "Avuthu Avinash Reddy"
+ },
+ {
+  "classId": "CH2026270102296",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-402",
+  "slot": "L3+L4",
+  "faculty": "Sangeetha N"
+ },
+ {
+  "classId": "CH2026270102297",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-302",
+  "slot": "L3+L4",
+  "faculty": "Mary Shamala L"
+ },
+ {
+  "classId": "CH2026270102298",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-412",
+  "slot": "L3+L4",
+  "faculty": "Padmanaban R"
+ },
+ {
+  "classId": "CH2026270102299",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-511",
+  "slot": "L3+L4",
+  "faculty": "Sambath M"
+ },
+ {
+  "classId": "CH2026270102300",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-611",
+  "slot": "L3+L4",
+  "faculty": "Linda Joseph"
+ },
+ {
+  "classId": "CH2026270102301",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-612",
+  "slot": "L3+L4",
+  "faculty": "Srimathi C"
+ },
+ {
+  "classId": "CH2026270102302",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-208",
+  "slot": "L33+L34",
+  "faculty": "Mary Shamala L"
+ },
+ {
+  "classId": "CH2026270102303",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-210",
+  "slot": "L33+L34",
+  "faculty": "Padmanaban R"
+ },
+ {
+  "classId": "CH2026270102304",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-311",
+  "slot": "L33+L34",
+  "faculty": "Sreeja P S"
+ },
+ {
+  "classId": "CH2026270102305",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-611",
+  "slot": "L33+L34",
+  "faculty": "Sambath M"
+ },
+ {
+  "classId": "CH2026270102306",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-612",
+  "slot": "L33+L34",
+  "faculty": "Linda Joseph"
+ },
+ {
+  "classId": "CH2026270102307",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-206",
+  "slot": "L33+L34",
+  "faculty": "Srimathi C"
+ },
+ {
+  "classId": "CH2026270102308",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-210",
+  "slot": "L5+L6",
+  "faculty": "T Raja Sree"
+ },
+ {
+  "classId": "CH2026270102309",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-311",
+  "slot": "L5+L6",
+  "faculty": "Vatchala S"
+ },
+ {
+  "classId": "CH2026270102310",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-202",
+  "slot": "L5+L6",
+  "faculty": "Suganya R"
+ },
+ {
+  "classId": "CH2026270102311",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-302",
+  "slot": "L5+L6",
+  "faculty": "Rajesh R"
+ },
+ {
+  "classId": "CH2026270102312",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-402",
+  "slot": "L5+L6",
+  "faculty": "Anubha Pearline S"
+ },
+ {
+  "classId": "CH2026270102313",
+  "course": "BACSE106",
+  "title": "Operating Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-412",
+  "slot": "L5+L6",
+  "faculty": "Avuthu Avinash Reddy"
+ },
+ {
+  "classId": "CH2026270101802",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-104",
+  "slot": "A2+TA2+TAA2",
+  "faculty": "Sathyarajasekaran K"
+ },
+ {
+  "classId": "CH2026270101803",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-103",
+  "slot": "A1+TA1+TAA1",
+  "faculty": "Suganya G"
+ },
+ {
+  "classId": "CH2026270101804",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-205",
+  "slot": "A2+TA2+TAA2",
+  "faculty": "Renjith"
+ },
+ {
+  "classId": "CH2026270101805",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-206",
+  "slot": "A1+TA1+TAA1",
+  "faculty": "Sureshkumar Wi"
+ },
+ {
+  "classId": "CH2026270101806",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-206",
+  "slot": "A2+TA2+TAA2",
+  "faculty": "Sureshkumar Wi"
+ },
+ {
+  "classId": "CH2026270101807",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-207",
+  "slot": "A1+TA1+TAA1",
+  "faculty": "Kiruthika"
+ },
+ {
+  "classId": "CH2026270101808",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-207",
+  "slot": "A2+TA2+TAA2",
+  "faculty": "Kiruthika"
+ },
+ {
+  "classId": "CH2026270101809",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-106",
+  "slot": "A1+TA1+TAA1",
+  "faculty": "Modigari Narendra"
+ },
+ {
+  "classId": "CH2026270101810",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-106",
+  "slot": "A2+TA2+TAA2",
+  "faculty": "Modigari Narendra"
+ },
+ {
+  "classId": "CH2026270101811",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-108",
+  "slot": "A1+TA1+TAA1",
+  "faculty": "Amutha S"
+ },
+ {
+  "classId": "CH2026270101812",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-108",
+  "slot": "A2+TA2+TAA2",
+  "faculty": "Amutha S"
+ },
+ {
+  "classId": "CH2026270101815",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-104",
+  "slot": "A1+TA1+TAA1",
+  "faculty": "Subitha D"
+ },
+ {
+  "classId": "CH2026270101816",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-208",
+  "slot": "A2+TA2+TAA2",
+  "faculty": "Subitha D"
+ },
+ {
+  "classId": "CH2026270101818",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-107",
+  "slot": "A1+TA1+TAA1",
+  "faculty": "Kavitha J C"
+ },
+ {
+  "classId": "CH2026270101819",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-107",
+  "slot": "A2+TA2+TAA2",
+  "faculty": "Kavitha J C"
+ },
+ {
+  "classId": "CH2026270101820",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-103",
+  "slot": "A2+TA2+TAA2",
+  "faculty": "Saravanan P"
+ },
+ {
+  "classId": "CH2026270101821",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-109",
+  "slot": "A1+TA1+TAA1",
+  "faculty": "Padma J"
+ },
+ {
+  "classId": "CH2026270101822",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-109",
+  "slot": "A2+TA2+TAA2",
+  "faculty": "Padma J"
+ },
+ {
+  "classId": "CH2026270101823",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-203",
+  "slot": "A1+TA1+TAA1",
+  "faculty": "Shree Prakash"
+ },
+ {
+  "classId": "CH2026270101824",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-203",
+  "slot": "A2+TA2+TAA2",
+  "faculty": "Shree Prakash"
+ },
+ {
+  "classId": "CH2026270101825",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-205",
+  "slot": "A1+TA1+TAA1",
+  "faculty": "Devi K"
+ },
+ {
+  "classId": "CH2026270101826",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-105",
+  "slot": "A1+TA1+TAA1",
+  "faculty": "Madura Meenakshi R"
+ },
+ {
+  "classId": "CH2026270101827",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-105",
+  "slot": "A2+TA2+TAA2",
+  "faculty": "Madura Meenakshi R"
+ },
+ {
+  "classId": "CH2026270101828",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-204",
+  "slot": "A1+TA1+TAA1",
+  "faculty": "Lakshmanan K"
+ },
+ {
+  "classId": "CH2026270101829",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-204",
+  "slot": "A2+TA2+TAA2",
+  "faculty": "Lakshmanan K"
+ },
+ {
+  "classId": "CH2026270101835",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-208",
+  "slot": "A1+TA1+TAA1",
+  "faculty": "Ummity Srinivasa Rao"
+ },
+ {
+  "classId": "CH2026270101837",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-209",
+  "slot": "A2+TA2+TAA2",
+  "faculty": "Ummity Srinivasa Rao"
+ },
+ {
+  "classId": "CH2026270101838",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-209",
+  "slot": "A1+TA1+TAA1",
+  "faculty": "Karmel A"
+ },
+ {
+  "classId": "CH2026270101839",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-211",
+  "slot": "A2+TA2+TAA2",
+  "faculty": "Jani Anbarasi L"
+ },
+ {
+  "classId": "CH2026270101840",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-211",
+  "slot": "A1+TA1+TAA1",
+  "faculty": "Jani Anbarasi L"
+ },
+ {
+  "classId": "CH2026270101841",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-303",
+  "slot": "A2+TA2+TAA2",
+  "faculty": "Venkatraman S"
+ },
+ {
+  "classId": "CH2026270101843",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-303",
+  "slot": "A1+TA1+TAA1",
+  "faculty": "Anita X"
+ },
+ {
+  "classId": "CH2026270101844",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-304",
+  "slot": "A2+TA2+TAA2",
+  "faculty": "Anita X"
+ },
+ {
+  "classId": "CH2026270101845",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-304",
+  "slot": "A1+TA1+TAA1",
+  "faculty": "Prakash P"
+ },
+ {
+  "classId": "CH2026270101849",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-305",
+  "slot": "A1+TA1+TAA1",
+  "faculty": "Padmavathy T V"
+ },
+ {
+  "classId": "CH2026270101851",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-306",
+  "slot": "A1+TA1+TAA1",
+  "faculty": "Manju G"
+ },
+ {
+  "classId": "CH2026270101853",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-306",
+  "slot": "A2+TA2+TAA2",
+  "faculty": "Manju G"
+ },
+ {
+  "classId": "CH2026270101855",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-307",
+  "slot": "A1+TA1+TAA1",
+  "faculty": "Jannath Nisha O S"
+ },
+ {
+  "classId": "CH2026270101856",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-307",
+  "slot": "A2+TA2+TAA2",
+  "faculty": "Jannath Nisha O S"
+ },
+ {
+  "classId": "CH2026270101858",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-308",
+  "slot": "A1+TA1+TAA1",
+  "faculty": "Deepa Nivethika"
+ },
+ {
+  "classId": "CH2026270101859",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-308",
+  "slot": "A2+TA2+TAA2",
+  "faculty": "Deepa Nivethika"
+ },
+ {
+  "classId": "CH2026270101862",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-309",
+  "slot": "A1+TA1+TAA1",
+  "faculty": "Sandhya"
+ },
+ {
+  "classId": "CH2026270101863",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-309",
+  "slot": "A2+TA2+TAA2",
+  "faculty": "Sandhya"
+ },
+ {
+  "classId": "CH2026270101865",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-313",
+  "slot": "A1+TA1+TAA1",
+  "faculty": "Tahir Mujtaba"
+ },
+ {
+  "classId": "CH2026270101866",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-313",
+  "slot": "A2+TA2+TAA2",
+  "faculty": "Tahir Mujtaba"
+ },
+ {
+  "classId": "CH2026270101868",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-403",
+  "slot": "A1+TA1+TAA1",
+  "faculty": "Balraj E"
+ },
+ {
+  "classId": "CH2026270101869",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-404",
+  "slot": "A1+TA1+TAA1",
+  "faculty": "Kshma Trivedi"
+ },
+ {
+  "classId": "CH2026270101871",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-507",
+  "slot": "A2+TA2+TAA2",
+  "faculty": "Kshma Trivedi"
+ },
+ {
+  "classId": "CH2026270101878",
+  "course": "BACSE201",
+  "title": "Models of Computation",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-505",
+  "slot": "A2+TA2+TAA2",
+  "faculty": "Prakash P"
+ },
+ {
+  "classId": "CH2026270101701",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-103",
+  "slot": "D1+TD1",
+  "faculty": "S.A.Sajidha"
+ },
+ {
+  "classId": "CH2026270101702",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-605B",
+  "slot": "L29+L30",
+  "faculty": "S.A.Sajidha"
+ },
+ {
+  "classId": "CH2026270101703",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-107",
+  "slot": "D2+TD2",
+  "faculty": "S.A.Sajidha"
+ },
+ {
+  "classId": "CH2026270101705",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-203",
+  "slot": "D2+TD2",
+  "faculty": "Sivabalakrishnan M"
+ },
+ {
+  "classId": "CH2026270101707",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-207",
+  "slot": "D1+TD1",
+  "faculty": "Geetha S"
+ },
+ {
+  "classId": "CH2026270101709",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-104",
+  "slot": "D1+TD1",
+  "faculty": "M. Braveen"
+ },
+ {
+  "classId": "CH2026270101712",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-204",
+  "slot": "D2+TD2",
+  "faculty": "M. Braveen"
+ },
+ {
+  "classId": "CH2026270101714",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-105",
+  "slot": "D1+TD1",
+  "faculty": "Bhuvaneswari"
+ },
+ {
+  "classId": "CH2026270101716",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-205",
+  "slot": "D2+TD2",
+  "faculty": "Bhuvaneswari"
+ },
+ {
+  "classId": "CH2026270101718",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-106",
+  "slot": "D1+TD1",
+  "faculty": "A Swaminathan"
+ },
+ {
+  "classId": "CH2026270101720",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-206",
+  "slot": "D2+TD2",
+  "faculty": "A Swaminathan"
+ },
+ {
+  "classId": "CH2026270101722",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-103",
+  "slot": "D2+TD2",
+  "faculty": "Sahaya Beni Prathiba B"
+ },
+ {
+  "classId": "CH2026270101724",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-313",
+  "slot": "L7+L8",
+  "faculty": "Sahaya Beni Prathiba B"
+ },
+ {
+  "classId": "CH2026270101726",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-107",
+  "slot": "D1+TD1",
+  "faculty": "Brindha"
+ },
+ {
+  "classId": "CH2026270101727",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-605B",
+  "slot": "L37+L38",
+  "faculty": "Brindha"
+ },
+ {
+  "classId": "CH2026270101728",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-104",
+  "slot": "D2+TD2",
+  "faculty": "Brindha"
+ },
+ {
+  "classId": "CH2026270101729",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-506A",
+  "slot": "L7+L8",
+  "faculty": "Brindha"
+ },
+ {
+  "classId": "CH2026270101730",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-108",
+  "slot": "D1+TD1",
+  "faculty": "Joe Dhanith"
+ },
+ {
+  "classId": "CH2026270101731",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-506A",
+  "slot": "L39+L40",
+  "faculty": "Joe Dhanith"
+ },
+ {
+  "classId": "CH2026270101732",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-105",
+  "slot": "D2+TD2",
+  "faculty": "Joe Dhanith"
+ },
+ {
+  "classId": "CH2026270101734",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-109",
+  "slot": "D1+TD1",
+  "faculty": "Reena Roy R"
+ },
+ {
+  "classId": "CH2026270101735",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-605B",
+  "slot": "L39+L40",
+  "faculty": "Reena Roy R"
+ },
+ {
+  "classId": "CH2026270101736",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-106",
+  "slot": "D2+TD2",
+  "faculty": "Reena Roy R"
+ },
+ {
+  "classId": "CH2026270101738",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-203",
+  "slot": "D1+TD1",
+  "faculty": "Sobitha Ahila S"
+ },
+ {
+  "classId": "CH2026270101739",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-310",
+  "slot": "L39+L40",
+  "faculty": "Sobitha Ahila S"
+ },
+ {
+  "classId": "CH2026270101740",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-108",
+  "slot": "D2+TD2",
+  "faculty": "Sobitha Ahila S"
+ },
+ {
+  "classId": "CH2026270101742",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-204",
+  "slot": "D1+TD1",
+  "faculty": "Malathi D"
+ },
+ {
+  "classId": "CH2026270101743",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-602",
+  "slot": "L39+L40",
+  "faculty": "Malathi D"
+ },
+ {
+  "classId": "CH2026270101744",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-109",
+  "slot": "D2+TD2",
+  "faculty": "Malathi D"
+ },
+ {
+  "classId": "CH2026270101746",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-205",
+  "slot": "D1+TD1",
+  "faculty": "Rama Parvathy L"
+ },
+ {
+  "classId": "CH2026270101747",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-602",
+  "slot": "L29+L30",
+  "faculty": "Rama Parvathy L"
+ },
+ {
+  "classId": "CH2026270101748",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-206",
+  "slot": "D1+TD1",
+  "faculty": "Sharmiladevi S"
+ },
+ {
+  "classId": "CH2026270101749",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-602",
+  "slot": "L37+L38",
+  "faculty": "Sharmiladevi S"
+ },
+ {
+  "classId": "CH2026270101750",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-207",
+  "slot": "D2+TD2",
+  "faculty": "Sharmiladevi S"
+ },
+ {
+  "classId": "CH2026270101751",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-612",
+  "slot": "L7+L8",
+  "faculty": "Sharmiladevi S"
+ },
+ {
+  "classId": "CH2026270101830",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-306",
+  "slot": "F2+TF2",
+  "faculty": "Rajesh M"
+ },
+ {
+  "classId": "CH2026270101831",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-209",
+  "slot": "L19+L20",
+  "faculty": "Rajesh M"
+ },
+ {
+  "classId": "CH2026270101832",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-309",
+  "slot": "F1+TF1",
+  "faculty": "Rajesh M"
+ },
+ {
+  "classId": "CH2026270101833",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-209",
+  "slot": "L23+L24",
+  "faculty": "Rajesh M"
+ },
+ {
+  "classId": "CH2026270101834",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-308",
+  "slot": "F1+TF1",
+  "faculty": "Shivani Gupta"
+ },
+ {
+  "classId": "CH2026270101836",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-311",
+  "slot": "L51+L52",
+  "faculty": "Shivani Gupta"
+ },
+ {
+  "classId": "CH2026270101842",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-307",
+  "slot": "F2+TF2",
+  "faculty": "Shivani Gupta"
+ },
+ {
+  "classId": "CH2026270101846",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-307",
+  "slot": "L21+L22",
+  "faculty": "Shivani Gupta"
+ },
+ {
+  "classId": "CH2026270101847",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-211",
+  "slot": "F1+TF1",
+  "faculty": "Leninisha Shanmugam"
+ },
+ {
+  "classId": "CH2026270101848",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-313",
+  "slot": "L23+L24",
+  "faculty": "Leninisha Shanmugam"
+ },
+ {
+  "classId": "CH2026270101850",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-209",
+  "slot": "F2+TF2",
+  "faculty": "Leninisha Shanmugam"
+ },
+ {
+  "classId": "CH2026270101852",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-313",
+  "slot": "L19+L20",
+  "faculty": "Leninisha Shanmugam"
+ },
+ {
+  "classId": "CH2026270101854",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-305",
+  "slot": "F1+TF1",
+  "faculty": "Priyadarshini R"
+ },
+ {
+  "classId": "CH2026270101857",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-506A",
+  "slot": "L23+L24",
+  "faculty": "Priyadarshini R"
+ },
+ {
+  "classId": "CH2026270101860",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-208",
+  "slot": "F1+TF1",
+  "faculty": "Sujithra @ Kanmani R"
+ },
+ {
+  "classId": "CH2026270101861",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-605B",
+  "slot": "L23+L24",
+  "faculty": "Sujithra @ Kanmani R"
+ },
+ {
+  "classId": "CH2026270101864",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-507",
+  "slot": "F2+TF2",
+  "faculty": "Sujithra @ Kanmani R"
+ },
+ {
+  "classId": "CH2026270101867",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-310",
+  "slot": "L19+L20",
+  "faculty": "Sujithra @ Kanmani R"
+ },
+ {
+  "classId": "CH2026270101870",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-209",
+  "slot": "F1+TF1",
+  "faculty": "V Brindha"
+ },
+ {
+  "classId": "CH2026270101872",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-310",
+  "slot": "L23+L24",
+  "faculty": "V Brindha"
+ },
+ {
+  "classId": "CH2026270101873",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-308",
+  "slot": "F2+TF2",
+  "faculty": "V Brindha"
+ },
+ {
+  "classId": "CH2026270101874",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-311",
+  "slot": "L19+L20",
+  "faculty": "V Brindha"
+ },
+ {
+  "classId": "CH2026270101875",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-306",
+  "slot": "F1+TF1",
+  "faculty": "Kanimozhi S"
+ },
+ {
+  "classId": "CH2026270101876",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-313",
+  "slot": "L51+L52",
+  "faculty": "Kanimozhi S"
+ },
+ {
+  "classId": "CH2026270101877",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-313",
+  "slot": "F2+TF2",
+  "faculty": "Kanimozhi S"
+ },
+ {
+  "classId": "CH2026270101879",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-313",
+  "slot": "L21+L22",
+  "faculty": "Kanimozhi S"
+ },
+ {
+  "classId": "CH2026270101880",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-305",
+  "slot": "F2+TF2",
+  "faculty": "Revathi A R"
+ },
+ {
+  "classId": "CH2026270101881",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-602",
+  "slot": "L19+L20",
+  "faculty": "Revathi A R"
+ },
+ {
+  "classId": "CH2026270101882",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-313",
+  "slot": "F1+TF1",
+  "faculty": "Revathi A R"
+ },
+ {
+  "classId": "CH2026270101883",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-602",
+  "slot": "L23+L24",
+  "faculty": "Revathi A R"
+ },
+ {
+  "classId": "CH2026270101884",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-211",
+  "slot": "F2+TF2",
+  "faculty": "Benila S"
+ },
+ {
+  "classId": "CH2026270101885",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-611",
+  "slot": "L19+L20",
+  "faculty": "Benila S"
+ },
+ {
+  "classId": "CH2026270101886",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-304",
+  "slot": "F1+TF1",
+  "faculty": "Hemalatha K"
+ },
+ {
+  "classId": "CH2026270101887",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-506A",
+  "slot": "L51+L52",
+  "faculty": "Hemalatha K"
+ },
+ {
+  "classId": "CH2026270101888",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-307",
+  "slot": "F1+TF1",
+  "faculty": "Kowsigan M"
+ },
+ {
+  "classId": "CH2026270101889",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-605B",
+  "slot": "L51+L52",
+  "faculty": "Kowsigan M"
+ },
+ {
+  "classId": "CH2026270101890",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-309",
+  "slot": "F2+TF2",
+  "faculty": "Kowsigan M"
+ },
+ {
+  "classId": "CH2026270101891",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-602",
+  "slot": "L21+L22",
+  "faculty": "Kowsigan M"
+ },
+ {
+  "classId": "CH2026270101894",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-304",
+  "slot": "F2+TF2",
+  "faculty": "Suhail K"
+ },
+ {
+  "classId": "CH2026270101896",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-209",
+  "slot": "L21+L22",
+  "faculty": "Suhail K"
+ },
+ {
+  "classId": "CH2026270101904",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-413",
+  "slot": "F1+TF1",
+  "faculty": "Suhail K"
+ },
+ {
+  "classId": "CH2026270101906",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-311",
+  "slot": "L49+L50",
+  "faculty": "Suhail K"
+ },
+ {
+  "classId": "CH2026270101909",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-505",
+  "slot": "F1+TF1",
+  "faculty": "Rajalakshmi V"
+ },
+ {
+  "classId": "CH2026270101910",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-310",
+  "slot": "L51+L52",
+  "faculty": "Rajalakshmi V"
+ },
+ {
+  "classId": "CH2026270101922",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-705",
+  "slot": "F1+TF1",
+  "faculty": "Benila S"
+ },
+ {
+  "classId": "CH2026270101923",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-703",
+  "slot": "F2+TF2",
+  "faculty": "Hemalatha K"
+ },
+ {
+  "classId": "CH2026270101924",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-605B",
+  "slot": "L21+L22",
+  "faculty": "Hemalatha K"
+ },
+ {
+  "classId": "CH2026270101925",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-313",
+  "slot": "L49+L50",
+  "faculty": "Benila S"
+ },
+ {
+  "classId": "CH2026270102049",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-605B",
+  "slot": "L7+L8",
+  "faculty": "S.A.Sajidha"
+ },
+ {
+  "classId": "CH2026270102050",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-310",
+  "slot": "L7+L8",
+  "faculty": "Sivabalakrishnan M"
+ },
+ {
+  "classId": "CH2026270102051",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-311",
+  "slot": "L7+L8",
+  "faculty": "M. Braveen"
+ },
+ {
+  "classId": "CH2026270102052",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-602",
+  "slot": "L7+L8",
+  "faculty": "Bhuvaneswari"
+ },
+ {
+  "classId": "CH2026270102053",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-311",
+  "slot": "L29+L30",
+  "faculty": "Geetha S"
+ },
+ {
+  "classId": "CH2026270102055",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-313",
+  "slot": "L37+L38",
+  "faculty": "M. Braveen"
+ },
+ {
+  "classId": "CH2026270102057",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-313",
+  "slot": "L39+L40",
+  "faculty": "A Swaminathan"
+ },
+ {
+  "classId": "CH2026270102059",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-506A",
+  "slot": "L25+L26",
+  "faculty": "A Swaminathan"
+ },
+ {
+  "classId": "CH2026270102061",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-310",
+  "slot": "L25+L26",
+  "faculty": "Joe Dhanith"
+ },
+ {
+  "classId": "CH2026270102062",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-605B",
+  "slot": "L25+L26",
+  "faculty": "Reena Roy R"
+ },
+ {
+  "classId": "CH2026270102063",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-311",
+  "slot": "L25+L26",
+  "faculty": "Sobitha Ahila S"
+ },
+ {
+  "classId": "CH2026270102064",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-602",
+  "slot": "L25+L26",
+  "faculty": "Malathi D"
+ },
+ {
+  "classId": "CH2026270102065",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB1-506A",
+  "slot": "L37+L38",
+  "faculty": "Bhuvaneswari"
+ },
+ {
+  "classId": "CH2026270102529",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-707",
+  "slot": "D2+TD2",
+  "faculty": "Viswanathan V"
+ },
+ {
+  "classId": "CH2026270102530",
+  "course": "BACSE202",
+  "title": "Database Systems",
+  "credits": 1.0,
+  "kind": "lab",
+  "room": "AB3-611",
+  "slot": "L7+L8",
+  "faculty": "Viswanathan V"
+ },
+ {
+  "classId": "CH2026270101691",
+  "course": "BACSE344",
+  "title": "Cloud Infrastructure and Architecture",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-203",
+  "slot": "C1+TC1+TCC1",
+  "faculty": "Abdul Quadir Md"
+ },
+ {
+  "classId": "CH2026270101692",
+  "course": "BACSE344",
+  "title": "Cloud Infrastructure and Architecture",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-204",
+  "slot": "C1+TC1+TCC1",
+  "faculty": "Anandan P"
+ },
+ {
+  "classId": "CH2026270101693",
+  "course": "BACSE344",
+  "title": "Cloud Infrastructure and Architecture",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-205",
+  "slot": "C1+TC1+TCC1",
+  "faculty": "Sandosh"
+ },
+ {
+  "classId": "CH2026270101694",
+  "course": "BACSE344",
+  "title": "Cloud Infrastructure and Architecture",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-205",
+  "slot": "C2+TC2+TCC2",
+  "faculty": "Prassanna J"
+ },
+ {
+  "classId": "CH2026270101695",
+  "course": "BACSE344",
+  "title": "Cloud Infrastructure and Architecture",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-207",
+  "slot": "C2+TC2+TCC2",
+  "faculty": "Senthil Kumar A M"
+ },
+ {
+  "classId": "CH2026270101696",
+  "course": "BACSE344",
+  "title": "Cloud Infrastructure and Architecture",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-208",
+  "slot": "C2+TC2+TCC2",
+  "faculty": "Sujatha M"
+ },
+ {
+  "classId": "CH2026270101697",
+  "course": "BACSE344",
+  "title": "Cloud Infrastructure and Architecture",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-204",
+  "slot": "C2+TC2+TCC2",
+  "faculty": "Manikandan P"
+ },
+ {
+  "classId": "CH2026270101698",
+  "course": "BACSE344",
+  "title": "Cloud Infrastructure and Architecture",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-206",
+  "slot": "C1+TC1+TCC1",
+  "faculty": "Bhulakshmi Bonthu"
+ },
+ {
+  "classId": "CH2026270101699",
+  "course": "BACSE344",
+  "title": "Cloud Infrastructure and Architecture",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-206",
+  "slot": "C2+TC2+TCC2",
+  "faculty": "Bhulakshmi Bonthu"
+ },
+ {
+  "classId": "CH2026270101700",
+  "course": "BACSE344",
+  "title": "Cloud Infrastructure and Architecture",
+  "credits": 4.0,
+  "kind": "theory",
+  "room": "AB3-207",
+  "slot": "C1+TC1+TCC1",
+  "faculty": "Meignanamoorthi D"
+ },
+ {
+  "classId": "CH2026270103030",
+  "course": "BAHUM106",
+  "title": "Micro Economics",
+  "credits": 3.0,
+  "kind": "theory",
+  "room": "AB3-204",
+  "slot": "G2+TG2",
+  "faculty": "Magulsha George"
+ }
+]

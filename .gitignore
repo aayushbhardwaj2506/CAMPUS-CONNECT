@@ -7,7 +7,5 @@ campus_connect.db-shm
 
 .env.local
 
-# private class list (names / register numbers) - never commit
-/data/
 
 .env.aura

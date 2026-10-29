@@ -1,0 +1,362 @@
+[
+ {
+  "programme": "BCE",
+  "reg": "25BCE1024",
+  "name": "Sivakumaran P",
+  "team": 1
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE1118",
+  "name": "Soumaditya Mukherjee",
+  "team": 1
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE1145",
+  "name": "Nikita Bhatt",
+  "team": 1
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE1169",
+  "name": "Shah Aagam Ashish",
+  "team": 2
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE1178",
+  "name": "Akanksha Singh",
+  "team": 2
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE1200",
+  "name": "Sanne Sravya",
+  "team": 2
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE1285",
+  "name": "T Abilash",
+  "team": 3
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE1315",
+  "name": "Aayush Bhardwaj",
+  "team": 3
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE1326",
+  "name": "Anindya Ghosh",
+  "team": 3
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE1329",
+  "name": "Suryakiran Haridas",
+  "team": 4
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE1360",
+  "name": "Vanvi Rao",
+  "team": 4
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE1372",
+  "name": "Dhruvika Varshney",
+  "team": 4
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE1397",
+  "name": "Swara Rajesh Deshmukh",
+  "team": 5
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE1403",
+  "name": "Ananya Shrivastava",
+  "team": 5
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE1433",
+  "name": "Ishita Gupta",
+  "team": 5
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE1448",
+  "name": "Sumedh Mahesh Patange",
+  "team": 6
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE1475",
+  "name": "Siddharth Jain",
+  "team": 6
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE1487",
+  "name": "Vritika Dipak Makwana",
+  "team": 6
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE1541",
+  "name": "Ashnit Shivesh",
+  "team": 7
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE1628",
+  "name": "Vaddhi Ranga Sai Akshay",
+  "team": 7
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE1656",
+  "name": "Aanya Bharti",
+  "team": 7
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE1679",
+  "name": "Pawan Sachan",
+  "team": 8
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE1698",
+  "name": "Shah Tanvi Jayesh",
+  "team": 8
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE1707",
+  "name": "Srijan Saha",
+  "team": 8
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE1727",
+  "name": "Khan Aafrin Mohammad Shoaib",
+  "team": 9
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE1774",
+  "name": "Atharv Singh",
+  "team": 9
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE1802",
+  "name": "Aditi Sahu",
+  "team": 9
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE1820",
+  "name": "Anshika Mittal",
+  "team": 10
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE1868",
+  "name": "Shubhanshi Tiwari",
+  "team": 10
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE1935",
+  "name": "Arora Aarav Abhishek Kumar",
+  "team": 10
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE1961",
+  "name": "Gayatri Somasekhar",
+  "team": 11
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE1983",
+  "name": "Soumya Prakash Jena",
+  "team": 11
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE5010",
+  "name": "Shiven Mehrotra",
+  "team": 11
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE5013",
+  "name": "Harshit Mishra",
+  "team": 12
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE5032",
+  "name": "Byomkesh Mahato",
+  "team": 12
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE5037",
+  "name": "Bhavitavya Bhaskar",
+  "team": 12
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE5058",
+  "name": "Saksham Mittal",
+  "team": 13
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE5097",
+  "name": "Ojas Rastogi",
+  "team": 13
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE5106",
+  "name": "Chalamalla Lalith Adithya",
+  "team": 13
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE5107",
+  "name": "Y K Hari Ashwin",
+  "team": 14
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE5118",
+  "name": "Doppalapudi Sahithi",
+  "team": 14
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE5126",
+  "name": "Rishikesh S S",
+  "team": 14
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE5147",
+  "name": "Rohith Krishna S",
+  "team": 15
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE5150",
+  "name": "Argh Sahai",
+  "team": 15
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE5164",
+  "name": "Princy S",
+  "team": 15
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE5170",
+  "name": "Krisshiv Sarwin Anandan",
+  "team": 16
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE5179",
+  "name": "Harith S R",
+  "team": 16
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE5182",
+  "name": "Ibhan Mukherjee",
+  "team": 16
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE5187",
+  "name": "Abishek Ram G",
+  "team": 17
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE5248",
+  "name": "Shreeya Katta",
+  "team": 17
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE5252",
+  "name": "Yashika",
+  "team": 17
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE5261",
+  "name": "Lakshmanan Ramasamy",
+  "team": 18
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE5474",
+  "name": "Madasu Riharika",
+  "team": 18
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE5601",
+  "name": "Rajula Sushma Reddy",
+  "team": 18
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE5631",
+  "name": "Nithin Vinayagamoorthy",
+  "team": 19
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE5657",
+  "name": "P Sudeepthi Reddy",
+  "team": 19
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE5687",
+  "name": "Rahul Reddy Modugula",
+  "team": 19
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE5688",
+  "name": "Anjali Jaiswal",
+  "team": 20
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE5708",
+  "name": "Aishwarya M",
+  "team": 20
+ },
+ {
+  "programme": "BCE",
+  "reg": "25BCE5712",
+  "name": "T A Karpaga Valli",
+  "team": 20
+ }
+]

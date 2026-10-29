@@ -286,9 +286,11 @@ Demo walk-through: **[DA3_DEMO_SCRIPT.txt](DA3_DEMO_SCRIPT.txt)**.
 Without Neo4j configured the rest of the app works normally; `/graph` shows a "graph database
 isn't running" message.
 
-**Private data:** the real class list, teacher list and class catalogue used locally live in a
-git-ignored `data/` folder (names and register numbers) and are not in this repository. Without them
-the seed creates the original demo accounts only.
+**Seed data (`data/`):** the class list (`d2-slot.json`), the Fall 2026-27 teacher list
+(`fall26-faculty.json`) and the class catalogue (`fall26-classes.json`) used for the real student,
+teacher and class-registration data are in the `data/` folder. `npm run seed` loads them automatically
+if they are present; without them it creates only the original demo accounts. Passwords and database
+files (`.env.local`, `.env.aura`, `campus_connect.db`) are NOT in the repository.
 
 ---
 
