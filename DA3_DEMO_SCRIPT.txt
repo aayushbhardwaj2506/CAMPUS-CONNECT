@@ -1,0 +1,301 @@
+=====================================================================
+DA3 DEMO SCRIPT - Campus Connect + Neo4j (graph database)
+=====================================================================
+Project : Campus Connect (university social + academic platform, SCOPE)
+DA3 DB  : Neo4j (graph database), running locally in Neo4j Desktop
+Main DB : SQLite (the app's normal data). Neo4j holds a copy of the
+          relationship data for graph queries.
+Time    : about 7 minutes. Split between the 3 team members.
+
+---------------------------------------------------------------------
+BEFORE YOU START (2 minutes, do this first)
+---------------------------------------------------------------------
+1. Open Neo4j Desktop. Click Start on the instance "campus" and wait
+   until it says Running.
+2. In the project folder open a terminal and run:   npm start
+3. Open http://localhost:3000 in the browser and log in
+   (demo account: aayush@campus.edu  /  password: campus123).
+4. In Neo4j Desktop open the instance -> Query tab. If it asks to
+   connect: URL bolt://localhost:7687 , user neo4j , your password.
+5. Run each query below: paste it in the box at the top and press
+   Ctrl+Enter. For the pictures make sure the "Graph" tab is selected
+   (not "Table").
+
+Tip: to show names on the dots, click a label chip (for example
+Student) in the right-hand "Results overview" and choose caption = name.
+
+IMPORTANT - when do you get a GRAPH and when a TABLE?
+  Neo4j draws a graph only if the query RETURNS nodes, relationships or
+  paths (for example  RETURN p, c, q  or  RETURN p).
+  If the query returns names or counts (for example  RETURN o.name,
+  count(...)) you only get a Table.
+  So some steps below have two versions: the TABLE version (names and
+  numbers) and a GRAPH VERSION (the picture). Use the graph version to
+  show the picture, the table version to show the numbers.
+
+=====================================================================
+RUNNING ORDER - WHICH SCREEN / FILE FOR WHICH PART
+=====================================================================
+VS Code tabs (open the folder  da1  claude VIT SOCIAL  first):
+
+  Part                          Show this                         Point at
+  ----------------------------  --------------------------------  -------------------------------
+  0. SQL / SQLite demo          Terminal + sqlite-demo.js         run  npm run sqlite:demo, then
+                                                                  scroll the file to the matching
+                                                                  "// ====" section (1 database,
+                                                                  2 joins, 3 reports, 4 SQL for
+                                                                  relationships, 5 integrity)
+  1. Neo4j: idea and model      DA3.md                            the model tables, the relational
+                                                                  to graph mapping, the comparison
+  2. Neo4j: how data was        src/graph/import.js               importFromSqlite (rows become
+     loaded                                                       nodes + relationships) and
+                                                                  deriveConnections (CONNECTED)
+  3. Neo4j: the queries         Neo4j Desktop (Query tab)         run the queries from Part A
+                                + src/graph/queries.js            below; show queries.js to show
+                                                                  the Cypher text
+  4. Neo4j: create / read /     src/graph/demo-crud.js            run  npm run graph:demo  or the
+     update / delete            + Terminal                        4 CRUD queries in Neo4j Desktop
+  5. Neo4j in the app           Browser: localhost:3000/graph     the neighbourhood picture, the
+                                (then src/routes/graph.routes.js  shortest-path picker, and the
+                                 if asked how it gets its data)   Sync graph button
+  6. DA2 (only if asked)        Oracle schema.sql, plsql.sql,     tables, functions, procedures,
+                                queries.sql                       triggers
+  7. Your notes                 DA3_DEMO_SCRIPT.txt               keep it open in a tab, do not show
+
+Terminal commands (run them from the project folder
+"da1  claude VIT SOCIAL", NOT from the parent folder DA):
+  cd "da1  claude VIT SOCIAL"        (only if you are in DA)
+  npm run sqlite:demo                (Part 0)
+  npm start                          (the app, if localhost:3000 is not open)
+  npm run graph:demo                 (Part 4, optional)
+
+SUGGESTED ORDER:  0 -> 1 -> 2 -> 3 -> 4 -> 5   (about 7 minutes)
+Keep these CLOSED on screen: .env.local, .env.aura and the data folder
+(passwords and real names).
+
+=====================================================================
+PART 0 - SQLITE FIRST (the app's main database)       (about 2 min)
+=====================================================================
+Do this BEFORE Neo4j: show the main database, then show what Neo4j adds.
+
+In a terminal in the project folder run:
+
+    npm run sqlite:demo
+
+It prints 5 sections. Scroll through them and say:
+
+ 1. THE DATABASE - "One file, campus_connect.db, 38 tables: our DA1
+    design of 36 relations plus a few small additions. Same schema we
+    implemented in Oracle for DA2; the website runs it on SQLite."
+ 2. QUERYING - "Joins across tables: programmes -> departments ->
+    schools, and one student's registered classes with slot, teacher
+    and room. This is what builds the timetable."
+ 3. REPORTS - "Totals and grouping: students per course, faculty per
+    department. Aggregation is where a relational database is strong."
+ 4. RELATIONSHIP QUESTIONS IN SQL - "People who share 2+ classes with
+    me, and friends of friends. Look how long the SQL gets (a WITH
+    block and self-joins). In Neo4j the same idea is 3 lines. That is
+    exactly why we added a graph database."
+ 5. INTEGRITY - "The database refuses bad data: a foreign key stops a
+    membership in a club that does not exist, and a UNIQUE constraint
+    stops reacting twice to the same post. Nothing is changed, it is
+    rolled back."
+
+Then show the app pages that run on SQLite (log in first):
+  - Academic -> Register for classes  (pick slot -> course -> faculty)
+  - Academic -> My timetable          (built from the slot you picked)
+  - Groups                            (auto-placed in school / dept /
+                                       batch / course groups)
+  - Moderation (log in as admin@campus.edu) - staff only
+
+SAY   : "All of this - login, groups, registration, timetable, feed,
+         clubs, projects - runs on SQLite. SQLite is our main store."
+
+TRANSITION: "Now the question SQL struggles with - relationships. For
+             that we added Neo4j in DA3."
+
+=====================================================================
+PART A - IN NEO4J DESKTOP (QUERY TAB)
+=====================================================================
+
+---------------------------------------------------------------------
+STEP 1 - What is in the database?                    (member 1)
+---------------------------------------------------------------------
+MATCH (n) RETURN labels(n)[0] AS label, count(*) AS n ORDER BY n DESC
+
+SHOWS : number of nodes of each type (groups, people, classes ...).
+SAY   : "We copied our relational data from SQLite into Neo4j."
+
+---------------------------------------------------------------------
+STEP 2 - The graph model (schema design)             (member 1)
+---------------------------------------------------------------------
+CALL db.schema.visualization()
+
+SHOWS : the node types and how they are connected.
+SAY   : "Tables became nodes. The junction tables became
+         relationships, for example MEMBER_OF and REGISTERED_IN."
+
+---------------------------------------------------------------------
+STEP 3 - The campus network                          (member 1)
+---------------------------------------------------------------------
+MATCH (p:Person)-[c:CONNECTED]-(q:Person) RETURN p, c, q LIMIT 60
+
+SHOWS : people joined by lines (graph view).
+SAY   : "Two people are connected when they share two or more things:
+         clubs, communities, projects, courses or classes."
+
+---------------------------------------------------------------------
+STEP 4 - A student's registration                    (member 2)
+        (slot -> course -> faculty)
+---------------------------------------------------------------------
+MATCH (s:Student {name: 'Aayush Bhardwaj'})-[:REGISTERED_IN]->(c:Class)<-[:TEACHES_CLASS]-(f:Faculty) RETURN s, c, f
+
+SHOWS : the student, each class they registered, and its teacher.
+SAY   : "Each student is linked to their classes, and each class to
+         its teacher."
+
+---------------------------------------------------------------------
+STEP 5 - Classmates in the same class                (member 2)
+---------------------------------------------------------------------
+MATCH (me:Student {name:'Aayush Bhardwaj'})-[:REGISTERED_IN]->(c:Class)<-[:REGISTERED_IN]-(o:Student) RETURN o.name AS classmate, c.name AS class ORDER BY class LIMIT 8
+
+SHOWS : who shares a class with the student (use the Table tab).
+SAY   : "In SQL this needs joins across several tables. Here it is
+         one pattern."
+
+GRAPH VERSION (shows the picture):
+MATCH (me:Student {name:'Aayush Bhardwaj'})-[:REGISTERED_IN]->(c:Class)<-[:REGISTERED_IN]-(o:Student) RETURN me, c, o LIMIT 30
+
+---------------------------------------------------------------------
+STEP 6 - People you may know (friends of friends)    (member 2)
+---------------------------------------------------------------------
+MATCH (me:Person {userId: 1})-[:CONNECTED]-(f)-[:CONNECTED]-(fof)
+WHERE fof <> me AND NOT (me)-[:CONNECTED]-(fof)
+RETURN fof.name AS person, count(DISTINCT f) AS mutual
+ORDER BY mutual DESC LIMIT 5
+
+SHOWS : people connected to my connections but not to me, ranked by
+        mutual connections.
+SAY   : "A 2-hop traversal. In SQL this is a self-join that gets
+         slower with every extra hop."
+
+GRAPH VERSION (shows me -> friend -> friend of friend):
+MATCH p = (me:Person {userId: 1})-[:CONNECTED]-(f)-[:CONNECTED]-(fof)
+WHERE fof <> me AND NOT (me)-[:CONNECTED]-(fof)
+RETURN p LIMIT 25
+
+---------------------------------------------------------------------
+STEP 7 - Shortest path between two students          (member 2)
+---------------------------------------------------------------------
+MATCH (a:Person {userId: 1}), (b:Person {name: 'Deepa Joshi'}),
+      p = shortestPath((a)-[:CONNECTED*..6]-(b))
+RETURN p
+
+SHOWS : the chain of people linking the two students (graph view).
+SAY   : "How many introductions separate two students? This is a
+         built-in graph feature. SQL needs a slow recursive query."
+
+---------------------------------------------------------------------
+STEP 8 - Recommendations and influence               (member 3)
+---------------------------------------------------------------------
+a) Clubs your connections joined that you have not:
+
+MATCH (me:Person {userId: 1})-[:CONNECTED]-(f:Person)-[:MEMBER_OF]->(c:Club)
+WHERE NOT (me)-[:MEMBER_OF]->(c)
+RETURN c.name AS club, count(DISTINCT f) AS connections
+ORDER BY connections DESC LIMIT 5
+
+b) The best-connected people on campus:
+
+MATCH (p:Person)-[c:CONNECTED]-()
+RETURN p.name AS person, count(c) AS connections
+ORDER BY connections DESC LIMIT 5
+
+SAY   : "Club recommendations and degree centrality, both from the
+         connections."
+
+GRAPH VERSION of (a) - me, my connection, and the club they are in:
+MATCH p = (me:Person {userId: 1})-[:CONNECTED]-(f:Person)-[:MEMBER_OF]->(c:Club)
+WHERE NOT (me)-[:MEMBER_OF]->(c)
+RETURN p LIMIT 25
+
+GRAPH VERSION of (b) - the 5 best-connected people and their links:
+MATCH (p:Person)-[c:CONNECTED]-()
+WITH p, count(c) AS d ORDER BY d DESC LIMIT 5
+MATCH (p)-[r:CONNECTED]-(q:Person)
+RETURN p, r, q LIMIT 80
+
+EXTRA GRAPH - clubs that share members (nice for the "joint events" idea):
+MATCH (a:Club)<-[m1:MEMBER_OF]-(p:Person)-[m2:MEMBER_OF]->(b:Club)
+WHERE a.clubId < b.clubId
+RETURN a, m1, p, m2, b LIMIT 40
+
+---------------------------------------------------------------------
+STEP 9 - Core operations: CREATE, READ, UPDATE, DELETE   (member 3)
+        Run these one at a time.
+---------------------------------------------------------------------
+CREATE:
+CREATE (s:Person:Student {userId: 9001, name: 'Demo Student'}) RETURN s
+
+READ:
+MATCH (s:Person {userId: 9001}) RETURN s
+
+UPDATE:
+MATCH (s:Person {userId: 9001}) SET s.name = 'Demo Student (updated)' RETURN s
+
+DELETE:
+MATCH (s:Person {userId: 9001}) DETACH DELETE s
+
+CHECK IT IS GONE:
+MATCH (s:Person {userId: 9001}) RETURN count(s) AS remaining
+
+SAY   : "DETACH DELETE removes the node and all its relationships."
+
+=====================================================================
+PART B - IN THE APP (1 minute)                        (member 3)
+=====================================================================
+1. In the app click "Campus graph" in the left menu
+   (http://localhost:3000/graph).
+2. Show: the neighbourhood diagram (closer and thicker = more in
+   common), the node and relationship counts, the shortest-path picker.
+3. Click "Sync graph" (top right). It re-copies the current app data
+   into Neo4j in a few seconds.
+4. (Optional) In a terminal run:   npm run graph:demo
+   It prints create / read / update / delete and the queries.
+
+SAY   : "This page reads from Neo4j. The rest of the app runs on SQLite."
+
+=====================================================================
+PART C - WHY NEO4J? (30 seconds, anyone)
+=====================================================================
+"Campus Connect is mostly about relationships: who is in which class,
+club or project. SQLite stays our main database for normal data.
+Neo4j handles the relationship questions - friends of friends,
+shortest path and recommendations - which are hard in SQL.
+A graph database is weaker for plain tables and reports, which is
+why we use both."
+
+Comparison table (for the report):
+  Question                     SQLite (relational)         Neo4j (graph)
+  ---------------------------  --------------------------  ----------------------
+  Friends of friends           self-joins, slower per hop  one 2-hop pattern
+  Shortest path                recursive query             shortestPath()
+  Classmates / shared things   joins across many tables    one pattern
+  Add a new relationship type  new table + schema change   just create it
+  Reports, totals, plain lists strong                      weaker
+
+=====================================================================
+IF SOMETHING GOES WRONG
+=====================================================================
+- Query box shows an error or nothing: check the instance "campus"
+  says Running in Neo4j Desktop.
+- Graph page in the app says "graph database isn't running": start the
+  Neo4j instance, then refresh the page.
+- Graph looks empty: in the app click "Sync graph", or in a terminal
+  run   npm run graph:import
+- Backup option: the cloud database (Neo4j Aura) login is in the file
+  .env.aura. Copy its contents into .env.local and restart the app.
+
+Numbers you can quote: 408 people, 400 classes, 446 groups,
+about 1,360 connections between people, about 6,000 relationships.
+=====================================================================

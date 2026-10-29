@@ -16,6 +16,8 @@
     "seed": "node --experimental-sqlite --disable-warning=ExperimentalWarning src/scripts/seed.js",
     "graph:up": "docker compose -f docker-compose.neo4j.yml up -d",
     "graph:import": "node --experimental-sqlite --disable-warning=ExperimentalWarning src/graph/import.js",
+    "sql": "node --experimental-sqlite --disable-warning=ExperimentalWarning src/scripts/sql.js",
+    "sqlite:demo": "node --experimental-sqlite --disable-warning=ExperimentalWarning src/scripts/sqlite-demo.js",
     "graph:demo": "node --experimental-sqlite --disable-warning=ExperimentalWarning src/graph/demo-crud.js",
     "reset-db":"node --experimental-sqlite --disable-warning=ExperimentalWarning src/scripts/reset-db.js"
   },

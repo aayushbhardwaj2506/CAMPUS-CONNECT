@@ -1349,3 +1349,17 @@ html.sv-open{overflow:hidden}
   .sv.is-open{animation:none}
   .sv-bar.cur i{animation:none;width:100%}
 }
+
+/* ---- "why you're in this group" lines: shiny green-yellow instead of cyan ---- */
+.reason{
+  color:#d8f24a;                                   /* fallback if gradient text is unsupported */
+  font-weight:700;
+  background:linear-gradient(100deg,#a8e22a 0%,#d6f23c 30%,#fffbb0 50%,#d6f23c 70%,#a8e22a 100%);
+  background-size:240% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 0 7px rgba(205,240,60,.45));
+}
+html.anim .reason{animation:reasonShine 3.4s linear infinite}
+@keyframes reasonShine{from{background-position:220% 0}to{background-position:-20% 0}}
+@media (prefers-reduced-motion:reduce){ html.anim .reason{animation:none} }

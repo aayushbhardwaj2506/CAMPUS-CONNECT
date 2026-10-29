@@ -262,6 +262,36 @@ announcement ×4. The dashboard shows the full breakdown.
 
 ---
 
+## DA3 — Neo4j graph database
+
+DA3 extends the same project with **Neo4j** (a graph database). SQLite stays the app's main
+database; Neo4j holds a copy of the *relationship* data (people, classes, clubs, projects…) so
+questions like friends-of-friends, shortest path and recommendations are short Cypher queries.
+Full write-up (model, relational→graph mapping, comparison, report outline): **[DA3.md](DA3.md)**.
+Demo walk-through: **[DA3_DEMO_SCRIPT.txt](DA3_DEMO_SCRIPT.txt)**.
+
+**Set up**
+1. Run Neo4j: Neo4j Desktop (create a local instance, set a password, Start) or a free Neo4j Aura instance.
+2. Create `.env.local` (git-ignored) with `NEO4J_URI`, `NEO4J_USER`, `NEO4J_PASSWORD` (see `.env.example`).
+3. `npm run graph:import` — copies SQLite → Neo4j and creates sample students and `CONNECTED` links.
+4. `npm start` → open **Campus graph** (`/graph`). The **⟳ Sync graph** button repeats step 3.
+
+| Command | What it does |
+|---|---|
+| `npm run graph:import` | rebuild the graph from the current SQLite data |
+| `npm run graph:demo` | create / read / update / delete + the six Cypher queries, printed in the terminal |
+| `npm run sqlite:demo` | prepared SQL demo on the SQLite database (joins, reports, constraints) |
+| `npm run sql` | read-only SQL prompt for running your own queries |
+
+Without Neo4j configured the rest of the app works normally; `/graph` shows a "graph database
+isn't running" message.
+
+**Private data:** the real class list, teacher list and class catalogue used locally live in a
+git-ignored `data/` folder (names and register numbers) and are not in this repository. Without them
+the seed creates the original demo accounts only.
+
+---
+
 ## Schema extensions
 
 All additive. Nothing in the finalized DA1 design was renamed or removed.
