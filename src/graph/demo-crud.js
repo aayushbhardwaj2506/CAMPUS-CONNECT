@@ -23,7 +23,7 @@ async function main() {
 
   console.log('=== CREATE ===');
   await step('Create a new student node and link them to a club',
-    `CREATE (s:Person:Student {userId: 9001, name: 'Demo Student', synthetic: true})
+    `CREATE (s:Person:Student {userId: 9001, name: 'Demo Student'})
 WITH s
 MATCH (c:Club) WITH s, c ORDER BY c.clubId LIMIT 1
 CREATE (s)-[:MEMBER_OF {role: 'MEMBER'}]->(c)
@@ -47,9 +47,10 @@ RETURN s.name AS student, m.role AS role`, {}, true);
     `MATCH (s:Person {userId: 9001}) RETURN count(s) AS remaining`);
 
   console.log('\n=== TECHNOLOGY-SPECIFIC QUERIES (graph traversal) ===');
-  const me = (await graph.read('MATCH (p:Person) WHERE p.synthetic = false RETURN p.userId AS id ORDER BY id LIMIT 1'))[0];
+  // the demo account, and the last connected student as the far end of the path
+  const me = (await graph.read('MATCH (p:Person:Student) RETURN p.userId AS id ORDER BY id LIMIT 1'))[0];
   const other = (await graph.read(
-    'MATCH (p:Person) WHERE p.synthetic = true RETURN p.userId AS id ORDER BY id DESC LIMIT 1'))[0];
+    'MATCH (p:Person:Student)-[:CONNECTED]-() RETURN DISTINCT p.userId AS id ORDER BY id DESC LIMIT 1'))[0];
   for (const key of ['closest', 'fof', 'clubs']) {
     await step(QUERIES[key].title, QUERIES[key].cypher, { me: me.id });
   }

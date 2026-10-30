@@ -62,6 +62,7 @@ Other scripts:
 | `npm run dev` | same, with `--watch` auto-restart |
 | `npm run init-db` | create the schema only, no data |
 | `npm run seed` | wipe every table and reload the demo data (transactional) |
+| `npm run seed:samples` | add the 30 sample student accounts to the current database (skips ones that exist; nothing is wiped) |
 | `npm run reset-db` | delete the `.db` files for a bare-metal reset |
 
 > **Windows + OneDrive note:** the project sits inside a OneDrive folder, which
@@ -276,7 +277,7 @@ Demo walk-through: **[DA3_DEMO_SCRIPT.txt](DA3_DEMO_SCRIPT.txt)**.
 **Set up**
 1. Run Neo4j: Neo4j Desktop (create a local instance, set a password, Start) or a free Neo4j Aura instance.
 2. Create `.env.local` (git-ignored) with `NEO4J_URI`, `NEO4J_USER`, `NEO4J_PASSWORD` (see `.env.example`).
-3. `npm run graph:import` — copies SQLite → Neo4j and creates sample students and `CONNECTED` links.
+3. `npm run graph:import` — copies SQLite → Neo4j (people, classes, clubs, projects…) and derives the `CONNECTED` links.
 4. `npm start` → open **Campus graph** (`/graph`). The **⟳ Sync graph** button repeats step 3.
 
 | Command | What it does |
@@ -292,7 +293,7 @@ isn't running" message.
 **Seed data (`data/`):** the class list (`d2-slot.json`), the Fall 2026-27 teacher list
 (`fall26-faculty.json`) and the class catalogue (`fall26-classes.json`) used for the real student,
 teacher and class-registration data are in the `data/` folder. `npm run seed` loads them automatically
-if they are present; without them it creates only the original demo accounts. Passwords and database
+if they are present; without them it creates only the demo accounts. Either way it also adds 30 sample student accounts (fictional names, `<first>.<last>@campus.edu` / `campus123`). Passwords and database
 files (`.env.local`, `.env.aura`, `campus_connect.db`) are NOT in the repository.
 
 ---
@@ -349,7 +350,7 @@ Student/Faculty-as-1:1 (not EER ISA) modelling are all left exactly as finalized
 **Database**
 - 36 DA1 relations created with original names, PKs, FKs and UNIQUE/AK constraints — see `src/db/schema.sql`
 - 7 additive items above, each tagged `[DA2 EXTENSION]` in both schema files
-- Fresh seed: 12 users, 3 schools / 3 departments / 3 programs / 8 courses, 7 classes, 27 auto-created scope groups, 91 group memberships, plus feed / message / community / club / event / project / request / file / notification / report / audit rows
+- Fresh seed (without `data/`): 42 users (12 demo accounts + 30 sample students), 3 schools / 3 departments / 3 programs / 8 courses, 7 classes, 36 auto-created scope groups, 321 group memberships, plus feed / message / community / club / event / project / request / file / notification / report / audit rows
 
 **Application — tested end-to-end via HTTP against a running server**
 - **Auth**: student / faculty / staff login, registration + validation, suspended-account block, unauthenticated → `/login?next=…`, logout

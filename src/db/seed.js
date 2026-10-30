@@ -826,6 +826,11 @@ function seed() {
     mkAudit(U.admin, 'RESOLVE', 'Report', 2, 70);
   });
 
+  // 30 sample students (fictional names) with full profiles, so the campus network
+  // is big enough for the DA3 graph queries. Safe on public deployments too.
+  const sample = require('../lib/sample-students').addSampleStudents();
+  console.log(`[seed] sample students: ${sample.added} accounts added`);
+
   const counts = {};
   for (const t of ['School', 'Department', 'Program', 'Course', 'Building', 'Room',
     'User', 'Profile', 'Student', 'Faculty', 'Class', 'Timetable',

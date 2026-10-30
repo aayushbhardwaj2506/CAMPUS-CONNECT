@@ -50,9 +50,9 @@ Constraints: a uniqueness constraint on each node's id (`Person.userId`, `Club.c
 ## 3. Sample dataset (create + import)
 
 - **Import:** `npm run graph:import` reads the SQLite database and loads it into Neo4j (`src/graph/import.js`). It is re-runnable (wipes and rebuilds).
-- **Create:** `src/graph/extra.js` creates 30 **synthetic** sample students that exist only in the graph, each flagged `synthetic: true`, with random-but-deterministic clubs, communities, courses and projects. The SQLite demo has only 7 students, which is too small to show multi-hop queries.
+- **Create:** `src/lib/sample-students.js` creates 30 **sample student accounts** (fictional names) in SQLite, each with a full profile, club / community / project memberships, auto-allocated groups, a slot-based class registration and a feed post. The seed runs it (`npm run seed`); on an existing database use `npm run seed:samples`. Login: `<first>.<last>@campus.edu` / `campus123`. The SQLite demo alone has too few students to show multi-hop queries.
 - **Derive:** `CONNECTED` relationships are generated with one Cypher statement after loading. Two people are connected when they share **at least two** of: a club, community, project, or course (one shared item would connect almost everyone — 491 edges for 41 people, every path 1 hop; with the threshold it is 190 edges and paths of 1–3 hops).
-- **Result (current):** 408 `Person` nodes (66 students + 312 faculty from SQLite, 30 synthetic), 446 `Group`, 400 `Class`, 20 `Course`, plus clubs, communities, events, projects, programmes and departments; about 1,360 `CONNECTED` relationships. All 66 students and all 30 sample students are connected; a teacher is connected only if they share two or more classes with someone. From a student, other people are 1–4 hops away.
+- **Result (current):** 1,324 nodes and 7,482 relationships: 408 `Person` nodes (96 students including the 30 sample accounts, 312 faculty), 450 `Group`, 400 `Class`, 20 `Course`, plus clubs, communities, events, projects, programmes and departments; 1,881 `CONNECTED` relationships. All 96 students are connected; a teacher is connected only if they share two or more classes with someone. From a student, other people are 1–3 hops away.
 
 ## 4. Run it
 
@@ -95,5 +95,5 @@ Core operations (CREATE / READ / UPDATE / DELETE) are demonstrated by `npm run g
 1. Title, team, project (Campus Connect), technology (Neo4j) — 2. Why a graph DB (section 1 table) —
 3. Graph model diagram (draw nodes as circles, relationships as arrows, per section 2) —
 4. Relational → graph mapping table — 5. Implementation steps (Docker, import, constraints) —
-6. Sample data (import + synthetic) — 7. Cypher queries with a sample result each —
+6. Sample data (import + sample accounts) — 7. Cypher queries with a sample result each —
 8. CRUD operations — 9. Comparison and limitations — 10. Conclusion.

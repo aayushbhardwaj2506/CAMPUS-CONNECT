@@ -3,14 +3,12 @@
  * DA3 — IMPORT: copy the relational Campus Connect data (SQLite) into Neo4j
  * as a property graph, then derive CONNECTED relationships.
  *
- *   npm run graph:import            import + synthetic extra sample records
- *   npm run graph:import -- --no-extra   import only
+ *   npm run graph:import
  *
  * Safe to re-run: the graph is wiped and rebuilt from SQLite each time.
  */
 const { all } = require('../db');
 const graph = require('./neo4j');
-const { createExtraDataset } = require('./extra');
 
 const BATCH = 500;
 
@@ -74,7 +72,7 @@ async function importFromSqlite() {
                           FROM Student s JOIN "User" u ON u.User_ID = s.User_ID`);
   counts.Student = await unwind(
     `CREATE (p:Person:Student {userId: row.id, name: row.name, email: row.email, status: row.status,
-                               regNo: row.reg, batch: row.batch, semester: row.sem, synthetic: false})
+                               regNo: row.reg, batch: row.batch, semester: row.sem})
      WITH p, row MATCH (pr:Program {programId: row.prog}) CREATE (p)-[:ENROLLED_IN]->(pr)`,
     students
   );
@@ -84,7 +82,7 @@ async function importFromSqlite() {
                          FROM Faculty f JOIN "User" u ON u.User_ID = f.User_ID`);
   counts.Faculty = await unwind(
     `CREATE (p:Person:Faculty {userId: row.id, name: row.name, email: row.email, status: row.status,
-                               designation: row.desig, specialization: row.spec, synthetic: false})
+                               designation: row.desig, specialization: row.spec})
      WITH p, row MATCH (d:Department {deptId: row.dept}) CREATE (p)-[:WORKS_IN]->(d)`,
     faculty
   );
@@ -218,7 +216,7 @@ let syncing = false;
  * Wipe and rebuild the whole graph from SQLite. Used by the CLI and by the
  * "Sync graph" button. Only one sync runs at a time.
  */
-async function syncGraph({ withExtra = true, log = () => {} } = {}) {
+async function syncGraph({ log = () => {} } = {}) {
   if (syncing) throw new Error('A sync is already running.');
   syncing = true;
   const t0 = Date.now();
@@ -231,18 +229,12 @@ async function syncGraph({ withExtra = true, log = () => {} } = {}) {
     const counts = await importFromSqlite();
     log('[graph] imported: ' + Object.entries(counts).map(([k, v]) => k + '=' + v).join(' '));
 
-    let extra = 0;
-    if (withExtra) {
-      extra = await createExtraDataset();
-      log('[graph] created ' + extra + ' synthetic sample students (flagged synthetic:true)');
-    }
-
     const connections = await deriveConnections();
     log('[graph] derived CONNECTED relationships: ' + connections);
 
     const nodes = await graph.read('MATCH (n) RETURN labels(n)[0] AS label, count(*) AS n ORDER BY n DESC');
     log('[graph] nodes: ' + nodes.map((s) => s.label + '=' + s.n).join(' '));
-    return { counts, extra, connections, nodes, ms: Date.now() - t0 };
+    return { counts, connections, nodes, ms: Date.now() - t0 };
   } finally {
     syncing = false;
   }
@@ -251,13 +243,12 @@ async function syncGraph({ withExtra = true, log = () => {} } = {}) {
 const isSyncing = () => syncing;
 
 async function main() {
-  const withExtra = !process.argv.includes('--no-extra');
   if (!(await graph.isUp())) {
     console.error('Neo4j is not reachable at ' + graph.URI + '.');
     console.error('Check your .env.local / NEO4J_* settings, or start a local Neo4j.');
     process.exit(1);
   }
-  await syncGraph({ withExtra, log: console.log });
+  await syncGraph({ log: console.log });
   await graph.close();
 }
 

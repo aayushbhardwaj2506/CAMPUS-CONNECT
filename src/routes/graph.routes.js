@@ -42,7 +42,7 @@ function radialLayout(centre, ring) {
       lx: Math.round(x + ux * (r + 8)), ly: Math.round(y + uy * (r + 8) + 4),
       anchor: ux > 0.3 ? 'start' : ux < -0.3 ? 'end' : 'middle',
       label: shortName(p.name),
-      type: p.faculty ? 'faculty' : p.synthetic ? 'sample' : 'student',
+      type: p.faculty ? 'faculty' : 'student',
       via: (p.via || []).slice(0, 4).join(' · '),
     };
   });
@@ -124,7 +124,7 @@ router.post('/sync', async (req, res) => {
     return res.redirect('/graph');
   }
   try {
-    const r = await syncGraph({ withExtra: true });
+    const r = await syncGraph();
     lastSyncAt = Date.now();
     const people = (r.nodes.find((n) => n.label === 'Person') || {}).n || 0;
     req.flash('success',

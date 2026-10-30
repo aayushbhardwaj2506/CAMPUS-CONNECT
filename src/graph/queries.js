@@ -56,8 +56,7 @@ RETURN [n IN nodes(p) | n.name] AS people, length(p) AS hops`,
     title: 'Best-connected people on campus',
     blurb: 'Degree centrality: the number of direct connections.',
     cypher: `MATCH (p:Person)-[c:CONNECTED]-()
-RETURN p.userId AS userId, p.name AS name, count(c) AS connections,
-       p.synthetic AS synthetic
+RETURN p.userId AS userId, p.name AS name, count(c) AS connections
 ORDER BY connections DESC, name
 LIMIT 6`,
   },
@@ -91,7 +90,7 @@ LIMIT 5`,
     title: 'My neighbourhood',
     cypher: `MATCH (me:Person {userId: $me})-[c:CONNECTED]-(o:Person)
 RETURN o.userId AS userId, o.name AS name, c.shared AS shared, c.via AS via,
-       'Faculty' IN labels(o) AS faculty, coalesce(o.synthetic, false) AS synthetic
+       'Faculty' IN labels(o) AS faculty
 ORDER BY shared DESC, name LIMIT 12`,
   },
 };
