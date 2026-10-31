@@ -48,12 +48,13 @@ No build tools and no bundler. The app itself needs no external service; the onl
 ## Run it
 
 ```bash
-cd "da1  claude VIT SOCIAL"
-npm install
+git clone --branch da3-neo4j-graph https://github.com/aayushbhardwaj2506/CAMPUS-CONNECT.git
+cd CAMPUS-CONNECT
+npm install      # optional: node_modules is already included in the repository
 npm start
 ```
 
-Open **http://localhost:3000**.
+Needs Node.js 22.5 or newer. Open **http://localhost:3000** and sign in with a test account below.
 
 On first start the app creates the SQLite schema and loads the demo seed
 automatically. To reseed at any time:
@@ -77,6 +78,17 @@ Other scripts:
 > occasionally holds a lock on `campus_connect.db` and makes `npm run reset-db`
 > report `EPERM`. This is harmless — use `npm run seed`, which rebuilds every
 > table inside a transaction without needing to delete the file.
+
+### Run it in a container (no Node.js needed on your machine)
+
+- **GitHub Codespaces / VS Code Dev Containers.** [`.devcontainer/devcontainer.json`](.devcontainer/devcontainer.json) builds a
+  Node.js 22 container, runs `npm install` and `npm start`, forwards port 3000 and opens the app in the browser.
+  On GitHub: **Code → Codespaces → Create codespace on `da3-neo4j-graph`**.
+- **Docker.** `docker compose up --build` builds the app from the `Dockerfile` and puts it behind nginx
+  ([`docker-compose.yml`](docker-compose.yml), [`nginx/nginx.conf`](nginx/nginx.conf)); open **http://localhost:8080**.
+
+Neo4j is not part of these containers, so the **Campus graph** page shows "graph database isn't running" until a Neo4j is
+connected (see [DA3 — Neo4j graph database](#da3--neo4j-graph-database)); every other page works.
 
 ---
 
