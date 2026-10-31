@@ -21,6 +21,7 @@ try {
 const URI = process.env.NEO4J_URI || 'bolt://localhost:7687';
 const USER = process.env.NEO4J_USER || 'neo4j';
 const PASSWORD = process.env.NEO4J_PASSWORD || 'campus-graph-123';
+const DATABASE = process.env.NEO4J_DATABASE || ''; // optional: a database other than the server default
 
 let driver = null;
 function getDriver() {
@@ -49,6 +50,7 @@ function plain(v) {
 async function exec(cypher, params = {}, mode = 'READ') {
   const session = getDriver().session({
     defaultAccessMode: mode === 'WRITE' ? neo4j.session.WRITE : neo4j.session.READ,
+    ...(DATABASE ? { database: DATABASE } : {}),
   });
   try {
     const res = await session.run(cypher, params);

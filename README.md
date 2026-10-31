@@ -3,6 +3,14 @@
 # Campus Connect
 site link : https://campus-connect-latest.onrender.com
 
+> **DA3: Neo4j graph database.** This branch (`da3-neo4j-graph`) extends the project with **Neo4j**: SQLite stays the
+> system of record, and a graph copy of the relationship data powers the **Campus graph** page (connections, people
+> you may know, shortest path, recommendations). Everything for DA3 is in this repository:
+> the report **[DA3_Report_Final.pdf](DA3_Report_Final.pdf)** (screenshots in `report screenshots/`), the write-up
+> **[DA3.md](DA3.md)**, the Neo4j code in `src/graph/`, and the graph itself plus every Cypher query of the report in
+> **[`neo4j/`](neo4j/)**. Quick start: `npm start` runs the app (SQLite, no setup). The graph page also needs Neo4j,
+> see [DA3 — Neo4j graph database](#da3--neo4j-graph-database).
+
 A campus **social + academic networking platform** — students, faculty, academic
 groups, study material, a social feed, communities, clubs, projects, peer help
 and campus services in one app.
@@ -33,7 +41,7 @@ for that the base schema could not express — see [Schema extensions](#schema-e
 | Auth | `express-session` cookie sessions + `bcryptjs` password hashing |
 | Front-end | Server-rendered HTML + one small `public/js/app.js` for progressive enhancement. Works with JavaScript disabled. |
 
-No build tools, no bundler, no external services. `npm install` pulls 6 pure-JS packages.
+No build tools and no bundler. The app itself needs no external service; the only optional one is **Neo4j** (DA3), used just by the Campus graph page. All packages are pure JavaScript, and `node_modules` is included in the repository.
 
 ---
 
@@ -271,7 +279,7 @@ announcement ×4. The dashboard shows the full breakdown.
 DA3 extends the same project with **Neo4j** (a graph database). SQLite stays the app's main
 database; Neo4j holds a copy of the *relationship* data (people, classes, clubs, projects…) so
 questions like friends-of-friends, shortest path and recommendations are short Cypher queries.
-Full write-up (model, relational→graph mapping, comparison, report outline): **[DA3.md](DA3.md)**.
+Full write-up (model, relational→graph mapping, comparison, structure of the report): **[DA3.md](DA3.md)**.
 Demo walk-through: **[DA3_DEMO_SCRIPT.txt](DA3_DEMO_SCRIPT.txt)**.
 
 **Set up**
@@ -283,12 +291,22 @@ Demo walk-through: **[DA3_DEMO_SCRIPT.txt](DA3_DEMO_SCRIPT.txt)**.
 | Command | What it does |
 |---|---|
 | `npm run graph:import` | rebuild the graph from the current SQLite data |
+| `npm run graph:load` | load the stored graph, [`neo4j/campus_graph.cypher`](neo4j/campus_graph.cypher), into an **empty** Neo4j database (no SQLite import needed; add `-- --wipe` to clear a database first) |
+| `npm run graph:export` | write the running Neo4j graph back to `neo4j/campus_graph.cypher` |
 | `npm run graph:demo` | create / read / update / delete + the six Cypher queries, printed in the terminal |
 | `npm run sqlite:demo` | prepared SQL demo on the SQLite database (joins, reports, constraints) |
 | `npm run sql` | read-only SQL prompt for running your own queries |
 
 Without Neo4j configured the rest of the app works normally; `/graph` shows a "graph database
 isn't running" message.
+
+**The `neo4j/` folder** holds the Neo4j side of the project as plain text, so it can be read and run without the app:
+- [`neo4j/campus_graph.cypher`](neo4j/campus_graph.cypher): the whole graph (1,324 nodes, 7,482 relationships, 11 constraints) as one Cypher script. Load it with `npm run graph:load`, or paste it into Neo4j Browser / `cypher-shell -f`. It was loaded into a second database and compared with the original: every node, relationship and property was identical.
+- [`neo4j/report_queries.cypher`](neo4j/report_queries.cypher): every Cypher statement of the report (structure, create/read/update/delete, and the ten queries in table and graph form), ready to run one at a time.
+
+Neo4j can be run with Neo4j Desktop (used for the report, server 2026.10.0), with the Docker file `docker-compose.neo4j.yml`
+(`npm run graph:up`, Neo4j 5 Community), or with a free Neo4j Aura instance. The scripts above are plain Cypher and work on all of them.
+Set `NEO4J_DATABASE` in `.env.local` only if the graph should go into a database other than the default one.
 
 **Seed data (`data/`):** the class list (`d2-slot.json`), the Fall 2026-27 teacher list
 (`fall26-faculty.json`) and the class catalogue (`fall26-classes.json`) used for the real student,

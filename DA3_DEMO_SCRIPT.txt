@@ -296,6 +296,7 @@ IF SOMETHING GOES WRONG
 - Backup option: the cloud database (Neo4j Aura) login is in the file
   .env.aura. Copy its contents into .env.local and restart the app.
 
-Numbers you can quote: 408 people, 400 classes, 446 groups,
-about 1,360 connections between people, about 6,000 relationships.
+Numbers you can quote: 1,324 nodes and 7,482 relationships in all; 408 people
+(96 students, 312 faculty), 400 classes, 450 groups, and 1,881 connections
+between people.
 =====================================================================

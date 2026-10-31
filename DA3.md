@@ -1,7 +1,7 @@
 # DA3 — Campus Connect + Neo4j (graph database)
 
 **Project:** Campus Connect — a university social & academic platform for the SCOPE community (VIT Chennai).
-**DA3 technology:** Neo4j 5 (graph database).
+**DA3 technology:** Neo4j (graph database), run as a local Neo4j Desktop instance (server 2026.10.0, Cypher).
 **Role in the system:** SQLite stays the system of record (DA1/DA2). Neo4j is an additional store used for *relationship* questions.
 
 ## 1. Why a graph database for Campus Connect
@@ -61,11 +61,13 @@ On Render, set the same three variables in the service's Environment settings (a
 
 ```bash
 npm run graph:import    # SQLite → Neo4j (wipes and rebuilds the graph)
+npm run graph:load      # alternative: neo4j/campus_graph.cypher → an EMPTY Neo4j database (add "-- --wipe" to clear it first)
+npm run graph:export    # write the running Neo4j graph to neo4j/campus_graph.cypher
 npm run graph:demo      # CREATE / READ / UPDATE / DELETE + queries in the terminal
 npm start               # app → sidebar "Campus graph"  (http://localhost:3000/graph)
 ```
 
-Neo4j Browser (visual explorer): from the Aura console → your instance → **Open** (log in with the instance credentials).
+Neo4j Desktop → **Query** tab (or Neo4j Browser at http://localhost:7474 when using the Docker setup): log in with your instance credentials. (With the optional Aura cloud database: Aura console → your instance → **Open**.)
 Handy query to *see* the graph there: `MATCH (p:Person)-[c:CONNECTED]-(q:Person) RETURN p, c, q LIMIT 60`
 
 **Keeping the graph up to date:** the app writes to SQLite; Neo4j is a copy. The **⟳ Sync graph** button on the Campus graph page (`POST /graph/sync`) re-copies the current SQLite data into Neo4j in a few seconds (same code as `npm run graph:import`). Example for the demo: register a new student → they are not in the graph → click Sync graph → they appear.
@@ -81,6 +83,11 @@ Handy query to *see* the graph there: `MATCH (p:Person)-[c:CONNECTED]-(q:Person)
 
 Core operations (CREATE / READ / UPDATE / DELETE) are demonstrated by `npm run graph:demo`.
 
+### The `neo4j/` folder
+
+- `neo4j/campus_graph.cypher` — the whole graph (1,324 nodes, 7,482 relationships, 11 uniqueness constraints) as one plain Cypher script, so the graph itself is stored in the repository and not only the code that builds it. Verified by loading it into a second, empty database and comparing it with the original: every node (labels and properties) and every relationship (type, endpoints and properties) was identical.
+- `neo4j/report_queries.cypher` — every statement used in the report (structure, CRUD, queries 8.1–8.10 in table and graph form), ready to run one at a time. Note: `shortestPath` returns one of several equally short routes, so the people in the middle of a path can differ from the report; the number of hops, counts and rankings do not.
+
 ## 6. Demo script (≈3 minutes)
 
 1. Open Neo4j Browser → run the "see the graph" query → "this is our relational data as a graph".
@@ -90,10 +97,12 @@ Core operations (CREATE / READ / UPDATE / DELETE) are demonstrated by `npm run g
 5. Terminal → `npm run graph:demo` → CREATE, READ, UPDATE, DELETE.
 6. Close with the comparison table (section 1).
 
-## 7. Handwritten report outline
+## 7. The digital report
 
-1. Title, team, project (Campus Connect), technology (Neo4j) — 2. Why a graph DB (section 1 table) —
-3. Graph model diagram (draw nodes as circles, relationships as arrows, per section 2) —
-4. Relational → graph mapping table — 5. Implementation steps (Docker, import, constraints) —
-6. Sample data (import + sample accounts) — 7. Cypher queries with a sample result each —
-8. CRUD operations — 9. Comparison and limitations — 10. Conclusion.
+The submitted report is **[DA3_Report_Final.pdf](DA3_Report_Final.pdf)** (Word copy: `DA3_Report_Final.docx`); the Neo4j and terminal screenshots it uses are in `report screenshots/`. Its structure:
+
+1. Introduction · 2. Overview of the whole application (stack, architecture, the 37 SQLite tables, features) ·
+3. Why a graph database · 4. Graph model / schema design (diagram, node and relationship tables, `CONNECTED`, design decisions, constraints) ·
+5. Implementation in Neo4j · 6. Creation and import of the dataset · 7. CRUD operations ·
+8. Ten Cypher queries, each with its table and graph result · 9. Neo4j inside the application (Campus graph page) ·
+10. Project demonstration · 11. Comparison with the relational design · 12. Conclusion.
