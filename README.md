@@ -1,7 +1,7 @@
 
 
 # Campus Connect
-site link : https://campus-connect-latest.onrender.com *(live demo on Render's free tier, which can take about a minute to wake up; it has no Neo4j, so the Campus graph page shows "graph database isn't running", and it uses the demo and sample accounts only. Run it locally for the full project.)*
+site link : https://campus-connect-neo4j.onrender.com *(live demo on Render's free tier, which can take about a minute to wake up. The **Campus graph** page, https://campus-connect-neo4j.onrender.com/graph, is backed by a Neo4j Aura Free database: log in, open Campus graph and press "Sync graph" if the page is empty. It uses the demo and sample accounts only. Run it locally for the full project.)*
 
 > **DA3: Neo4j graph database.** This branch (`da3-neo4j-graph`) extends the project with **Neo4j**: SQLite stays the
 > system of record, and a graph copy of the relationship data powers the **Campus graph** page (connections, people
