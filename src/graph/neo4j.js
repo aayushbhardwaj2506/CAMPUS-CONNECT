@@ -68,7 +68,8 @@ async function isUp() {
   try {
     await getDriver().verifyConnectivity();
     return true;
-  } catch (_e) {
+  } catch (e) {
+    console.warn('[graph] Neo4j not reachable at ' + URI + ' (user ' + USER + '): ' + (e.code || '') + ' ' + e.message);
     return false;
   }
 }
